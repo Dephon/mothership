@@ -3,39 +3,31 @@ package game2D;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
-public class Sprite {
-	public Sprite(String imageLink, int x, int y) throws SlickException {
-		image = new Image(imageLink);
-		location = new Vector2f(x, y);
-		rect = new Rectangle(location.x, location.y, image.getWidth(),
-				image.getHeight());
+public class Sprite extends Image {
+	public Sprite(String ref) throws SlickException {
+		super(ref);
+		location = new Vector2f(0, 0);
+		rect = new Rectangle(0, 0, this.width, this.height);
 	}
 
-	public Sprite(Image image, int x, int y) {
-		this.image = image;
+	public Sprite(String ref, float x, float y) throws SlickException {
+		super(ref);
 		location = new Vector2f(x, y);
-		rect = new Rectangle(location.x, location.y, image.getWidth(),
-				image.getHeight());
+		rect = new Rectangle(x, y, this.width, this.height);
 	}
 
-	public Image getImage() {
-		return image;
+	public Sprite(String ref, int x, int y) throws SlickException {
+		super(ref);
+		location = new Vector2f(x, y);
+		rect = new Rectangle(x, y, this.width, this.height);
 	}
 
 	public float getX() {
-		return rect.getX();
+		return location.x;
 	}
 
 	public float getY() {
-		return rect.getY();
-	}
-
-	public float getWidth() {
-		return rect.getWidth();
-	}
-
-	public float getHeight() {
-		return rect.getHeight();
+		return location.y;
 	}
 
 	public Rectangle getRectangle() {
@@ -43,26 +35,28 @@ public class Sprite {
 	}
 
 	public void setX(float x) {
+		location.x = x;
 		rect.setX(x);
 	}
 
 	public void setY(float y) {
+		location.y = y;
 		rect.setY(y);
-	}
-
-	public void draw() {
-		image.draw(rect.getX(), rect.getY());
 	}
 
 	public boolean intersects(Sprite rhs) {
 		return rect.intersects(rhs.getRectangle());
 	}
 
-	public void update(Vector2f movement, int dt) {
-
+	public void draw() {
+		this.draw(rect.getX(), rect.getY());
 	}
 
-	Image image;
+	public void update(Vector2f movement) {
+		location.add(movement);
+		rect.setLocation(location);
+	}
+
 	Rectangle rect;
 	Vector2f location;
 }

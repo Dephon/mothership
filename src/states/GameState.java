@@ -3,6 +3,7 @@ package states;
 import game2D.*;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.*;
 import org.newdawn.slick.state.*;
 
 public class GameState extends BasicGameState {
@@ -18,18 +19,36 @@ public class GameState extends BasicGameState {
 			throws SlickException {
 		gameMap = new TiledMap(new Image("data/Steel_Plate.png"), 100, 100);
 		hero = new Sprite("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
+
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame sbg, int dt)
 			throws SlickException {
+		Vector2f vector = new Vector2f(0, 0);
 		Input input = container.getInput();
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			sbg.enterState(StateEnum.PAUSE.getID());
 			container.setPaused(true);
 		} else {
+			if (input.isKeyDown(Input.KEY_W)) { // Move up
+				if (hero.getY() > gameMap.getOriginY())
+					vector.y += -1 * dt / 10.0;
+			} else if (input.isKeyDown(Input.KEY_S)) { // Move Down
+				if (hero.getY() + hero.getHeight() < container.getHeight())
+					vector.y += dt / 10.0;
+			} else if (input.isKeyDown(Input.KEY_A)) { // Move Left
+				if (hero.getX() > gameMap.getOriginX())
+					vector.x += -1 * dt / 10.0;
+			} else if (input.isKeyDown(Input.KEY_D)) { // Move Right
+				if (hero.getX() + hero.getWidth() < container.getWidth())
+					vector.x += dt / 10.0;
+			}
+			hero.update(vector);
 		}
+
 		if (input.isMouseButtonDown(0)) // TODO: Handle mouse events
+			// Attack
 			leftClick = true;
 		else
 			leftClick = false;

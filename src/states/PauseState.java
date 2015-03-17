@@ -9,7 +9,6 @@ public class PauseState extends BasicGameState {
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
