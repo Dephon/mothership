@@ -28,7 +28,6 @@ public class GameState extends BasicGameState {
 			sbg.enterState(StateEnum.PAUSE.getID());
 			container.setPaused(true);
 		} else {
-			hero.update(input, dt);
 		}
 		if (input.isMouseButtonDown(0)) // TODO: Handle mouse events
 			leftClick = true;
