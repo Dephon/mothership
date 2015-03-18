@@ -32,19 +32,19 @@ public class GameState extends BasicGameState {
 			container.setPaused(true);
 		} else {
 			if (input.isKeyDown(Input.KEY_W)) { // Move up
-				if (hero.getY() > gameMap.getOriginY())
+				if (hero.getOriginY() > gameMap.getOriginY())
 					vector.y += -1 * dt / 10.0;
 			}
 			if (input.isKeyDown(Input.KEY_S)) { // Move Down
-				if (hero.getY() + hero.getHeight() < container.getHeight())
+				if (hero.getEndY() < container.getHeight())
 					vector.y += dt / 10.0;
 			}
 			if (input.isKeyDown(Input.KEY_A)) { // Move Left
-				if (hero.getX() > gameMap.getOriginX())
+				if (hero.getOriginX() > gameMap.getOriginX())
 					vector.x += -1 * dt / 10.0;
 			}
 			if (input.isKeyDown(Input.KEY_D)) { // Move Right
-				if (hero.getX() + hero.getWidth() < container.getWidth())
+				if (hero.getEndX() < container.getWidth())
 					vector.x += dt / 10.0;
 			}
 			hero.update(vector);

@@ -22,12 +22,20 @@ public class Sprite extends Image {
 		rect = new Rectangle(x, y, this.width, this.height);
 	}
 
-	public float getX() {
+	public float getOriginX() {
 		return location.x;
 	}
 
-	public float getY() {
+	public float getOriginY() {
 		return location.y;
+	}
+
+	public float getEndX() {
+		return location.x + this.width;
+	}
+
+	public float getEndY() {
+		return location.y + this.height;
 	}
 
 	public Rectangle getRectangle() {
