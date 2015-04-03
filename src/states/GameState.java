@@ -56,7 +56,7 @@ public class GameState extends BasicGameState {
 		else
 			leftClick = false;
 
-		if (input.isKeyDown(input.KEY_Q)) {
+		if (input.isKeyDown(Input.KEY_Q)) {
 			container.exit();
 		}
 	}
