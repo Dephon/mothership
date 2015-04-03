@@ -8,7 +8,7 @@ import states.GameState;
 
 /**
  */
-public class Main extends StateBasedGame { // test commit
+public class Main extends StateBasedGame {
 
 	public Main() {
 		super("Operation Mothership");
