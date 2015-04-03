@@ -9,7 +9,7 @@ import org.newdawn.slick.state.*;
 public class GameState extends BasicGameState {
 
 	char keyDown;
-	Entity player;
+	Player player;
 	Entity[] Enemies;
 	TiledMap gameMap;
 	boolean leftClick;
@@ -18,7 +18,7 @@ public class GameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
 		gameMap = new TiledMap(new Image("data/Steel_Plate.png"), 100, 100);
-		player = new Entity("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
+		player = new Player("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
 
 	}
 

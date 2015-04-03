@@ -4,6 +4,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
 public class Entity {
+
 	public Entity(String ref) throws SlickException {
 		sprite = new Image(ref);
 		location = new Vector2f(0, 0);
