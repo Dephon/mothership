@@ -3,23 +3,24 @@ package game2D;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
-public class Sprite extends Image {
-	public Sprite(String ref) throws SlickException {
-		super(ref);
+public class Entity {
+	public Entity(String ref) throws SlickException {
+		sprite = new Image(ref);
 		location = new Vector2f(0, 0);
-		rect = new Rectangle(0, 0, this.width, this.height);
+		rect = new Rectangle(location.x, location.y, sprite.getWidth(),
+				sprite.getHeight());
 	}
 
-	public Sprite(String ref, float x, float y) throws SlickException {
-		super(ref);
+	public Entity(String ref, float x, float y) throws SlickException {
+		sprite = new Image(ref);
 		location = new Vector2f(x, y);
-		rect = new Rectangle(x, y, this.width, this.height);
+		rect = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
 	}
 
-	public Sprite(String ref, int x, int y) throws SlickException {
-		super(ref);
+	public Entity(String ref, int x, int y) throws SlickException {
+		sprite = new Image(ref);
 		location = new Vector2f(x, y);
-		rect = new Rectangle(x, y, this.width, this.height);
+		rect = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
 	}
 
 	public float getOriginX() {
@@ -31,11 +32,11 @@ public class Sprite extends Image {
 	}
 
 	public float getEndX() {
-		return location.x + this.width;
+		return location.x + sprite.getWidth();
 	}
 
 	public float getEndY() {
-		return location.y + this.height;
+		return location.y + sprite.getHeight();
 	}
 
 	public Rectangle getRectangle() {
@@ -52,12 +53,12 @@ public class Sprite extends Image {
 		rect.setY(y);
 	}
 
-	public boolean intersects(Sprite rhs) {
+	public boolean intersects(Entity rhs) {
 		return rect.intersects(rhs.getRectangle());
 	}
 
 	public void draw() {
-		this.draw(rect.getX(), rect.getY());
+		sprite.draw(rect.getX(), rect.getY());
 	}
 
 	public void update(Vector2f movement) {
@@ -65,6 +66,7 @@ public class Sprite extends Image {
 		rect.setLocation(location);
 	}
 
+	Image sprite;
 	Rectangle rect;
 	Vector2f location;
 }

@@ -9,8 +9,8 @@ import org.newdawn.slick.state.*;
 public class GameState extends BasicGameState {
 
 	char keyDown;
-	Sprite hero;
-	Sprite[] Enemies;
+	Entity player;
+	Entity[] Enemies;
 	TiledMap gameMap;
 	boolean leftClick;
 
@@ -18,7 +18,7 @@ public class GameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
 		gameMap = new TiledMap(new Image("data/Steel_Plate.png"), 100, 100);
-		hero = new Sprite("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
+		player = new Entity("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
 
 	}
 
@@ -32,22 +32,22 @@ public class GameState extends BasicGameState {
 			container.setPaused(true);
 		} else {
 			if (input.isKeyDown(Input.KEY_W)) { // Move up
-				if (hero.getOriginY() > gameMap.getOriginY())
+				if (player.getOriginY() > gameMap.getOriginY())
 					vector.y += -1 * dt / 10.0;
 			}
 			if (input.isKeyDown(Input.KEY_S)) { // Move Down
-				if (hero.getEndY() < container.getHeight())
+				if (player.getEndY() < container.getHeight())
 					vector.y += dt / 10.0;
 			}
 			if (input.isKeyDown(Input.KEY_A)) { // Move Left
-				if (hero.getOriginX() > gameMap.getOriginX())
+				if (player.getOriginX() > gameMap.getOriginX())
 					vector.x += -1 * dt / 10.0;
 			}
 			if (input.isKeyDown(Input.KEY_D)) { // Move Right
-				if (hero.getEndX() < container.getWidth())
+				if (player.getEndX() < container.getWidth())
 					vector.x += dt / 10.0;
 			}
-			hero.update(vector);
+			player.update(vector);
 		}
 
 		if (input.isMouseButtonDown(0)) // TODO: Handle mouse events
@@ -65,7 +65,7 @@ public class GameState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame sbg,
 			Graphics graphics) throws SlickException {
 		gameMap.draw();
-		hero.draw();
+		player.draw();
 		if (leftClick)
 			graphics.drawString("Left Click Down", 0, 0);
 		else
