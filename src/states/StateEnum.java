@@ -1,15 +1,8 @@
 package states;
 
-public enum StateEnum {
-	MAINMENU(0), GAME(1), GAMEOVER(2), PAUSE(3);
-
-	private final int id;
-
-	private StateEnum(int id) {
-		this.id = id;
-	}
-
-	public int getID() {
-		return id;
-	}
+public class StateEnum {
+	public static final int MAIN_MENU = 0;
+	public static final int GAME = 1;
+	public static final int GAME_OVER = 2;
+	public static final int PAUSE = 3;
 }

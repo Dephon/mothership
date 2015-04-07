@@ -26,9 +26,10 @@ public class GameState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame sbg, int dt)
 			throws SlickException {
 		Vector2f vector = new Vector2f(0, 0);
+		Vector2f pVector = new Vector2f(0, 0);
 		Input input = container.getInput();
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-			sbg.enterState(StateEnum.PAUSE.getID());
+			sbg.enterState(StateEnum.PAUSE);
 			container.setPaused(true);
 		} else {
 			if (input.isKeyDown(Input.KEY_W)) { // Move up
@@ -50,12 +51,15 @@ public class GameState extends BasicGameState {
 			player.update(vector);
 		}
 
-		if (input.isMouseButtonDown(0)) // TODO: Handle mouse events
-			// Attack
-			leftClick = true;
-		else
-			leftClick = false;
+		if (input.isMouseButtonDown(0)) {
+			pVector.x = input.getAbsoluteMouseX() - player.getEndX();
+			pVector.y = input.getAbsoluteMouseY() - player.getEndY();
+			pVector = pVector.normalise();
 
+			leftClick = true;
+		} else {
+			leftClick = false;
+		}
 		if (input.isKeyDown(Input.KEY_Q)) {
 			container.exit();
 		}
@@ -78,7 +82,7 @@ public class GameState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return StateEnum.GAME.getID();
+		return StateEnum.GAME;
 	}
 
 }

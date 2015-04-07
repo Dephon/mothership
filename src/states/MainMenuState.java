@@ -15,7 +15,7 @@ public class MainMenuState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame sbg, int dt)
 			throws SlickException {
-		sbg.enterState(StateEnum.GAME.getID());
+		sbg.enterState(StateEnum.GAME);
 
 	}
 
@@ -29,7 +29,7 @@ public class MainMenuState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return StateEnum.MAINMENU.getID();
+		return StateEnum.MAIN_MENU;
 	}
 
 }
