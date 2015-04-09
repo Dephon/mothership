@@ -33,19 +33,19 @@ public class Entity {
 	}
 
 	public float getEndX() {
-		return location.x + sprite.getWidth();
+		return rect.getMaxX();
 	}
 
 	public float getEndY() {
-		return location.y + sprite.getHeight();
+		return rect.getMaxY();
 	}
 
-	public float getCenterOfRotationX() {
-		return sprite.getCenterOfRotationX();
+	public float getCenterX() {
+		return rect.getCenterX();
 	}
 
-	public float getCenterOfRotationY() {
-		return sprite.getCenterOfRotationY();
+	public float getCenterY() {
+		return rect.getCenterY();
 	}
 
 	public Rectangle getRectangle() {
