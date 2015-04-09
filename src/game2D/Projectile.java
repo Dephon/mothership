@@ -1,10 +1,12 @@
 package game2D;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.*;
 
 public class Projectile extends Entity {
-	Projectile(String ref) throws SlickException {
+	public Projectile(String ref) throws SlickException {
 		super(ref);
 	}
 
+	Vector2f velocity;
 }

@@ -15,7 +15,7 @@ public class PauseState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame sbg, int dt)
 			throws SlickException {
 		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
-			sbg.enterState(StateEnum.GAME.getID());
+			sbg.enterState(StateEnum.GAME);
 			container.setPaused(false);
 		}
 	}
@@ -28,7 +28,7 @@ public class PauseState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return StateEnum.PAUSE.getID();
+		return StateEnum.PAUSE;
 	}
 
 }

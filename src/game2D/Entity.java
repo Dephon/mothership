@@ -40,6 +40,14 @@ public class Entity {
 		return location.y + sprite.getHeight();
 	}
 
+	public float getCenterOfRotationX() {
+		return sprite.getCenterOfRotationX();
+	}
+
+	public float getCenterOfRotationY() {
+		return sprite.getCenterOfRotationY();
+	}
+
 	public Rectangle getRectangle() {
 		return rect;
 	}

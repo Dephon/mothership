@@ -29,7 +29,7 @@ public class GameOverState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return StateEnum.GAMEOVER.getID();
+		return StateEnum.MAIN_MENU;
 	}
 
 }
