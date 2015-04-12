@@ -3,7 +3,7 @@ package game2D;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
-public class Entity {
+public abstract class Entity {
 
 	public Entity(String ref) throws SlickException {
 		sprite = new Image(ref);
@@ -62,6 +62,11 @@ public class Entity {
 		rect.setY(y);
 	}
 
+	public void setLoc(Vector2f origin) {
+		location.x = origin.x;
+		location.y = origin.y;
+	}
+
 	public boolean intersects(Entity rhs) {
 		return rect.intersects(rhs.getRectangle());
 	}
@@ -75,7 +80,7 @@ public class Entity {
 		rect.setLocation(location);
 	}
 
-	Image sprite;
-	Rectangle rect;
-	Vector2f location;
+	protected Image sprite;
+	protected Rectangle rect;
+	protected Vector2f location;
 }
