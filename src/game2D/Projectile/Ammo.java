@@ -14,6 +14,8 @@ public abstract class Ammo extends Entity {
 
 	public void update(int dt) {
 		Vector2f dv = new Vector2f();
+		velocity.x += acceleration.x * dt;
+		velocity.y += acceleration.y * dt;
 		dv.x = velocity.x * dt;
 		dv.y = velocity.y * dt;
 		super.update(dv);
