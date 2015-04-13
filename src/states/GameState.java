@@ -23,6 +23,7 @@ public class GameState extends BasicGameState {
 		gameMap = new TiledMap(new Image("data/Steel_Plate.png"), 100, 100);
 		ammo = new ArrayList<Ammo>();
 		fireTimer = 0;
+		container.setDefaultMouseCursor();
 	}
 
 	@Override
@@ -74,9 +75,11 @@ public class GameState extends BasicGameState {
 		for (int i = 0; i < ammo.size(); i++) {
 			if (ammo.get(i).getEndX() < 0 || ammo.get(i).getEndY() < 0) {
 				ammo.remove(i);
+				i--;
 			} else if (ammo.get(i).getOriginX() > container.getWidth()
 					|| ammo.get(i).getOriginY() > container.getHeight()) {
 				ammo.remove(i);
+				i--;
 			} else {
 				ammo.get(i).update(dt);
 			}

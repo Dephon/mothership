@@ -26,8 +26,7 @@ public abstract class Ammo extends Entity {
 	}
 
 	public void setVelocity(Vector2f velocity) {
-		this.velocity.x = velocity.x;
-		this.velocity.y = velocity.y;
+		this.velocity.set(velocity);
 	}
 
 	public Vector2f getAcceleration() {
