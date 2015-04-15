@@ -8,35 +8,60 @@ import org.newdawn.slick.geom.*;
 public abstract class Ammo extends Entity {
 	public Ammo(String ref) throws SlickException {
 		super(ref);
-		velocity = new Vector2f();
-		acceleration = new Vector2f();
+		direction = new Vector2f();
+		speed = 0;
+		acceleration = 0;
+	}
+
+	public Ammo(String ref, float x, float y) throws SlickException {
+		super(ref, x, y);
+		direction = new Vector2f();
+		speed = 0;
+		acceleration = 0;
+	}
+
+	public Ammo(String ref, int x, int y) throws SlickException {
+		super(ref, x, y);
+		direction = new Vector2f();
+		speed = 0;
+		acceleration = 0;
 	}
 
 	public void update(int dt) {
 		Vector2f dv = new Vector2f();
-		velocity.x += acceleration.x * dt;
-		velocity.y += acceleration.y * dt;
-		dv.x = velocity.x * dt;
-		dv.y = velocity.y * dt;
+		acceleration = jerk * dt;
+		speed += acceleration * dt;
+		dv.x += direction.x * speed * dt;
+		dv.y += direction.y * speed * dt;
 		super.update(dv);
 	}
 
-	public Vector2f getVelocity() {
-		return velocity;
+	public Vector2f getDirection() {
+		return direction;
 	}
 
-	public void setVelocity(Vector2f velocity) {
-		this.velocity.set(velocity);
+	public void setDirection(Vector2f direction) {
+		this.direction.set(direction);
 	}
 
-	public Vector2f getAcceleration() {
+	public float getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
+	public float getAcceleration() {
 		return acceleration;
 	}
 
-	public void setAcceleration(Vector2f acceleration) {
+	public void setAcceleration(float acceleration) {
 		this.acceleration = acceleration;
 	}
 
-	Vector2f velocity;
-	Vector2f acceleration;
+	Vector2f direction;
+	float speed;
+	float acceleration;
+	float jerk;
 }

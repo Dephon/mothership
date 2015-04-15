@@ -65,7 +65,7 @@ public class GameState extends BasicGameState {
 				tempAmmo.setLoc(new Vector2f(player.getCenterX()
 						- tempAmmo.getCenterX(), player.getCenterY()
 						- tempAmmo.getCenterY()));
-				tempAmmo.setVelocity(pVector);
+				tempAmmo.setDirection(pVector);
 				ammo.add(tempAmmo);
 				fireTimer = 0;
 			} else {
