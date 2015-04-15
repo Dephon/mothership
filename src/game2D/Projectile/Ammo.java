@@ -8,23 +8,46 @@ import org.newdawn.slick.geom.*;
 public abstract class Ammo extends Entity {
 	public Ammo(String ref) throws SlickException {
 		super(ref);
-		direction = new Vector2f();
-		speed = 0;
-		acceleration = 0;
+		this.direction = new Vector2f();
+		this.speed = 0;
+		this.acceleration = 0;
+		this.jerk = 0;
 	}
 
 	public Ammo(String ref, float x, float y) throws SlickException {
 		super(ref, x, y);
-		direction = new Vector2f();
-		speed = 0;
-		acceleration = 0;
+		this.direction = new Vector2f();
+		this.speed = 0;
+		this.acceleration = 0;
+		this.jerk = 0;
 	}
 
 	public Ammo(String ref, int x, int y) throws SlickException {
 		super(ref, x, y);
-		direction = new Vector2f();
-		speed = 0;
-		acceleration = 0;
+		this.direction = new Vector2f();
+		this.speed = 0;
+		this.acceleration = 0;
+		this.jerk = 0;
+	}
+
+	public Ammo(String ref, float x, float y, Vector2f direction)
+			throws SlickException {
+		super(ref, x, y);
+		this.direction = new Vector2f();
+		this.speed = 0;
+		this.acceleration = 0;
+		this.jerk = 0;
+		setDirection(direction);
+	}
+
+	public Ammo(String ref, int x, int y, Vector2f direction)
+			throws SlickException {
+		super(ref, x, y);
+		this.direction = new Vector2f();
+		this.speed = 0;
+		this.acceleration = 0;
+		this.jerk = 0;
+		setDirection(direction);
 	}
 
 	public void update(int dt) {
@@ -42,26 +65,25 @@ public abstract class Ammo extends Entity {
 
 	public void setDirection(Vector2f direction) {
 		this.direction.set(direction);
+		this.rotate(direction);
 	}
 
 	public float getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(float speed) {
-		this.speed = speed;
-	}
-
 	public float getAcceleration() {
 		return acceleration;
 	}
 
-	public void setAcceleration(float acceleration) {
-		this.acceleration = acceleration;
+	public void rotate(Vector2f direction) {
+		double theta = Math.atan2(direction.y, direction.x) * 180 / Math.PI;
+		sprite.rotate((float) theta);
 	}
 
-	Vector2f direction;
-	float speed;
-	float acceleration;
-	float jerk;
+	protected Vector2f direction;
+	protected float speed;
+	protected float acceleration;
+	protected float jerk;
+	protected int fireDelay;
 }

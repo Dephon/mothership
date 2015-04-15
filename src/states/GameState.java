@@ -20,7 +20,8 @@ public class GameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
 		player = new Player("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
-		gameMap = new TiledMap(new Image("data/Steel_Plate.png"), 100, 100);
+		gameMap = new TiledMap(new Image("data/Steel_Plate.png"),
+				container.getWidth(), container.getHeight());
 		ammo = new ArrayList<Ammo>();
 		fireTimer = 0;
 		container.setDefaultMouseCursor();
@@ -57,11 +58,12 @@ public class GameState extends BasicGameState {
 		}
 
 		if (input.isMouseButtonDown(0)) {
-			if (fireTimer > 100) { // You can only fire once every 100ms
+			if (fireTimer > 200) { // You can only fire once every 100ms (200ms
+									// for missiles)
 				pVector.x = input.getAbsoluteMouseX() - player.getCenterX();
 				pVector.y = input.getAbsoluteMouseY() - player.getCenterY();
 				pVector = pVector.normalise();
-				tempAmmo = AmmoFactory.getAmmo(AmmoEnum.BULLET);
+				tempAmmo = AmmoFactory.getAmmo(AmmoEnum.MISSILE);
 				tempAmmo.setLoc(new Vector2f(player.getCenterX()
 						- tempAmmo.getCenterX(), player.getCenterY()
 						- tempAmmo.getCenterY()));
@@ -94,7 +96,6 @@ public class GameState extends BasicGameState {
 		for (int i = 0; i < ammo.size(); i++)
 			ammo.get(i).draw();
 		player.draw();
-		graphics.drawString("Bullets: " + ammo.size(), 0, 0);
 	}
 
 	@Override

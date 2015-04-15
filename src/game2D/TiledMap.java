@@ -41,8 +41,8 @@ public class TiledMap {
 	}
 
 	public void draw() {
-		for (int i = 0; i < 12; i++) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = 0; i < 31; i++) {
+			for (int j = 0; j < 31; j++) {
 				tile.draw(i * 45 + originX, j * 45 + originY, 45, 45);
 			}
 		}
