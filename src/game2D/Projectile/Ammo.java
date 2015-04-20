@@ -12,6 +12,7 @@ public abstract class Ammo extends Entity {
 		this.speed = 0;
 		this.acceleration = 0;
 		this.jerk = 0;
+		this.dead = true;
 	}
 
 	public Ammo(String ref, float x, float y) throws SlickException {
@@ -20,14 +21,7 @@ public abstract class Ammo extends Entity {
 		this.speed = 0;
 		this.acceleration = 0;
 		this.jerk = 0;
-	}
-
-	public Ammo(String ref, int x, int y) throws SlickException {
-		super(ref, x, y);
-		this.direction = new Vector2f();
-		this.speed = 0;
-		this.acceleration = 0;
-		this.jerk = 0;
+		this.dead = true;
 	}
 
 	public Ammo(String ref, float x, float y, Vector2f direction)
@@ -37,22 +31,25 @@ public abstract class Ammo extends Entity {
 		this.speed = 0;
 		this.acceleration = 0;
 		this.jerk = 0;
+		this.dead = true;
 		setDirection(direction);
 	}
 
-	public Ammo(String ref, int x, int y, Vector2f direction)
+	public Ammo(String ref, Vector2f location, Vector2f direction)
 			throws SlickException {
-		super(ref, x, y);
+		super(ref, location);
 		this.direction = new Vector2f();
 		this.speed = 0;
 		this.acceleration = 0;
 		this.jerk = 0;
+		this.dead = true;
+		setLoc(location);
 		setDirection(direction);
 	}
 
 	public void update(int dt) {
 		Vector2f dv = new Vector2f();
-		acceleration = jerk * dt;
+		acceleration += jerk * dt;
 		speed += acceleration * dt;
 		dv.x += direction.x * speed * dt;
 		dv.y += direction.y * speed * dt;
@@ -79,6 +76,16 @@ public abstract class Ammo extends Entity {
 	public void rotate(Vector2f direction) {
 		double theta = Math.atan2(direction.y, direction.x) * 180 / Math.PI;
 		sprite.rotate((float) theta);
+	}
+
+	public void revive(Vector2f location, Vector2f direction) {
+		if (dead) {
+			dead = false;
+			this.location.set(location);
+			this.direction.set(direction);
+			rotate(direction);
+		}
+
 	}
 
 	protected Vector2f direction;

@@ -3,8 +3,6 @@ package states;
 import game2D.*;
 import game2D.Projectile.*;
 
-import java.util.*;
-
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 import org.newdawn.slick.state.*;
@@ -13,7 +11,7 @@ public class GameState extends BasicGameState {
 	Player player;
 	Entity[] enemies;
 	TiledMap gameMap;
-	ArrayList<Ammo> ammo;
+	AmmoManager ammoManager;
 	int fireTimer;
 
 	@Override
@@ -22,17 +20,20 @@ public class GameState extends BasicGameState {
 		player = new Player("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
 		gameMap = new TiledMap(new Image("data/Steel_Plate.png"),
 				container.getWidth(), container.getHeight());
-		ammo = new ArrayList<Ammo>();
+		ammoManager = new AmmoManager(new Rectangle(0, 0, container.getWidth(),
+				container.getHeight()));
+		ammoManager.changeAmmo(AmmoEnum.BULLET);
 		fireTimer = 0;
-		container.setDefaultMouseCursor();
+		// container.setAnimatedMouseCursor(arg0, arg1, arg2, arg3, arg4, arg5);
+		// container.setDefaultMouseCursor();
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame sbg, int dt)
 			throws SlickException {
+		Vector2f location = new Vector2f();
 		Vector2f pVector = new Vector2f();
 		Input input = container.getInput();
-		Ammo tempAmmo;
 
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			sbg.enterState(StateEnum.PAUSE);
@@ -58,44 +59,23 @@ public class GameState extends BasicGameState {
 		}
 
 		if (input.isMouseButtonDown(0)) {
-			if (fireTimer > 200) { // You can only fire once every 100ms (200ms
-									// for missiles)
-				pVector.x = input.getAbsoluteMouseX() - player.getCenterX();
-				pVector.y = input.getAbsoluteMouseY() - player.getCenterY();
-				pVector = pVector.normalise();
-				tempAmmo = AmmoFactory.getAmmo(AmmoEnum.MISSILE);
-				tempAmmo.setLoc(new Vector2f(player.getCenterX()
-						- tempAmmo.getCenterX(), player.getCenterY()
-						- tempAmmo.getCenterY()));
-				tempAmmo.setDirection(pVector);
-				ammo.add(tempAmmo);
-				fireTimer = 0;
-			} else {
-				fireTimer += dt;
-			}
+			location.x = player.getCenterX(); // - tempAmmo.getCenterX();
+			location.y = player.getCenterY(); // - tempAmmo.getCenterY();
+			pVector.x = input.getAbsoluteMouseX() - player.getCenterX();
+			pVector.y = input.getAbsoluteMouseY() - player.getCenterY();
+			pVector = pVector.normalise();
+			ammoManager.add(location, pVector);
 		}
-		for (int i = 0; i < ammo.size(); i++) {
-			if (ammo.get(i).getEndX() < 0 || ammo.get(i).getEndY() < 0) {
-				ammo.remove(i);
-				i--;
-			} else if (ammo.get(i).getOriginX() > container.getWidth()
-					|| ammo.get(i).getOriginY() > container.getHeight()) {
-				ammo.remove(i);
-				i--;
-			} else {
-				ammo.get(i).update(dt);
-			}
-
-		}
+		ammoManager.update(dt);
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame sbg,
 			Graphics graphics) throws SlickException {
 		gameMap.draw();
-		for (int i = 0; i < ammo.size(); i++)
-			ammo.get(i).draw();
+		ammoManager.draw();
 		player.draw();
+		graphics.drawString("Bullet Count" + ammoManager.getBulletCount(), 0, 0);
 	}
 
 	@Override
