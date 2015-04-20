@@ -85,5 +85,4 @@ public abstract class Ammo extends Entity {
 	protected float speed;
 	protected float acceleration;
 	protected float jerk;
-	protected int fireDelay;
 }
