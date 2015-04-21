@@ -33,4 +33,10 @@ public class Bullet extends Ammo {
 		this.speed = 1;
 
 	}
+
+	@Override
+	public void handleCollisions() {
+		// TODO Auto-generated method stub
+
+	}
 }

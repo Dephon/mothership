@@ -23,4 +23,10 @@ public class Laser extends Ammo {
 	public Laser(int x, int y, Vector2f direction) throws SlickException {
 		super("data/Bullet.png", x, y, direction);
 	}
+
+	@Override
+	public void handleCollisions() {
+		// TODO Auto-generated method stub
+
+	}
 }

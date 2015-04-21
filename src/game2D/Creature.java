@@ -21,4 +21,9 @@ public class Creature extends Entity {
 
 	int health;
 
+	@Override
+	public void handleCollisions() {
+
+	}
+
 }

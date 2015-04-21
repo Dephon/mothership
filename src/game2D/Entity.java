@@ -1,5 +1,9 @@
 package game2D;
 
+import game2D.Collision.*;
+
+import java.util.*;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
@@ -90,6 +94,8 @@ public abstract class Entity {
 			sprite.draw(rect.getX(), rect.getY());
 	}
 
+	public abstract void handleCollisions();
+
 	public void update(Vector2f movement) {
 		if (!dead) {
 			location.add(movement);
@@ -97,6 +103,7 @@ public abstract class Entity {
 		}
 	}
 
+	Queue<Collision> collisions;
 	protected boolean dead;
 	protected Image sprite;
 	protected Rectangle rect;

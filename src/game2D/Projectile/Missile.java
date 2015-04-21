@@ -28,4 +28,10 @@ public class Missile extends Ammo {
 		super("data/Missile.png", x, y, direction);
 		this.jerk = .000005f;
 	}
+
+	@Override
+	public void handleCollisions() {
+		// TODO Auto-generated method stub
+
+	}
 }
