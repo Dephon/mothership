@@ -28,12 +28,55 @@ public class CollisionMap {
 		}
 	}
 
+	public void addEntity(Entity ent) {
+		Bucket[] cellsOccupied = hashEntity(ent);
+		for (Bucket x : cellsOccupied) {
+			x.add(ent);
+		}
+	}
+
+	// Haven't tested this yet, so it might be completely buggy
+	public Bucket[] hashEntity(Entity ent) {
+		ArrayList<Bucket> cellsOccupied = new ArrayList<Bucket>();
+		for (int i = (int) ent.getOriginX() / gridWidth; i <= (int) ent
+				.getEndX() / gridWidth; i++) {
+			for (int j = (int) ent.getOriginY() / gridHeight; j <= (int) ent
+					.getEndY(); j++) {
+				cellsOccupied.add(grid[i][j]);
+			}
+		}
+		return (Bucket[]) cellsOccupied.toArray();
+	}
+
+	// Want a list of entities.
+	public void fillGrid() {
+
+	}
+
+	public void clearGrid() {
+		for (int i = 0; i < gridWidth; i++) {
+			for (int j = 0; j < gridHeight; j++) {
+				grid[i][j].clear();
+			}
+		}
+	}
+
 	class Bucket {
+		// Collision type for tile
 		private Collision tileCollision;
+		// Entities that occupy the tile.
 		private ArrayList<Entity> occupants;
 
 		Bucket() {
+			occupants = new ArrayList<Entity>();
+		}
 
+		public void add(Entity ent) {
+			occupants.add(ent);
+		}
+
+		public void clear() {
+			occupants.clear();
 		}
 
 		public void setCollision(Collision collision) {
