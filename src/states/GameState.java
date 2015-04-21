@@ -10,7 +10,7 @@ import org.newdawn.slick.state.*;
 public class GameState extends BasicGameState {
 	Player player;
 	Entity[] enemies;
-	TiledMap gameMap;
+	TileMap gameMap;
 	AmmoManager ammoManager;
 	int fireTimer;
 
@@ -18,7 +18,7 @@ public class GameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
 		player = new Player("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
-		gameMap = new TiledMap(new Image("data/Steel_Plate.png"),
+		gameMap = new TileMap(new Image("data/Steel_Plate.png"),
 				container.getWidth(), container.getHeight());
 		ammoManager = new AmmoManager(new Rectangle(0, 0, container.getWidth(),
 				container.getHeight()));

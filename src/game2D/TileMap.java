@@ -3,8 +3,8 @@ package game2D;
 import org.newdawn.slick.*;
 
 //Needs to be fixed
-public class TiledMap {
-	public TiledMap(Image tile, int x, int y, int width, int height) {
+public class TileMap {
+	public TileMap(Image tile, int x, int y, int width, int height) {
 		this.originX = x;
 		this.originY = y;
 		this.width = width;
@@ -12,7 +12,7 @@ public class TiledMap {
 		this.tile = tile;
 	}
 
-	public TiledMap(Image tile, int width, int height) {
+	public TileMap(Image tile, int width, int height) {
 		this.originX = 0;
 		this.originY = 0;
 		this.width = width;
