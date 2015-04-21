@@ -26,7 +26,6 @@ public class Laser extends Ammo {
 
 	@Override
 	public void handleCollisions() {
-		// TODO Auto-generated method stub
 
 	}
 }

@@ -2,7 +2,7 @@ package game2D;
 
 import org.newdawn.slick.*;
 
-public class Creature extends Entity {
+public abstract class Creature extends Entity {
 
 	public Creature(String ref) throws SlickException {
 		super(ref);
@@ -20,10 +20,5 @@ public class Creature extends Entity {
 	}
 
 	int health;
-
-	@Override
-	public void handleCollisions() {
-
-	}
 
 }
