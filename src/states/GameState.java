@@ -39,6 +39,12 @@ public class GameState extends BasicGameState {
 			sbg.enterState(StateEnum.PAUSE);
 			container.setPaused(true);
 		} else {
+			if (input.isKeyPressed(Input.KEY_SPACE)) {
+				if (ammoManager.getAmmo() == AmmoEnum.BULLET) {
+					ammoManager.changeAmmo(AmmoEnum.MISSILE);
+				} else
+					ammoManager.changeAmmo(AmmoEnum.BULLET);
+			}
 			if (input.isKeyDown(Input.KEY_W)) { // Move up
 				if (player.getOriginY() > gameMap.getOriginY())
 					pVector.y += -.1 * dt;
@@ -60,7 +66,7 @@ public class GameState extends BasicGameState {
 
 		if (input.isMouseButtonDown(0)) {
 			location.x = player.getCenterX(); // - tempAmmo.getCenterX();
-			location.y = player.getCenterY(); // - tempAmmo.getCenterY();
+			location.y = player.getCenterY();
 			pVector.x = input.getAbsoluteMouseX() - player.getCenterX();
 			pVector.y = input.getAbsoluteMouseY() - player.getCenterY();
 			pVector = pVector.normalise();
@@ -75,7 +81,9 @@ public class GameState extends BasicGameState {
 		gameMap.draw();
 		ammoManager.draw();
 		player.draw();
-		graphics.drawString("Bullet Count" + ammoManager.getBulletCount(), 0, 0);
+		graphics.drawString("" + ammoManager.getMissileCount(), 0, 0);
+		graphics.drawString("" + ammoManager.getMissileIndex(), 0, 20);
+
 	}
 
 	@Override

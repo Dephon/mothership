@@ -19,17 +19,35 @@ public class AmmoManager {
 		fireTimer = 0;
 		bulletCount = 0;
 		missileCount = 0;
+		missileIndex = 0;
+		bulletIndex = 0;
 	}
 
 	public void add(Vector2f position, Vector2f direction) {
+		Vector2f posAmmo = position;
 		if (currentAmmo == AmmoEnum.BULLET && fireTimer > 100) {
-			bullets.get(bulletCount).revive(position, direction);
-			bulletCount++;
-			fireTimer = 0;
+			if (bulletCount < 100) {
+				posAmmo.x -= bullets.get(bulletIndex).getCenterX();
+				posAmmo.y -= bullets.get(bulletIndex).getCenterY();
+				bullets.get(bulletIndex).revive(posAmmo, direction);
+				bulletCount++;
+				bulletIndex++;
+				fireTimer = 0;
+				if (bulletIndex == 100)
+					bulletIndex = 0;
+			}
 		} else if (currentAmmo == AmmoEnum.MISSILE && fireTimer > 200) {
-			missiles.get(missileCount).revive(position, direction);
-			missileCount++;
-			fireTimer = 0;
+
+			if (missileCount < 100) {
+				posAmmo.x -= missiles.get(missileIndex).getCenterX();
+				posAmmo.y -= missiles.get(missileIndex).getCenterY();
+				missiles.get(missileIndex).revive(posAmmo, direction);
+				missileCount++;
+				missileIndex++;
+				fireTimer = 0;
+				if (missileIndex == 100)
+					missileIndex = 0;
+			}
 		} else if (currentAmmo == AmmoEnum.LASER && fireTimer > 1000) {
 
 		}
@@ -37,8 +55,8 @@ public class AmmoManager {
 
 	public void update(int dt) {
 		for (Bullet bullet : bullets) {
-			bullet.update(dt);
 			if (!bullet.isDead()) {
+				bullet.update(dt);
 				if (!bullet.intersects(gameBounds)) {
 					bullet.destroy();
 					bulletCount--;
@@ -46,8 +64,8 @@ public class AmmoManager {
 			}
 		}
 		for (Missile missile : missiles) {
-			missile.update(dt);
 			if (!missile.isDead()) {
+				missile.update(dt);
 				if (!missile.intersects(gameBounds)) {
 					missile.destroy();
 					missileCount--;
@@ -59,8 +77,12 @@ public class AmmoManager {
 			fireTimer += dt;
 	}
 
-	public int getBulletCount() {
-		return bulletCount;
+	public int getMissileCount() {
+		return missileCount;
+	}
+
+	public int getMissileIndex() {
+		return missileIndex;
 	}
 
 	public void draw() {
@@ -76,32 +98,18 @@ public class AmmoManager {
 		currentAmmo = AmmoEnum;
 	}
 
+	public int getAmmo() {
+		return currentAmmo;
+	}
+
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Missile> missiles;
 	private Laser laser;
 	private Rectangle gameBounds;
 	private int bulletCount;
+	private int bulletIndex;
 	private int missileCount;
+	private int missileIndex;
 	private int currentAmmo;
 	private int fireTimer;
 }
-
-// tempAmmo = AmmoFactory.getAmmo(AmmoEnum.MISSILE);
-// tempAmmo.setLoc(new Vector2f(player.getCenterX()
-// - tempAmmo.getCenterX(), player.getCenterY()
-// - tempAmmo.getCenterY()));
-// tempAmmo.setDirection(pVector);
-// ammo.add(tempAmmo);
-// }
-// for (int i = 0; i < ammo.size(); i++) {
-// if (ammo.get(i).getEndX() < 0 || ammo.get(i).getEndY() < 0) {
-// ammo.remove(i);
-// i--;
-// } else if (ammo.get(i).getOriginX() > container.getWidth()
-// || ammo.get(i).getOriginY() > container.getHeight()) {
-// ammo.remove(i);
-// i--;
-// } else {
-// ammo.get(i).update(dt);
-// }
-

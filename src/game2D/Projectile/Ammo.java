@@ -85,7 +85,6 @@ public abstract class Ammo extends Entity {
 			this.direction.set(direction);
 			rotate(direction);
 		}
-
 	}
 
 	protected Vector2f direction;
