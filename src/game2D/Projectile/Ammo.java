@@ -8,43 +8,37 @@ import org.newdawn.slick.geom.*;
 public abstract class Ammo extends Entity {
 	public Ammo(String ref) throws SlickException {
 		super(ref);
-		this.direction = new Vector2f();
-		this.speed = 0;
-		this.acceleration = 0;
-		this.jerk = 0;
-		this.dead = true;
+		direction = new Vector2f();
+		speed = 0;
+		acceleration = 0;
+		jerk = 0;
 	}
 
 	public Ammo(String ref, float x, float y) throws SlickException {
 		super(ref, x, y);
-		this.direction = new Vector2f();
-		this.speed = 0;
-		this.acceleration = 0;
-		this.jerk = 0;
-		this.dead = true;
+		direction = new Vector2f();
+		speed = 0;
+		acceleration = 0;
+		jerk = 0;
 	}
 
-	public Ammo(String ref, float x, float y, Vector2f direction)
+	public Ammo(String ref, float x, float y, Vector2f dir)
 			throws SlickException {
 		super(ref, x, y);
-		this.direction = new Vector2f();
-		this.speed = 0;
-		this.acceleration = 0;
-		this.jerk = 0;
-		this.dead = true;
-		setDirection(direction);
+		direction = new Vector2f();
+		speed = 0;
+		acceleration = 0;
+		jerk = 0;
+		setDirection(dir);
 	}
 
-	public Ammo(String ref, Vector2f location, Vector2f direction)
-			throws SlickException {
-		super(ref, location);
-		this.direction = new Vector2f();
-		this.speed = 0;
-		this.acceleration = 0;
-		this.jerk = 0;
-		this.dead = true;
-		setLoc(location);
-		setDirection(direction);
+	public Ammo(String ref, Vector2f loc, Vector2f dir) throws SlickException {
+		super(ref, loc);
+		direction = new Vector2f();
+		speed = 0;
+		acceleration = 0;
+		jerk = 0;
+		setDirection(dir);
 	}
 
 	public void update(int dt) {
@@ -60,9 +54,9 @@ public abstract class Ammo extends Entity {
 		return direction;
 	}
 
-	public void setDirection(Vector2f direction) {
-		this.direction.set(direction);
-		this.rotate(direction);
+	public void setDirection(Vector2f dir) {
+		direction.set(dir);
+		rotate();
 	}
 
 	public float getSpeed() {
@@ -73,18 +67,32 @@ public abstract class Ammo extends Entity {
 		return acceleration;
 	}
 
-	public void rotate(Vector2f direction) {
-		double theta = Math.atan2(direction.y, direction.x) * 180 / Math.PI;
-		sprite.rotate((float) theta);
+	public void create(Vector2f loc, Vector2f dir) {
+		dead = false;
+		setLoc(loc);
+		direction.set(dir);
+		rotate();
 	}
 
-	public void revive(Vector2f location, Vector2f direction) {
-		if (dead) {
-			dead = false;
-			this.location.set(location);
-			this.direction.set(direction);
-			rotate(direction);
+	@Override
+	public void destroy() {
+		if (!dead) {
+			reverseRotate();
+			acceleration = 0;
+			speed = 0;
+			direction.x = 0;
+			direction.y = 0;
+			super.destroy();
 		}
+	}
+
+	protected void rotate() {
+		sprite.rotate((float) direction.getTheta());
+	}
+
+	protected void reverseRotate() {
+		double theta = 360 - direction.getTheta();
+		sprite.rotate((float) theta);
 	}
 
 	protected Vector2f direction;

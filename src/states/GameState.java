@@ -18,11 +18,12 @@ public class GameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
 		player = new Player("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
+		player.create();
 		gameMap = new TileMap(new Image("data/Steel_Plate.png"),
 				container.getWidth(), container.getHeight());
 		ammoManager = new AmmoManager(new Rectangle(0, 0, container.getWidth(),
 				container.getHeight()));
-		ammoManager.changeAmmo(AmmoEnum.BULLET);
+		ammoManager.setAmmo(AmmoEnum.BULLET);
 		fireTimer = 0;
 		// container.setAnimatedMouseCursor(arg0, arg1, arg2, arg3, arg4, arg5);
 		// container.setDefaultMouseCursor();
@@ -41,9 +42,9 @@ public class GameState extends BasicGameState {
 		} else {
 			if (input.isKeyPressed(Input.KEY_SPACE)) {
 				if (ammoManager.getAmmo() == AmmoEnum.BULLET) {
-					ammoManager.changeAmmo(AmmoEnum.MISSILE);
+					ammoManager.setAmmo(AmmoEnum.MISSILE);
 				} else
-					ammoManager.changeAmmo(AmmoEnum.BULLET);
+					ammoManager.setAmmo(AmmoEnum.BULLET);
 			}
 			if (input.isKeyDown(Input.KEY_W)) { // Move up
 				if (player.getOriginY() > gameMap.getOriginY())
@@ -65,7 +66,7 @@ public class GameState extends BasicGameState {
 		}
 
 		if (input.isMouseButtonDown(0)) {
-			location.x = player.getCenterX(); // - tempAmmo.getCenterX();
+			location.x = player.getCenterX();
 			location.y = player.getCenterY();
 			pVector.x = input.getAbsoluteMouseX() - player.getCenterX();
 			pVector.y = input.getAbsoluteMouseY() - player.getCenterY();
@@ -83,7 +84,6 @@ public class GameState extends BasicGameState {
 		player.draw();
 		graphics.drawString("" + ammoManager.getMissileCount(), 0, 0);
 		graphics.drawString("" + ammoManager.getMissileIndex(), 0, 20);
-
 	}
 
 	@Override

@@ -35,6 +35,12 @@ public class Bullet extends Ammo {
 	}
 
 	@Override
+	public void destroy() {
+		super.destroy();
+		speed = 1.0f;
+	}
+
+	@Override
 	public void handleCollisions() {
 		// TODO Auto-generated method stub
 

@@ -19,23 +19,14 @@ public class Missile extends Ammo {
 		this.jerk = .00001f;
 	}
 
-	public Missile(float x, float y, Vector2f direction) throws SlickException {
-		super("data/Missile.png", x, y, direction);
+	public Missile(float x, float y, Vector2f dir) throws SlickException {
+		super("data/Missile.png", x, y, dir);
 		this.jerk = .00001f;
 	}
 
-	public Missile(int x, int y, Vector2f direction) throws SlickException {
-		super("data/Missile.png", x, y, direction);
+	public Missile(int x, int y, Vector2f dir) throws SlickException {
+		super("data/Missile.png", x, y, dir);
 		this.jerk = .00001f;
-	}
-
-	@Override
-	public void destroy() {
-		if (!dead) {
-			dead = true;
-			acceleration = 0;
-			speed = 0;
-		}
 	}
 
 	@Override

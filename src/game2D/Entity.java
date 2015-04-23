@@ -12,21 +12,23 @@ public abstract class Entity {
 	public Entity(String ref) throws SlickException {
 		sprite = new Image(ref);
 		location = new Vector2f(0, 0);
-		rect = new Rectangle(location.x, location.y, sprite.getWidth(),
-				sprite.getHeight());
+		rect = new Rectangle(0, 0, sprite.getWidth(), sprite.getHeight());
+		dead = true;
 	}
 
 	public Entity(String ref, float x, float y) throws SlickException {
 		sprite = new Image(ref);
 		location = new Vector2f(x, y);
 		rect = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
+		dead = true;
 	}
 
-	public Entity(String ref, Vector2f location) throws SlickException {
+	public Entity(String ref, Vector2f loc) throws SlickException {
 		sprite = new Image(ref);
-		this.location.set(location);
+		location.set(loc);
 		rect = new Rectangle(location.x, location.y, sprite.getWidth(),
 				sprite.getHeight());
+		dead = true;
 	}
 
 	public float getOriginX() {
@@ -67,8 +69,14 @@ public abstract class Entity {
 		rect.setY(y);
 	}
 
-	public void setLoc(Vector2f location) {
-		location.set(location);
+	public void setLoc(Vector2f loc) {
+		location.set(loc);
+		rect.setLocation(location);
+	}
+
+	public void setLoc(float x, float y) {
+		location.x = x;
+		location.y = y;
 		rect.setLocation(location);
 	}
 
@@ -84,9 +92,13 @@ public abstract class Entity {
 		return rect.intersects(rhs);
 	}
 
+	public void create() {
+		dead = false;
+	}
+
 	public void destroy() {
-		if (!dead)
-			dead = true;
+		dead = true;
+		setLoc(0, 0);
 	}
 
 	public void draw() {
@@ -94,14 +106,14 @@ public abstract class Entity {
 			sprite.draw(rect.getX(), rect.getY());
 	}
 
-	public abstract void handleCollisions();
-
 	public void update(Vector2f movement) {
 		if (!dead) {
 			location.add(movement);
 			rect.setLocation(location);
 		}
 	}
+
+	public abstract void handleCollisions();
 
 	Queue<Collision> collisions;
 	protected boolean dead;

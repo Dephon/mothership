@@ -24,12 +24,13 @@ public class AmmoManager {
 	}
 
 	public void add(Vector2f position, Vector2f direction) {
-		Vector2f posAmmo = position;
+		Vector2f posAmmo = new Vector2f(position);
+		float missleCenterX, missleCenterY;
 		if (currentAmmo == AmmoEnum.BULLET && fireTimer > 100) {
 			if (bulletCount < 100) {
 				posAmmo.x -= bullets.get(bulletIndex).getCenterX();
 				posAmmo.y -= bullets.get(bulletIndex).getCenterY();
-				bullets.get(bulletIndex).revive(posAmmo, direction);
+				bullets.get(bulletIndex).create(posAmmo, direction);
 				bulletCount++;
 				bulletIndex++;
 				fireTimer = 0;
@@ -39,9 +40,11 @@ public class AmmoManager {
 		} else if (currentAmmo == AmmoEnum.MISSILE && fireTimer > 200) {
 
 			if (missileCount < 100) {
-				posAmmo.x -= missiles.get(missileIndex).getCenterX();
-				posAmmo.y -= missiles.get(missileIndex).getCenterY();
-				missiles.get(missileIndex).revive(posAmmo, direction);
+				missleCenterX = missiles.get(missileIndex).getCenterX();
+				missleCenterY = missiles.get(missileIndex).getCenterY();
+				posAmmo.x -= missleCenterX;
+				posAmmo.y -= missleCenterY;
+				missiles.get(missileIndex).create(posAmmo, direction);
 				missileCount++;
 				missileIndex++;
 				fireTimer = 0;
@@ -94,7 +97,7 @@ public class AmmoManager {
 
 	}
 
-	public void changeAmmo(int AmmoEnum) {
+	public void setAmmo(int AmmoEnum) {
 		currentAmmo = AmmoEnum;
 	}
 
