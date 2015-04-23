@@ -7,6 +7,10 @@ import java.util.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
+/*
+ * TODO: Convert "Rectangle" to "Polygon"
+ */
+
 public abstract class Entity {
 
 	public Entity(String ref) throws SlickException {
