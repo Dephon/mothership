@@ -110,6 +110,13 @@ public abstract class Entity {
 			sprite.draw(box.getX(), box.getY());
 	}
 
+	public void debugDraw(Graphics graphics) {
+		if (!dead) {
+			graphics.draw(rect);
+			sprite.draw(rect.getX(), rect.getY());
+		}
+	}
+
 	public void update(Vector2f movement) {
 		if (!dead) {
 			location.add(movement);
