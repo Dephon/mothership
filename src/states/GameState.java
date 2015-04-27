@@ -80,7 +80,8 @@ public class GameState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame sbg,
 			Graphics graphics) throws SlickException {
 		gameMap.draw();
-		ammoManager.draw();
+		// ammoManager.draw();
+		ammoManager.debugDraw(graphics);
 		player.draw();
 		graphics.drawString("" + ammoManager.getMissileCount(), 0, 0);
 		graphics.drawString("" + ammoManager.getMissileIndex(), 0, 20);

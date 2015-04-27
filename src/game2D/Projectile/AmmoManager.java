@@ -94,7 +94,23 @@ public class AmmoManager {
 		for (Missile missile : missiles)
 			missile.draw();
 		laser.draw();
+	}
 
+	public void debugDraw(Graphics graphics) {
+		for (Bullet bullet : bullets) {
+			if (!bullet.isDead()) {
+				graphics.draw(bullet.getRectangle());
+				bullet.draw();
+			}
+		}
+		for (Missile missile : missiles) {
+			if (!missile.isDead()) {
+				graphics.draw(missile.getRectangle());
+				missile.draw();
+			}
+		}
+		// graphics.draw(laser.getRectangle());
+		laser.draw();
 	}
 
 	public void setAmmo(int AmmoEnum) {
