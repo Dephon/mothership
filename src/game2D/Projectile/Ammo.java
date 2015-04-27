@@ -56,7 +56,7 @@ public abstract class Ammo extends Entity {
 
 	public void setDirection(Vector2f dir) {
 		direction.set(dir);
-		rotate();
+		rotate(false);
 	}
 
 	public float getSpeed() {
@@ -71,13 +71,13 @@ public abstract class Ammo extends Entity {
 		dead = false;
 		setLoc(loc);
 		direction.set(dir);
-		rotate();
+		rotate(false);
 	}
 
 	@Override
 	public void destroy() {
 		if (!dead) {
-			reverseRotate();
+			rotate(true);
 			acceleration = 0;
 			speed = 0;
 			direction.x = 0;
@@ -86,14 +86,28 @@ public abstract class Ammo extends Entity {
 		}
 	}
 
-	protected void rotate() {
-		sprite.rotate((float) direction.getTheta());
+	public void debugDraw(Graphics graphics) {
+		if (!dead) {
+			graphics.draw(box);
+			sprite.draw(box.getX(), box.getY());
+		}
 	}
 
-	protected void reverseRotate() {
-		double theta = 360 - direction.getTheta();
-		sprite.rotate((float) theta);
+	protected void rotate(boolean reverse) {
+		double theta;
+		float rad;
 
+		if (reverse)
+			theta = 360 - direction.getTheta();
+		else
+			theta = direction.getTheta();
+		rad = (float) Math.toRadians(theta);
+		sprite.rotate((float) theta);
+		box.setX(0); // Can't believe I have to do this
+		box.setY(0); // Slick2d blows
+		box = (Polygon) box.transform(Transform.createRotateTransform(rad,
+				box.getCenterX(), box.getCenterY()));
+		box.setLocation(location);
 	}
 
 	protected Vector2f direction;

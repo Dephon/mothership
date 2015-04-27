@@ -7,30 +7,26 @@ import java.util.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
-/*
- * TODO: Convert "Rectangle" to "Polygon"
- */
-
 public abstract class Entity {
 
 	public Entity(String ref) throws SlickException {
 		sprite = new Image(ref);
 		location = new Vector2f(0, 0);
-		box = Entity.makeBox(0, 0, sprite.getWidth(), sprite.getHeight());
+		box = makeBox(0, 0, sprite.getWidth(), sprite.getHeight());
 		dead = true;
 	}
 
 	public Entity(String ref, float x, float y) throws SlickException {
 		sprite = new Image(ref);
 		location = new Vector2f(x, y);
-		box = Entity.makeBox(x, y, sprite.getWidth(), sprite.getHeight());
+		box = makeBox(x, y, sprite.getWidth(), sprite.getHeight());
 		dead = true;
 	}
 
 	public Entity(String ref, Vector2f loc) throws SlickException {
 		sprite = new Image(ref);
 		location.set(loc);
-		box = Entity.makeBox(location.x, location.y, sprite.getWidth(),
+		box = makeBox(location.x, location.y, sprite.getWidth(),
 				sprite.getHeight());
 		dead = true;
 	}
@@ -124,7 +120,7 @@ public abstract class Entity {
 		}
 	}
 
-	public static Polygon makeBox(float x, float y, float width, float height) {
+	private Polygon makeBox(float x, float y, float width, float height) {
 		float[][] points = { { x, y }, { width, y }, { width, height },
 				{ x, height } };
 		Polygon temp = new Polygon();
