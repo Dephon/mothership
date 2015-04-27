@@ -112,8 +112,8 @@ public abstract class Entity {
 
 	public void debugDraw(Graphics graphics) {
 		if (!dead) {
-			graphics.draw(rect);
-			sprite.draw(rect.getX(), rect.getY());
+			graphics.draw(box);
+			sprite.draw(box.getX(), box.getY());
 		}
 	}
 
