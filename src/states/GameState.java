@@ -82,7 +82,7 @@ public class GameState extends BasicGameState {
 		gameMap.draw();
 		// ammoManager.draw();
 		ammoManager.debugDraw(graphics);
-		player.draw();
+		player.debugDraw(graphics);
 		graphics.drawString("" + ammoManager.getMissileCount(), 0, 0);
 		graphics.drawString("" + ammoManager.getMissileIndex(), 0, 20);
 	}
