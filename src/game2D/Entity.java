@@ -137,4 +137,5 @@ public abstract class Entity {
 	protected Image sprite;
 	protected Polygon box;
 	protected Vector2f location;
+	protected Animation currentAnimation;
 }

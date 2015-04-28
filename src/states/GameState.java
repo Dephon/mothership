@@ -6,11 +6,12 @@ import game2D.Projectile.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 import org.newdawn.slick.state.*;
+import org.newdawn.slick.tiled.*;
 
 public class GameState extends BasicGameState {
 	Player player;
 	Entity[] enemies;
-	TileMap gameMap;
+	TiledMap gameMap;
 	AmmoManager ammoManager;
 	int fireTimer;
 
@@ -19,8 +20,7 @@ public class GameState extends BasicGameState {
 			throws SlickException {
 		player = new Player("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
 		player.create();
-		gameMap = new TileMap(new Image("data/Steel_Plate.png"),
-				container.getWidth(), container.getHeight());
+		gameMap = new TiledMap("maps/mothership level 1_basic.tmx");
 		ammoManager = new AmmoManager(new Rectangle(0, 0, container.getWidth(),
 				container.getHeight()));
 		ammoManager.setAmmo(AmmoEnum.BULLET);
@@ -47,7 +47,7 @@ public class GameState extends BasicGameState {
 					ammoManager.setAmmo(AmmoEnum.BULLET);
 			}
 			if (input.isKeyDown(Input.KEY_W)) { // Move up
-				if (player.getOriginY() > gameMap.getOriginY())
+				if (player.getOriginY() >= 0)
 					pVector.y += -.1 * dt;
 			}
 			if (input.isKeyDown(Input.KEY_S)) { // Move Down
@@ -55,7 +55,7 @@ public class GameState extends BasicGameState {
 					pVector.y += .1 * dt;
 			}
 			if (input.isKeyDown(Input.KEY_A)) { // Move Left
-				if (player.getOriginX() > gameMap.getOriginX())
+				if (player.getOriginX() >= 0)
 					pVector.x += -.1 * dt;
 			}
 			if (input.isKeyDown(Input.KEY_D)) { // Move Right
@@ -79,7 +79,7 @@ public class GameState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame sbg,
 			Graphics graphics) throws SlickException {
-		gameMap.draw();
+		gameMap.render(0, 0);
 		// ammoManager.draw();
 		ammoManager.debugDraw(graphics);
 		player.debugDraw(graphics);
