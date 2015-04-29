@@ -2,23 +2,23 @@ package game2D;
 
 import org.newdawn.slick.*;
 
-public abstract class Creature extends Entity {
+public abstract class Movable extends Entity {
 
-	public Creature(String ref) throws SlickException {
+	public Movable(String ref) throws SlickException {
 		super(ref);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Creature(String ref, float x, float y) throws SlickException {
+	public Movable(String ref, float x, float y) throws SlickException {
 		super(ref, x, y);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Creature(String ref, int x, int y) throws SlickException {
+	public Movable(String ref, int x, int y) throws SlickException {
 		super(ref, x, y);
 		// TODO Auto-generated constructor stub
 	}
 
-	int health;
+	public int health;
 
 }
