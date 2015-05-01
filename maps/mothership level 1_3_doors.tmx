@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="SNES - Super Metroid - Background Tiles" tilewidth="16" tileheight="16" spacing="1" margin="1">
+  <image source="SNES - Super Metroid - Background Tiles.png" trans="ff00ff" width="950" height="950"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="60" height="40">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3XPQrCQBAF4JnNSfRWHkDwKP6i3mMbQbD0t7AXvEE6e38qX4hptnd32XnFY8I0w8sHgXgRearIR8ufG3T1yBvPLy1/pui7RHZVm5WRvtdfUvWtIybsG/N217eZR9w+IWfkguyRg5az90HfKXYzZI4skDEy0XL2Yd/U75++9KUvfelLX/rm40Jf+tKXvtZ8H8Z8+2rLd6C2fNfGfPl9ztOFvvSlL33pm6cLfelLX/pa9x06kZH7/+zh9rZq0/yDx7ob9r1jd3Plzq7nFxO8+LGAJQAA
+  </data>
+ </layer>
+</map>
