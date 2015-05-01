@@ -63,6 +63,7 @@ public class GameState extends BasicGameState {
 				if (player.getEndX() < container.getWidth())
 					pVector.x += .1 * dt;
 			}
+			player.update(pVector);
 			if (input.isKeyDown(input.KEY_MINUS)) {
 				sbg.enterState(StateEnum.GAME_OVER, new FadeOutTransition(),
 						new FadeInTransition());
