@@ -6,6 +6,7 @@ import game2D.Projectile.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 import org.newdawn.slick.state.*;
+import org.newdawn.slick.state.transition.*;
 import org.newdawn.slick.tiled.*;
 
 public class GameState extends BasicGameState {
@@ -42,7 +43,7 @@ public class GameState extends BasicGameState {
 
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			sbg.enterState(StateEnum.PAUSE);
-			container.setPaused(true);
+			// container.setPaused(true);
 		} else {
 			if (input.isKeyPressed(Input.KEY_SPACE)) {
 				if (ammoManager.getAmmo() == AmmoEnum.BULLET) {
@@ -67,6 +68,10 @@ public class GameState extends BasicGameState {
 					pVector.x += .1 * dt;
 			}
 			player.update(pVector);
+			if (input.isKeyDown(input.KEY_MINUS)) {
+				sbg.enterState(StateEnum.GAME_OVER, new FadeOutTransition(),
+						new FadeInTransition());
+			}
 		}
 
 		if (input.isMouseButtonDown(0)) {
