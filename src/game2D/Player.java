@@ -4,7 +4,7 @@ import game2D.Collision.*;
 
 import org.newdawn.slick.*;
 
-public class Player extends Creature {
+public class Player extends Movable {
 
 	public Player(String ref) throws SlickException {
 		super(ref);
