@@ -40,7 +40,7 @@ public class PauseState extends BasicGameState {
 		mousePoint.setCenterX(input.getMouseX());
 		mousePoint.setCenterY(input.getMouseY());
 
-		if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			if (returnTo.intersects(mousePoint)) {
 				sbg.enterState(StateEnum.GAME, new FadeOutTransition(),
 						new FadeInTransition());

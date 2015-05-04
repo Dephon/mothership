@@ -10,13 +10,6 @@ import org.newdawn.slick.state.transition.*;
 import org.newdawn.slick.tiled.*;
 
 public class GameState extends BasicGameState {
-	Player player;
-	Entity[] enemies;
-	TiledMap gameMap;
-	AmmoManager ammoManager;
-	int fireTimer;
-	Obstacle wall;
-
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
@@ -26,10 +19,10 @@ public class GameState extends BasicGameState {
 		ammoManager = new AmmoManager(new Rectangle(0, 0, container.getWidth(),
 				container.getHeight()));
 		ammoManager.setAmmo(AmmoEnum.BULLET);
-		fireTimer = 0;
 		wall = new Obstacle("data/MetalBlock.png");
 		wall.create();
 		wall.setLoc(100, 0);
+		collisionDebug = false;
 		// container.setAnimatedMouseCursor(arg0, arg1, arg2, arg3, arg4, arg5);
 		// container.setDefaultMouseCursor();
 	}
@@ -68,7 +61,7 @@ public class GameState extends BasicGameState {
 					pVector.x += .1 * dt;
 			}
 			player.update(pVector);
-			if (input.isKeyDown(input.KEY_MINUS)) {
+			if (player.isDead()) {
 				sbg.enterState(StateEnum.GAME_OVER, new FadeOutTransition(),
 						new FadeInTransition());
 			}
@@ -83,13 +76,14 @@ public class GameState extends BasicGameState {
 			ammoManager.add(location, pVector);
 		}
 		ammoManager.update(dt);
+		collisionDebug = player.intersects(wall);
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame sbg,
 			Graphics graphics) throws SlickException {
 		gameMap.render(0, 0);
-		// ammoManager.draw();
+		graphics.drawString("Collision: " + collisionDebug, 800, 0);
 		ammoManager.debugDraw(graphics);
 		player.debugDraw(graphics);
 		wall.debugDraw(graphics);
@@ -99,5 +93,12 @@ public class GameState extends BasicGameState {
 	public int getID() {
 		return StateEnum.GAME;
 	}
+
+	Player player;
+	AmmoManager ammoManager;
+	EnemyManager enemies;
+	TiledMap gameMap;
+	Obstacle wall;
+	private boolean collisionDebug;
 
 }

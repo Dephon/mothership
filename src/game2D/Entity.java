@@ -1,5 +1,7 @@
 package game2D;
 
+import game2D.Collision.*;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
@@ -51,7 +53,7 @@ public abstract class Entity {
 		return box.getCenterY();
 	}
 
-	public Porygon getRectangle() {
+	public Porygon getPolygon() {
 		return box;
 	}
 
@@ -81,7 +83,10 @@ public abstract class Entity {
 	}
 
 	public boolean intersects(Entity rhs) {
-		return box.intersects(rhs.getRectangle());
+		if (Collision.intersects(this, rhs) == null)
+			return false;
+		else
+			return true;
 	}
 
 	public boolean intersects(Rectangle rhs) {

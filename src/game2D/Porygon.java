@@ -10,13 +10,16 @@ public class Porygon extends Polygon {
 		super();
 		sides = new ArrayList<Vector2f>();
 		pointCount = 0;
+		normalOfSides = new ArrayList<Vector2f>();
 	}
 
 	public Porygon(float[] point) {
 		super(point);
 		sides = new ArrayList<Vector2f>();
+		normalOfSides = new ArrayList<Vector2f>();
 		pointCount = points.length;
 		generateSides();
+		generateNormalOfSides();
 	}
 
 	@Override
@@ -24,6 +27,7 @@ public class Porygon extends Polygon {
 		super.addPoint(x, y);
 		pointCount++;
 		generateSides();
+		generateNormalOfSides();
 	}
 
 	public void setPoint(int ndx, float x, float y) {
@@ -36,16 +40,21 @@ public class Porygon extends Polygon {
 		return super.getPoint(ndx % pointCount);
 	}
 
-	private void generateSides() {
-		float x, y;
-		if (pointCount > 1) {
-			sides.clear();
-			for (int i = 0; i < pointCount; i++) {
-				x = getPoint(i + 1)[0] - getPoint(i)[0];
-				y = getPoint(i + 1)[1] - getPoint(i)[1];
-				sides.add(new Vector2f(x, y));
-			}
-		}
+	public Vector2f getPointVect(int ndx) {
+		float[] point = getPoint(ndx);
+		return new Vector2f(point[0], point[1]);
+	}
+
+	public int getPointCount() {
+		return pointCount;
+	}
+
+	public int getSideCount() {
+		return sides.size();
+	}
+
+	public Vector2f getNormalOfSide(int sideNum) {
+		return normalOfSides.get(sideNum);
 	}
 
 	public void rotate(double theta) {
@@ -66,9 +75,38 @@ public class Porygon extends Polygon {
 			temp_y += y_center;
 			setPoint(i, temp_x, temp_y);
 		}
+		generateSides();
+		generateNormalOfSides();
+	}
+
+	private void generateSides() {
+		float x, y;
+		if (pointCount > 1) {
+			sides.clear();
+			for (int i = 0; i < pointCount; i++) {
+				x = getPoint(i + 1)[0] - getPoint(i)[0];
+				y = getPoint(i + 1)[1] - getPoint(i)[1];
+				sides.add(new Vector2f(x, y));
+			}
+		}
+	}
+
+	private void generateNormalOfSides() {
+		Vector2f temp;
+		if (pointCount > 1) {
+			normalOfSides.clear();
+			for (int i = 0; i < pointCount; i++) {
+				temp = new Vector2f();
+				temp.set(sides.get(i).y, -1 * sides.get(i).x);
+				temp = temp.normalise();
+				normalOfSides.add(temp);
+			}
+		}
 	}
 
 	private ArrayList<Vector2f> sides;
+	private ArrayList<Vector2f> normalOfSides;
+
 	private int pointCount;
 	private static final long serialVersionUID = 1L;
 }

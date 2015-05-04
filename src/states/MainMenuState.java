@@ -35,7 +35,7 @@ public class MainMenuState extends BasicGameState {
 		mousePoint.setCenterX(input.getMouseX());
 		mousePoint.setCenterY(input.getMouseY());
 
-		if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			if (start.intersects(mousePoint)) {
 				sbg.enterState(1, new FadeOutTransition(),
 						new FadeInTransition());
