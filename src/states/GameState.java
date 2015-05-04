@@ -76,7 +76,9 @@ public class GameState extends BasicGameState {
 			ammoManager.add(location, pVector);
 		}
 		ammoManager.update(dt);
+		player.displace(wall);
 		collisionDebug = player.intersects(wall);
+
 	}
 
 	@Override

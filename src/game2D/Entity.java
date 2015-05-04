@@ -82,6 +82,11 @@ public abstract class Entity {
 		return dead;
 	}
 
+	public void displace(Entity rhs) {
+		location.add(Collision.intersects(this, rhs));
+		box.setLocation(location);
+	}
+
 	public boolean intersects(Entity rhs) {
 		if (Collision.intersects(this, rhs) == null)
 			return false;

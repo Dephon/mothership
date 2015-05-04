@@ -9,7 +9,7 @@ public class Collision {
 	// intersection of the obstacle
 	public static Vector2f intersects(Entity first, Entity second) {
 		int i;
-		// float mag = 0;
+		float mag = 0, temp;
 		float[] projA, projB;
 		Porygon a = first.getPolygon();
 		Porygon b = second.getPolygon();
@@ -22,11 +22,19 @@ public class Collision {
 			projB = vProjection(b, normal);
 
 			if (projA[1] > projB[0]) {
+				temp = Math.abs(projB[0] - projA[1]);
 				if (i == 0) {
-					// mag = Math.abs(projB[0] - projA[0]);
+					mag = temp;
+				} else {
+					if (mag > temp) {
+						finished.set(normal);
+						finished = finished.negate();
+						mag = temp;
+					}
 				}
 			} else {
-				return null;
+				finished.set(0, 0);
+				return finished;
 			}
 		}
 		return finished;
