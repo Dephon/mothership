@@ -1,29 +1,31 @@
 package game2D.Collision;
 
 import game2D.*;
-import game2D.Map;
 
 import java.util.*;
 
+import org.newdawn.slick.*;
+import org.newdawn.slick.tiled.*;
+
 public class CollisionMap {
-
+	private TiledMap map;
 	private Bucket[][] grid;
-	private int gridWidth, gridHeight;
+	private int gridWidth;
+	private int gridHeight;
 
-	public CollisionMap(Map map) {
-		gridWidth = map.getTiledMap().getWidth();
-		gridHeight = map.getTiledMap().getHeight();
+	public CollisionMap(String ref) throws SlickException {
+		map = new TiledMap(ref);
+		gridWidth = map.getWidth();
+		gridHeight = map.getHeight();
 		grid = new Bucket[gridWidth][gridHeight];
+		boolean isBlocked;
 
 		// set the collision type for the cell
-		for (int i = 0; i < map.getTiledMap().getHeight(); i++) {
-			for (int j = 0; j < map.getTiledMap().getWidth(); j++) {
-				if (map.getTiledMap()
-						.getTileProperty(map.getTiledMap().getTileId(i, j, 0),
-								"isBlocked", "no property").equals("true")) {
-					// grid[i][j].setCollision(new BlockedMovement());
-				}// Can add more cases once more collision types have been
-					// implemented.
+		for (int i = 0; i < gridHeight; i++) {
+			for (int j = 0; j < gridWidth; j++) {
+				isBlocked = map.getTileProperty(map.getTileId(i, j, 0),
+						"isBlocked", "no property").equals("true");
+				grid[i][j] = new Bucket(isBlocked);
 			}
 		}
 	}
@@ -50,7 +52,7 @@ public class CollisionMap {
 
 	// Want a list of entities.
 	public void fillGrid() {
-
+		// Place every entity that's alive in here
 	}
 
 	public void clearGrid() {
@@ -61,26 +63,12 @@ public class CollisionMap {
 		}
 	}
 
-	class Bucket {
-		// Collision type for tile
-		// private Collision tileCollision;
-		// Entities that occupy the tile.
-		private ArrayList<Entity> occupants;
-
-		Bucket() {
-			occupants = new ArrayList<Entity>();
+	public void render() {
+		map.render(0, 0);
+		for (int i = 0; i < gridWidth; i++) {
+			for (int j = 0; j < gridHeight; j++) {
+				grid[i][j].draw();
+			}
 		}
-
-		public void add(Entity ent) {
-			occupants.add(ent);
-		}
-
-		public void clear() {
-			occupants.clear();
-		}
-
-		// public void setCollision(Collision collision) {
-		// tileCollision = collision;
-		// }
 	}
 }

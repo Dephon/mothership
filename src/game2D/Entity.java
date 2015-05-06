@@ -88,7 +88,8 @@ public abstract class Entity {
 	}
 
 	public boolean intersects(Entity rhs) {
-		if (Collision.intersects(this, rhs) == null)
+		Vector2f test = Collision.intersects(this, rhs);
+		if (test.x == 0 && test.y == 0)
 			return false;
 		else
 			return true;

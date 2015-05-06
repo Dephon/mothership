@@ -6,12 +6,13 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
 public class AmmoManager {
-	public AmmoManager(Rectangle gameBounds) throws SlickException {
+	public AmmoManager(Rectangle gameBounds, int maxAmount)
+			throws SlickException {
 		bullets = new ArrayList<Bullet>();
 		missiles = new ArrayList<Missile>();
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < maxAmount; i++)
 			bullets.add((Bullet) AmmoFactory.getAmmo(AmmoEnum.BULLET));
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < maxAmount; i++)
 			missiles.add((Missile) AmmoFactory.getAmmo(AmmoEnum.MISSILE));
 		laser = (Laser) AmmoFactory.getAmmo(AmmoEnum.LASER);
 		this.gameBounds = gameBounds;
@@ -21,25 +22,26 @@ public class AmmoManager {
 		missileCount = 0;
 		missileIndex = 0;
 		bulletIndex = 0;
+		maxCount = maxAmount;
 	}
 
-	public void add(Vector2f position, Vector2f direction) {
+	public void addAmmo(Vector2f position, Vector2f direction) {
 		Vector2f posAmmo = new Vector2f(position);
 		float missleCenterX, missleCenterY;
 		if (currentAmmo == AmmoEnum.BULLET && fireTimer > 100) {
-			if (bulletCount < 100) {
+			if (bulletCount < maxCount) {
 				posAmmo.x -= bullets.get(bulletIndex).getCenterX();
 				posAmmo.y -= bullets.get(bulletIndex).getCenterY();
 				bullets.get(bulletIndex).create(posAmmo, direction);
 				bulletCount++;
 				bulletIndex++;
 				fireTimer = 0;
-				if (bulletIndex == 100)
+				if (bulletIndex == maxCount)
 					bulletIndex = 0;
 			}
 		} else if (currentAmmo == AmmoEnum.MISSILE && fireTimer > 200) {
 
-			if (missileCount < 100) {
+			if (missileCount < maxCount) {
 				missleCenterX = missiles.get(missileIndex).getCenterX();
 				missleCenterY = missiles.get(missileIndex).getCenterY();
 				posAmmo.x -= missleCenterX;
@@ -48,12 +50,40 @@ public class AmmoManager {
 				missileCount++;
 				missileIndex++;
 				fireTimer = 0;
-				if (missileIndex == 100)
+				if (missileIndex == maxCount)
 					missileIndex = 0;
 			}
 		} else if (currentAmmo == AmmoEnum.LASER && fireTimer > 1000) {
 
 		}
+	}
+
+	public void destroyAmmo(int ndx) {
+		bullets.get(ndx).destroy();
+	}
+
+	public int getBulletCount() {
+		return bulletCount;
+	}
+
+	public int getBulletIndex() {
+		return bulletIndex;
+	}
+
+	public int getMissileCount() {
+		return missileCount;
+	}
+
+	public int getMissileIndex() {
+		return missileIndex;
+	}
+
+	public void setAmmo(int AmmoEnum) {
+		currentAmmo = AmmoEnum;
+	}
+
+	public int getAmmo() {
+		return currentAmmo;
 	}
 
 	public void update(int dt) {
@@ -80,14 +110,6 @@ public class AmmoManager {
 			fireTimer += dt;
 	}
 
-	public int getMissileCount() {
-		return missileCount;
-	}
-
-	public int getMissileIndex() {
-		return missileIndex;
-	}
-
 	public void draw() {
 		for (Bullet bullet : bullets)
 			bullet.draw();
@@ -104,13 +126,22 @@ public class AmmoManager {
 		laser.debugDraw(graphics);
 	}
 
-	public void setAmmo(int AmmoEnum) {
-		currentAmmo = AmmoEnum;
-	}
-
-	public int getAmmo() {
-		return currentAmmo;
-	}
+	// public ArrayList<Bullet> getactiveBullets() {
+	// ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+	// int temp;
+	// ArrayList<Integer> list = new ArrayList<Integer>();
+	// for (int i = bulletCount; i > 0; i--) {
+	// temp = bulletIndex - i;
+	// temp = (temp + maxCount) % maxCount;
+	// bullets.add(this.bullets.get(temp));
+	// }
+	// for(int i = missileCount; i > 0; i--) {
+	// temp = missileIndex - i;
+	// temp = (temp + maxCount) % maxCount;
+	// list.add(temp);
+	// }
+	// return list;
+	// }
 
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Missile> missiles;
@@ -122,4 +153,5 @@ public class AmmoManager {
 	private int missileIndex;
 	private int currentAmmo;
 	private int fireTimer;
+	private int maxCount;
 }

@@ -13,18 +13,15 @@ public class GameState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
-		player = new Player("data/S3K_Hyper_Knuckles.gif", 0, 0); // Placeholder
+		player = new Player("data/S3K_Hyper_Knuckles.gif", 0, 0);
 		player.create();
 		gameMap = new TiledMap("maps/mothership level 1_basic.tmx");
 		ammoManager = new AmmoManager(new Rectangle(0, 0, container.getWidth(),
-				container.getHeight()));
+				container.getHeight()), 100);
 		ammoManager.setAmmo(AmmoEnum.BULLET);
 		wall = new Obstacle("data/MetalBlock.png");
 		wall.create();
 		wall.setLoc(100, 0);
-		collisionDebug = false;
-		// container.setAnimatedMouseCursor(arg0, arg1, arg2, arg3, arg4, arg5);
-		// container.setDefaultMouseCursor();
 	}
 
 	@Override
@@ -60,6 +57,9 @@ public class GameState extends BasicGameState {
 				if (player.getEndX() < container.getWidth())
 					pVector.x += .1 * dt;
 			}
+			if (input.isKeyDown(Input.KEY_0)) {
+				Debug();
+			}
 			player.update(pVector);
 			if (player.isDead()) {
 				sbg.enterState(StateEnum.GAME_OVER, new FadeOutTransition(),
@@ -73,11 +73,12 @@ public class GameState extends BasicGameState {
 			pVector.x = input.getAbsoluteMouseX() - player.getCenterX();
 			pVector.y = input.getAbsoluteMouseY() - player.getCenterY();
 			pVector = pVector.normalise();
-			ammoManager.add(location, pVector);
+			ammoManager.addAmmo(location, pVector);
 		}
 		ammoManager.update(dt);
+		// ammoManager.getactiveArray();
+
 		player.displace(wall);
-		collisionDebug = player.intersects(wall);
 
 	}
 
@@ -85,7 +86,7 @@ public class GameState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame sbg,
 			Graphics graphics) throws SlickException {
 		gameMap.render(0, 0);
-		graphics.drawString("Collision: " + collisionDebug, 800, 0);
+		graphics.drawString("Index: " + ammoManager.getMissileIndex(), 800, 0);
 		ammoManager.debugDraw(graphics);
 		player.debugDraw(graphics);
 		wall.debugDraw(graphics);
@@ -96,11 +97,13 @@ public class GameState extends BasicGameState {
 		return StateEnum.GAME;
 	}
 
+	public void Debug() {
+		return; // Add breakpoint here
+	}
+
 	Player player;
 	AmmoManager ammoManager;
 	EnemyManager enemies;
 	TiledMap gameMap;
 	Obstacle wall;
-	private boolean collisionDebug;
-
 }
