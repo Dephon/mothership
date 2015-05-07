@@ -7,31 +7,16 @@ public class Bullet extends Ammo {
 	public Bullet() throws SlickException {
 		super("data/Bullet.png");
 		this.speed = 1;
-
 	}
 
-	public Bullet(float x, float y) throws SlickException {
-		super("data/Bullet.png", x, y);
-		this.speed = 1;
-
+	public Bullet(Vector2f loc) throws SlickException {
+		super("data/Bullet.png", loc);
+		speed = 1;
 	}
 
-	public Bullet(int x, int y) throws SlickException {
-		super("data/Bullet.png", x, y);
-		this.speed = 1;
-
-	}
-
-	public Bullet(float x, float y, Vector2f direction) throws SlickException {
-		super("data/Bullet.png", x, y, direction);
-		this.speed = 1;
-
-	}
-
-	public Bullet(int x, int y, Vector2f direction) throws SlickException {
-		super("data/Bullet.png", x, y, direction);
-		this.speed = 1;
-
+	public Bullet(Vector2f loc, Vector2f dir) throws SlickException {
+		super("data/Bullet.png", loc, dir);
+		speed = 1;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package game2D.Projectile;
 
+import game2D.*;
+
 import java.util.*;
 
 import org.newdawn.slick.*;
@@ -126,22 +128,22 @@ public class AmmoManager {
 		laser.debugDraw(graphics);
 	}
 
-	// public ArrayList<Bullet> getactiveBullets() {
-	// ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-	// int temp;
-	// ArrayList<Integer> list = new ArrayList<Integer>();
-	// for (int i = bulletCount; i > 0; i--) {
-	// temp = bulletIndex - i;
-	// temp = (temp + maxCount) % maxCount;
-	// bullets.add(this.bullets.get(temp));
-	// }
-	// for(int i = missileCount; i > 0; i--) {
-	// temp = missileIndex - i;
-	// temp = (temp + maxCount) % maxCount;
-	// list.add(temp);
-	// }
-	// return list;
-	// }
+	public void displace(Entity second) {
+		ArrayList<Integer> n = getActiveBullets();
+		for (int i : n)
+			bullets.get(i).displace(second);
+	}
+
+	public ArrayList<Integer> getActiveBullets() {
+		ArrayList<Integer> bullets = new ArrayList<Integer>();
+		int temp;
+		for (int i = bulletCount; i > 0; i--) {
+			temp = bulletIndex - i;
+			temp = (temp + maxCount) % maxCount;
+			bullets.add(temp);
+		}
+		return bullets;
+	}
 
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Missile> missiles;

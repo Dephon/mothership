@@ -1,6 +1,7 @@
 package game2D;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.*;
 
 public class Player extends Movable {
 
@@ -9,13 +10,8 @@ public class Player extends Movable {
 		init();
 	}
 
-	public Player(String ref, float x, float y) throws SlickException {
-		super(ref, x, y);
-		init();
-	}
-
-	public Player(String ref, int x, int y) throws SlickException {
-		super(ref, x, y);
+	public Player(String ref, Vector2f loc) throws SlickException {
+		super(ref, loc);
 		init();
 	}
 

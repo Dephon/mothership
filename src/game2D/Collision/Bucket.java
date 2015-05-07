@@ -10,12 +10,12 @@ class Bucket {
 	// Collision type for tile
 	// private Collision tileCollision;
 	// Entities that occupy the tile.
-	private Obstacle obstacle;
+	private Immovable obstacle;
 	private ArrayList<Entity> occupants;
 	private boolean obstacleExists;
 
 	public Bucket(boolean obstExists) throws SlickException {
-		obstacle = new Obstacle("data/InvObs.png");
+		obstacle = new Immovable("data/InvObs.png");
 		occupants = new ArrayList<Entity>();
 		obstacleExists = obstExists;
 	}

@@ -8,20 +8,12 @@ public class Laser extends Ammo {
 		super("data/Bullet.png");
 	}
 
-	public Laser(float x, float y) throws SlickException {
-		super("data/Bullet.png", x, y);
+	public Laser(Vector2f loc) throws SlickException {
+		super("data/Bullet.png", loc);
 	}
 
-	public Laser(int x, int y) throws SlickException {
-		super("data/Bullet.png", x, y);
-	}
-
-	public Laser(float x, float y, Vector2f direction) throws SlickException {
-		super("data/Bullet.png", x, y, direction);
-	}
-
-	public Laser(int x, int y, Vector2f direction) throws SlickException {
-		super("data/Bullet.png", x, y, direction);
+	public Laser(Vector2f loc, Vector2f dir) throws SlickException {
+		super("data/Bullet.png", loc, dir);
 	}
 
 	@Override

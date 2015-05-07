@@ -13,13 +13,14 @@ public class GameState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
-		player = new Player("data/S3K_Hyper_Knuckles.gif", 0, 0);
+		player = new Player("data/S3K_Hyper_Knuckles.gif", new Vector2f());
 		player.create();
+		player.setSpeed(.1f);
 		gameMap = new TiledMap("maps/mothership level 1_basic.tmx");
 		ammoManager = new AmmoManager(new Rectangle(0, 0, container.getWidth(),
 				container.getHeight()), 100);
 		ammoManager.setAmmo(AmmoEnum.BULLET);
-		wall = new Obstacle("data/MetalBlock.png");
+		wall = new Immovable("data/MetalBlock.png");
 		wall.create();
 		wall.setLoc(100, 0);
 	}
@@ -43,24 +44,24 @@ public class GameState extends BasicGameState {
 			}
 			if (input.isKeyDown(Input.KEY_W)) { // Move up
 				if (player.getOriginY() >= 0)
-					pVector.y += -.1 * dt;
+					pVector.y += -1;
 			}
 			if (input.isKeyDown(Input.KEY_S)) { // Move Down
 				if (player.getEndY() < container.getHeight())
-					pVector.y += .1 * dt;
+					pVector.y += 1;
 			}
 			if (input.isKeyDown(Input.KEY_A)) { // Move Left
 				if (player.getOriginX() >= 0)
-					pVector.x += -.1 * dt;
+					pVector.x += -1;
 			}
 			if (input.isKeyDown(Input.KEY_D)) { // Move Right
 				if (player.getEndX() < container.getWidth())
-					pVector.x += .1 * dt;
+					pVector.x += 1;
 			}
 			if (input.isKeyDown(Input.KEY_0)) {
 				Debug();
 			}
-			player.update(pVector);
+			player.update(pVector, dt);
 			if (player.isDead()) {
 				sbg.enterState(StateEnum.GAME_OVER, new FadeOutTransition(),
 						new FadeInTransition());
@@ -85,7 +86,7 @@ public class GameState extends BasicGameState {
 		// ammoManager.getactiveArray();
 
 		player.displace(wall);
-
+		ammoManager.displace(wall);
 	}
 
 	@Override
@@ -112,5 +113,5 @@ public class GameState extends BasicGameState {
 	AmmoManager ammoManager;
 	EnemyManager enemies;
 	TiledMap gameMap;
-	Obstacle wall;
+	Immovable wall;
 }

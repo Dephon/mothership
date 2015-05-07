@@ -12,10 +12,18 @@ public class Collision {
 		float[] projA, projB;
 		Porygon a = first.getPolygon();
 		Porygon b = second.getPolygon();
+		int total = b.getSideCount();
 		Vector2f normal, finished = new Vector2f();
 
-		for (int i = 0; i < a.getSideCount(); i++) {
-			normal = a.getNormalOfSide(i);
+		if (first.getSpeed() == 1f) {
+			first.setSpeed(1f);
+		}
+		for (int i = 0; i < total; i++) {
+			// if (total > a.getSideCount()) {
+			normal = b.getNormalOfSide(i);
+			// } else {
+			// normal = a.getNormalOfSide(i);
+			// }
 			projA = vProjection(a, normal);
 			projB = vProjection(b, normal);
 

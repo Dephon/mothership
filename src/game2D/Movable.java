@@ -1,29 +1,23 @@
 package game2D;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.*;
 
 public abstract class Movable extends Entity {
 
 	public Movable(String ref) throws SlickException {
 		super(ref);
-		// init();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Movable(String ref, float x, float y) throws SlickException {
-		super(ref, x, y);
-		// init();
-	}
-
-	public Movable(String ref, int x, int y) throws SlickException {
-		super(ref, x, y);
-		// init();
+	public Movable(String ref, Vector2f loc) throws SlickException {
+		super(ref, loc);
+		// TODO Auto-generated constructor stub
 	}
 
 	// private void init() {
 	// health = 100;
 	// }
-
-	public int health;
 
 	public void takeDamage(int dmg) {
 		health -= dmg;
@@ -34,5 +28,7 @@ public abstract class Movable extends Entity {
 			dead = true;
 		}
 	}
+
+	public int health;
 
 }

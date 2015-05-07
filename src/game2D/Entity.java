@@ -10,22 +10,30 @@ public abstract class Entity {
 	public Entity(String ref) throws SlickException {
 		sprite = new Image(ref);
 		location = new Vector2f(0, 0);
+		direction = new Vector2f(0, 0);
 		box = makeBox(0, 0, sprite.getWidth(), sprite.getHeight());
-		dead = true;
-	}
-
-	public Entity(String ref, float x, float y) throws SlickException {
-		sprite = new Image(ref);
-		location = new Vector2f(x, y);
-		box = makeBox(x, y, sprite.getWidth(), sprite.getHeight());
+		speed = 0;
 		dead = true;
 	}
 
 	public Entity(String ref, Vector2f loc) throws SlickException {
 		sprite = new Image(ref);
+		location = new Vector2f(0, 0);
+		direction = new Vector2f(0, 0);
 		location.set(loc);
-		box = makeBox(location.x, location.y, sprite.getWidth(),
-				sprite.getHeight());
+		box = makeBox(loc.x, loc.y, sprite.getWidth(), sprite.getHeight());
+		speed = 0;
+		dead = true;
+	}
+
+	public Entity(String ref, Vector2f loc, Vector2f dir) throws SlickException {
+		sprite = new Image(ref);
+		location = new Vector2f(0, 0);
+		direction = new Vector2f(0, 0);
+		location.set(loc);
+		direction.set(dir);
+		box = makeBox(loc.x, loc.y, sprite.getWidth(), sprite.getHeight());
+		speed = 0;
 		dead = true;
 	}
 
@@ -67,6 +75,14 @@ public abstract class Entity {
 		box.setY(y);
 	}
 
+	public void setSpeed(float sp) {
+		speed = sp;
+	}
+
+	public float getSpeed() {
+		return speed;
+	}
+
 	public void setLoc(Vector2f loc) {
 		location.set(loc);
 		box.setLocation(location);
@@ -78,13 +94,32 @@ public abstract class Entity {
 		box.setLocation(location);
 	}
 
+	public void setDir(Vector2f dir) {
+		direction.set(dir);
+	}
+
+	public void setDir(float x, float y) {
+		direction.set(x, y);
+	}
+
+	public void setVelocity(Vector2f dir, int speed) {
+		direction.set(dir);
+		this.speed = speed;
+	}
+
 	public boolean isDead() {
 		return dead;
 	}
 
-	public void displace(Entity rhs) {
-		location.add(Collision.intersects(this, rhs));
-		box.setLocation(location);
+	public boolean displace(Entity rhs) {
+		Vector2f dis = Collision.intersects(this, rhs);
+		if (dis.x == 0 && dis.y == 0) {
+			return false;
+		} else {
+			location.add(dis);
+			box.setLocation(location);
+			return true;
+		}
 	}
 
 	public boolean intersects(Entity rhs) {
@@ -103,9 +138,25 @@ public abstract class Entity {
 		dead = false;
 	}
 
+	public void create(Vector2f loc) {
+		dead = false;
+		setLoc(loc);
+	}
+
+	public void create(Vector2f loc, Vector2f dir) {
+		dead = false;
+		setLoc(loc);
+		direction.set(dir);
+	}
+
 	public void destroy() {
-		dead = true;
-		setLoc(0, 0);
+		if (!dead) {
+			dead = true;
+			speed = 0;
+			direction.x = 0;
+			direction.y = 0;
+			setLoc(0, 0);
+		}
 	}
 
 	public void draw() {
@@ -120,9 +171,25 @@ public abstract class Entity {
 		}
 	}
 
-	public void update(Vector2f movement) {
+	public void update(int dt) {
 		if (!dead) {
-			location.add(movement);
+			Vector2f dV = new Vector2f();
+			dV.set(direction);
+			dV.x *= speed * dt;
+			dV.y *= speed * dt;
+			location.add(dV);
+			box.setLocation(location);
+		}
+	}
+
+	public void update(Vector2f dir, int dt) {
+		if (!dead) {
+			Vector2f dV = new Vector2f();
+			direction.set(dir);
+			dV.set(dir);
+			dV.x *= speed * dt;
+			dV.y *= speed * dt;
+			location.add(dV);
 			box.setLocation(location);
 		}
 	}
@@ -136,11 +203,40 @@ public abstract class Entity {
 		return temp;
 	}
 
+	public Vector2f getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Vector2f dir) {
+		direction.set(dir);
+	}
+
 	public abstract void handleCollisions();
 
+	/**
+	 * Rotates both the Image and Polygon with respect to the x axis
+	 * 
+	 * @param reverse
+	 *            if true the rotation is counter clockwise, otherwise clockwise
+	 *
+	 **/
+	protected void rotate(boolean reverse) {
+		float theta;
+
+		if (reverse)
+			theta = (float) (360 - direction.getTheta());
+		else
+			theta = (float) direction.getTheta();
+
+		sprite.rotate(theta);
+		box.rotate(theta);
+	}
+
 	protected boolean dead;
+	protected float speed;
 	protected Image sprite;
 	protected Porygon box;
+	protected Vector2f direction;
 	protected Vector2f location;
 	protected Animation currentAnimation;
 }

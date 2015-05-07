@@ -1,21 +1,21 @@
 package game2D;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.*;
 
-public abstract class Immovable extends Entity {
+public class Immovable extends Entity {
 
 	public Immovable(String ref) throws SlickException {
 		super(ref);
-		// TODO Auto-generated constructor stub
 	}
 
-	public Immovable(String ref, float x, float y) throws SlickException {
-		super(ref, x, y);
-		// TODO Auto-generated constructor stub
+	public Immovable(String ref, Vector2f loc) throws SlickException {
+		super(ref, loc);
 	}
 
-	public Immovable(String ref, int x, int y) throws SlickException {
-		super(ref, x, y);
-		// TODO Auto-generated constructor stub
+	@Override
+	public void handleCollisions() {
+		// TODO Auto-generated method stub
+
 	}
 }

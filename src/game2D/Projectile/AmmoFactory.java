@@ -19,11 +19,11 @@ public class AmmoFactory {
 	public static Ammo getAmmo(int ammoEnum, float x, float y)
 			throws SlickException {
 		if (ammoEnum == AmmoEnum.BULLET) {
-			return new Bullet(x, y);
+			return new Bullet(new Vector2f(x, y));
 		} else if (ammoEnum == AmmoEnum.MISSILE) {
-			return new Missile(x, y);
+			return new Missile(new Vector2f(x, y));
 		} else if (ammoEnum == AmmoEnum.LASER) {
-			return new Laser(x, y);
+			return new Laser(new Vector2f(x, y));
 		} else {
 			return null;
 		}
@@ -32,11 +32,11 @@ public class AmmoFactory {
 	public static Ammo getAmmo(int ammoEnum, int x, int y)
 			throws SlickException {
 		if (ammoEnum == AmmoEnum.BULLET) {
-			return new Bullet(x, y);
+			return new Bullet(new Vector2f(x, y));
 		} else if (ammoEnum == AmmoEnum.MISSILE) {
-			return new Missile(x, y);
+			return new Missile(new Vector2f(x, y));
 		} else if (ammoEnum == AmmoEnum.LASER) {
-			return new Laser(x, y);
+			return new Laser(new Vector2f(x, y));
 		} else {
 			return null;
 		}
@@ -45,11 +45,11 @@ public class AmmoFactory {
 	public static Ammo getAmmo(int ammoEnum, float x, float y,
 			Vector2f direction) throws SlickException {
 		if (ammoEnum == AmmoEnum.BULLET) {
-			return new Bullet(x, y, direction);
+			return new Bullet(new Vector2f(x, y), direction);
 		} else if (ammoEnum == AmmoEnum.MISSILE) {
-			return new Missile(x, y, direction);
+			return new Missile(new Vector2f(x, y), direction);
 		} else if (ammoEnum == AmmoEnum.LASER) {
-			return new Laser(x, y, direction);
+			return new Laser(new Vector2f(x, y), direction);
 		} else {
 			return null;
 		}
@@ -58,11 +58,11 @@ public class AmmoFactory {
 	public static Ammo getAmmo(int ammoEnum, int x, int y, Vector2f direction)
 			throws SlickException {
 		if (ammoEnum == AmmoEnum.BULLET) {
-			return new Bullet(x, y, direction);
+			return new Bullet(new Vector2f(x, y), direction);
 		} else if (ammoEnum == AmmoEnum.MISSILE) {
-			return new Missile(x, y, direction);
+			return new Missile(new Vector2f(x, y), direction);
 		} else if (ammoEnum == AmmoEnum.LASER) {
-			return new Laser(x, y, direction);
+			return new Laser(new Vector2f(x, y), direction);
 		} else {
 			return null;
 		}
