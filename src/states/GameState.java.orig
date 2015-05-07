@@ -22,6 +22,13 @@ public class GameState extends BasicGameState {
 		wall = new Obstacle("data/MetalBlock.png");
 		wall.create();
 		wall.setLoc(100, 0);
+<<<<<<< local
+		collisionDebug = false;
+		// container.setAnimatedMouseCursor(arg0, arg1, arg2, arg3, arg4, arg5);
+		// container.setDefaultMouseCursor();
+		uITest = new Image("data/UI/doom bar.png");
+=======
+>>>>>>> other
 	}
 
 	@Override
@@ -65,12 +72,6 @@ public class GameState extends BasicGameState {
 				sbg.enterState(StateEnum.GAME_OVER, new FadeOutTransition(),
 						new FadeInTransition());
 			}
-			if (input.isKeyPressed(Input.KEY_1)) {
-				player.takeDamage(10);
-			}
-			if (input.isKeyPressed(Input.KEY_2)) {
-				player.takeDamage(-10);
-			}
 		}
 
 		if (input.isMouseButtonDown(0)) {
@@ -95,8 +96,8 @@ public class GameState extends BasicGameState {
 		graphics.drawString("Index: " + ammoManager.getMissileIndex(), 800, 0);
 		ammoManager.debugDraw(graphics);
 		player.debugDraw(graphics);
-		player.drawUI();
 		wall.debugDraw(graphics);
+		uITest.draw(0, container.getHeight() - uITest.getHeight());
 	}
 
 	@Override
@@ -113,4 +114,9 @@ public class GameState extends BasicGameState {
 	EnemyManager enemies;
 	TiledMap gameMap;
 	Obstacle wall;
+<<<<<<< local
+	private boolean collisionDebug;
+	Image uITest;
+=======
+>>>>>>> other
 }

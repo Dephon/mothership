@@ -6,19 +6,33 @@ public abstract class Movable extends Entity {
 
 	public Movable(String ref) throws SlickException {
 		super(ref);
-		// TODO Auto-generated constructor stub
+		// init();
 	}
 
 	public Movable(String ref, float x, float y) throws SlickException {
 		super(ref, x, y);
-		// TODO Auto-generated constructor stub
+		// init();
 	}
 
 	public Movable(String ref, int x, int y) throws SlickException {
 		super(ref, x, y);
-		// TODO Auto-generated constructor stub
+		// init();
 	}
 
+	// private void init() {
+	// health = 100;
+	// }
+
 	public int health;
+
+	public void takeDamage(int dmg) {
+		health -= dmg;
+		if (health > 100)
+			health = 100;
+		if (health <= 0) {
+			health = 0;
+			dead = true;
+		}
+	}
 
 }

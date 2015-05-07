@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="16" tileheight="16" nextobjectid="1">
- <tileset firstgid="1" source="loz backgrounds.tsx"/>
- <layer name="Tile Layer 1" width="16" height="16">
-  <data encoding="base64" compression="zlib">
-   eJx9kesNwjAMhENVMUFALNDymAAhJmCFljABKEN0cK6SI1mnc398qp30znZcUkoFfIgJvO1u5QKu4GZ55+6K82ix1x/AA+zA03LWebxe1VFa7oH7Z/8uqB3pVa1o9qafwQss9lWwb+vrC37G4mJG9ZQJfx71Hc2Vxb/qPTlnfQ3eWumy5VWwnvdgH/Ts/SrVbfERnDZ2qjzYK5pTzcK72JqdfQcwgnOwH7UXr707RuH1BzskVSg=
-  </data>
- </layer>
-</map>
