@@ -16,53 +16,27 @@ public class AmmoFactory {
 		}
 	}
 
-	public static Ammo getAmmo(int ammoEnum, float x, float y)
+	public static Ammo getAmmo(int ammoEnum, float locX, float locY)
 			throws SlickException {
 		if (ammoEnum == AmmoEnum.BULLET) {
-			return new Bullet(new Vector2f(x, y));
+			return new Bullet(new Vector2f(locX, locY));
 		} else if (ammoEnum == AmmoEnum.MISSILE) {
-			return new Missile(new Vector2f(x, y));
+			return new Missile(new Vector2f(locX, locY));
 		} else if (ammoEnum == AmmoEnum.LASER) {
-			return new Laser(new Vector2f(x, y));
+			return new Laser(new Vector2f(locX, locY));
 		} else {
 			return null;
 		}
 	}
 
-	public static Ammo getAmmo(int ammoEnum, int x, int y)
-			throws SlickException {
-		if (ammoEnum == AmmoEnum.BULLET) {
-			return new Bullet(new Vector2f(x, y));
-		} else if (ammoEnum == AmmoEnum.MISSILE) {
-			return new Missile(new Vector2f(x, y));
-		} else if (ammoEnum == AmmoEnum.LASER) {
-			return new Laser(new Vector2f(x, y));
-		} else {
-			return null;
-		}
-	}
-
-	public static Ammo getAmmo(int ammoEnum, float x, float y,
+	public static Ammo getAmmo(int ammoEnum, float locX, float locY,
 			Vector2f direction) throws SlickException {
 		if (ammoEnum == AmmoEnum.BULLET) {
-			return new Bullet(new Vector2f(x, y), direction);
+			return new Bullet(new Vector2f(locX, locY), direction);
 		} else if (ammoEnum == AmmoEnum.MISSILE) {
-			return new Missile(new Vector2f(x, y), direction);
+			return new Missile(new Vector2f(locX, locY), direction);
 		} else if (ammoEnum == AmmoEnum.LASER) {
-			return new Laser(new Vector2f(x, y), direction);
-		} else {
-			return null;
-		}
-	}
-
-	public static Ammo getAmmo(int ammoEnum, int x, int y, Vector2f direction)
-			throws SlickException {
-		if (ammoEnum == AmmoEnum.BULLET) {
-			return new Bullet(new Vector2f(x, y), direction);
-		} else if (ammoEnum == AmmoEnum.MISSILE) {
-			return new Missile(new Vector2f(x, y), direction);
-		} else if (ammoEnum == AmmoEnum.LASER) {
-			return new Laser(new Vector2f(x, y), direction);
+			return new Laser(new Vector2f(locX, locY), direction);
 		} else {
 			return null;
 		}

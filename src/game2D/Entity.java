@@ -107,6 +107,14 @@ public abstract class Entity {
 		this.speed = speed;
 	}
 
+	public Vector2f getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Vector2f dir) {
+		direction.set(dir);
+	}
+
 	public boolean isDead() {
 		return dead;
 	}
@@ -201,14 +209,6 @@ public abstract class Entity {
 		for (float[] i : points)
 			temp.addPoint(i[0], i[1]);
 		return temp;
-	}
-
-	public Vector2f getDirection() {
-		return direction;
-	}
-
-	public void setDirection(Vector2f dir) {
-		direction.set(dir);
 	}
 
 	public abstract void handleCollisions();

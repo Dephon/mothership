@@ -132,9 +132,12 @@ public class AmmoManager {
 		ArrayList<Integer> n = getActiveBullets();
 		for (int i : n)
 			bullets.get(i).displace(second);
+		n = getActiveMissiles();
+		for (int i : n)
+			missiles.get(i).displace(second);
 	}
 
-	public ArrayList<Integer> getActiveBullets() {
+	private ArrayList<Integer> getActiveBullets() {
 		ArrayList<Integer> bullets = new ArrayList<Integer>();
 		int temp;
 		for (int i = bulletCount; i > 0; i--) {
@@ -143,6 +146,17 @@ public class AmmoManager {
 			bullets.add(temp);
 		}
 		return bullets;
+	}
+
+	private ArrayList<Integer> getActiveMissiles() {
+		ArrayList<Integer> missiles = new ArrayList<Integer>();
+		int temp;
+		for (int i = missileCount; i > 0; i--) {
+			temp = missileIndex - i;
+			temp = (temp + maxCount) % maxCount;
+			missiles.add(temp);
+		}
+		return missiles;
 	}
 
 	private ArrayList<Bullet> bullets;

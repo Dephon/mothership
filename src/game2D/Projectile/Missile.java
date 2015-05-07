@@ -1,22 +1,48 @@
 package game2D.Projectile;
 
+import game2D.*;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
 public class Missile extends Ammo {
 	public Missile() throws SlickException {
 		super("data/Missile.png");
-		this.jerk = .00001f;
+		jerk = .00001f;
 	}
 
 	public Missile(Vector2f loc) throws SlickException {
 		super("data/Missile.png", loc);
-		this.jerk = .00001f;
+		jerk = .00001f;
 	}
 
 	public Missile(Vector2f loc, Vector2f dir) throws SlickException {
 		super("data/Missile.png", loc, dir);
-		this.jerk = .00001f;
+		jerk = .00001f;
+	}
+
+	@Override
+	public void create() {
+		if (dead) {
+			jerk = .00001f;
+		}
+	}
+
+	@Override
+	public void destroy() {
+		if (!dead) {
+			jerk = 0;
+			super.destroy();
+		}
+	}
+
+	@Override
+	public boolean displace(Entity rhs) {
+		boolean displaced = super.displace(rhs);
+		if (displaced) {
+			jerk = 0;
+		}
+		return displaced;
 	}
 
 	@Override

@@ -2,45 +2,45 @@ package game2D.Collision;
 
 import game2D.*;
 
+import java.util.*;
+
 import org.newdawn.slick.geom.*;
 
 public class Collision {
-	// TODO: return a displacement vector that can move the player out of the
-	// intersection of the obstacle
 	public static Vector2f intersects(Entity first, Entity second) {
-		float temp, mag = 0;
+		ArrayList<Vector2f> normalList = new ArrayList<Vector2f>();
+		float temp, magnitude = 0;
 		float[] projA, projB;
+		int ndx;
 		Porygon a = first.getPolygon();
 		Porygon b = second.getPolygon();
-		int total = b.getSideCount();
-		Vector2f normal, finished = new Vector2f();
+		Vector2f seperation = new Vector2f();
 
-		if (first.getSpeed() == 1f) {
-			first.setSpeed(1f);
+		for (ndx = 0; ndx < a.getSideCount(); ndx++) {
+			normalList.add(a.getNormalOfSide(ndx));
 		}
-		for (int i = 0; i < total; i++) {
-			// if (total > a.getSideCount()) {
-			normal = b.getNormalOfSide(i);
-			// } else {
-			// normal = a.getNormalOfSide(i);
-			// }
-			projA = vProjection(a, normal);
-			projB = vProjection(b, normal);
+		for (ndx = 0; ndx < b.getSideCount(); ndx++) {
+			normalList.add(b.getNormalOfSide(ndx));
+		}
+
+		for (ndx = 0; ndx < normalList.size(); ndx++) {
+			projA = vProjection(a, normalList.get(ndx));
+			projB = vProjection(b, normalList.get(ndx));
 
 			if (projA[1] > projB[0]) {
 				temp = Math.abs(projB[0] - projA[1]);
-				if (i == 0 || mag > temp) {
-					finished.set(normal);
-					finished = finished.negate();
-					mag = temp;
+				if (ndx == 0 || magnitude > temp) {
+					seperation.set(normalList.get(ndx));
+					seperation = seperation.negate();
+					magnitude = temp;
 				}
 			} else {
-				finished.set(0, 0);
-				return finished;
+				seperation.set(0, 0);
+				return seperation;
 			}
 		}
-		finished.scale(mag);
-		return finished;
+		seperation.scale(magnitude);
+		return seperation;
 	}
 
 	private static float[] vProjection(Porygon a, Vector2f normal) {

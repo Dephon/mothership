@@ -59,7 +59,8 @@ public abstract class Ammo extends Entity {
 	public boolean displace(Entity rhs) {
 		boolean displaced = super.displace(rhs);
 		if (displaced) {
-			// speed = speed;
+			acceleration = 0;
+			speed = 0;
 		}
 		return displaced;
 	}
