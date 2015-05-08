@@ -23,7 +23,7 @@ public class UI {
 		}
 
 		// Set to healthy by default.
-		curPortrait = portraits[UI.PORTRAIT_HEALTHY];
+		curPortrait = portraits[Player.PORTRAIT_HEALTHY];
 
 		// INIT NUMBERS
 		SpriteSheet nums = new SpriteSheet(
@@ -58,15 +58,15 @@ public class UI {
 
 	private void updatePortrait() {
 		if (health >= 80) {
-			curPortrait = portraits[UI.PORTRAIT_HEALTHY];
+			curPortrait = portraits[Player.PORTRAIT_HEALTHY];
 		} else if (health >= 60) {
-			curPortrait = portraits[UI.PORTRAIT_SLIGHT_DAMAGE];
+			curPortrait = portraits[Player.PORTRAIT_SLIGHT_DAMAGE];
 		} else if (health >= 40) {
-			curPortrait = portraits[UI.PORTRAIT_SHAKEN_UP];
+			curPortrait = portraits[Player.PORTRAIT_SHAKEN_UP];
 		} else if (health >= 20) {
-			curPortrait = portraits[UI.PORTRAIT_HEAVY_DAMAGE];
+			curPortrait = portraits[Player.PORTRAIT_HEAVY_DAMAGE];
 		} else if (health < 20) {
-			curPortrait = portraits[UI.PORTRAIT_DYING];
+			curPortrait = portraits[Player.PORTRAIT_DYING];
 		}
 	}
 
@@ -78,12 +78,6 @@ public class UI {
 			secondDigit = numbers[health / 10];
 		firstDigit = numbers[health / 100];
 	}
-
-	public static int PORTRAIT_HEALTHY = 0;
-	public static int PORTRAIT_SLIGHT_DAMAGE = 1;
-	public static int PORTRAIT_SHAKEN_UP = 2;
-	public static int PORTRAIT_HEAVY_DAMAGE = 3;
-	public static int PORTRAIT_DYING = 4;
 
 	private int health;
 	private Image firstDigit;

@@ -24,41 +24,22 @@ public class Player extends Movable {
 	public void init() throws SlickException {
 		health = 100;
 		ui = new UI();
-		SpriteSheet movement = new SpriteSheet(new Image(
-				"data/sprites/move_animations.png"), 40, 40);
-		movementAnimations = new Animation[movement.getVerticalCount()];
-
-		for (int i = 0; i < movement.getVerticalCount(); i++) {
-			movementAnimations[i] = new Animation();
-			for (int j = 0; j < movement.getHorizontalCount(); j++) {
-				movementAnimations[i].addFrame(movement.getSprite(j, i), 200);
-			}
-		}
-
-		// Start in the downward position.
-		currentAnimation = movementAnimations[Player.DIRECTION_SOUTH];
-		updateBox();
 	}
 
 	public void updateUI() {
 		ui.update(health);
-
 	}
 
 	public void drawUI() {
 		ui.draw();
 	}
 
-	public static int DIRECTION_NORTH = 0;
-	public static int DIRECTION_NORTHEAST = 1;
-	public static int DIRECTION_EAST = 2;
-	public static int DIRECTION_SOUTHEAST = 3;
-	public static int DIRECTION_SOUTH = 4;
-	public static int DIRECTION_SOUTHWEST = 5;
-	public static int DIRECTION_WEST = 6;
-	public static int DIRECTION_NORTHWEST = 7;
+	public static int PORTRAIT_HEALTHY = 0;
+	public static int PORTRAIT_SLIGHT_DAMAGE = 1;
+	public static int PORTRAIT_SHAKEN_UP = 2;
+	public static int PORTRAIT_HEAVY_DAMAGE = 3;
+	public static int PORTRAIT_DYING = 4;
 
-	Animation[] movementAnimations;
 	private UI ui;
 }
 // @Override

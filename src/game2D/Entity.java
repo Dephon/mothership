@@ -13,7 +13,8 @@ public abstract class Entity {
 		currentAnimation.addFrame(new Image(ref), 1000);
 		location = new Vector2f(0, 0);
 		direction = new Vector2f(0, 0);
-		updateBox();
+		box = makeBox(0, 0, currentAnimation.getWidth(),
+				currentAnimation.getHeight());
 		speed = 0;
 		dead = true;
 	}
@@ -24,7 +25,8 @@ public abstract class Entity {
 		location = new Vector2f(0, 0);
 		direction = new Vector2f(0, 0);
 		location.set(loc);
-		updateBox();
+		box = makeBox(loc.x, loc.y, currentAnimation.getWidth(),
+				currentAnimation.getHeight());
 		speed = 0;
 		dead = true;
 	}
@@ -36,7 +38,8 @@ public abstract class Entity {
 		direction = new Vector2f(0, 0);
 		location.set(loc);
 		direction.set(dir);
-		updateBox();
+		box = makeBox(loc.x, loc.y, currentAnimation.getWidth(),
+				currentAnimation.getHeight());
 		speed = 0;
 		dead = true;
 	}
@@ -213,17 +216,6 @@ public abstract class Entity {
 		for (float[] i : points)
 			temp.addPoint(i[0], i[1]);
 		return temp;
-	}
-
-	protected void updateBox() {
-		float[][] points = { { location.x, location.y },
-				{ currentAnimation.getWidth(), location.y },
-				{ currentAnimation.getWidth(), currentAnimation.getHeight() },
-				{ location.x, currentAnimation.getHeight() } };
-		Porygon temp = new Porygon();
-		for (float[] i : points)
-			temp.addPoint(i[0], i[1]);
-		box = temp;
 	}
 
 	public abstract void handleCollisions();
