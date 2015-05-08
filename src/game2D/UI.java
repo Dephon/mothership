@@ -38,6 +38,7 @@ public class UI {
 				k++;
 			}
 		}
+		updateHealthCounter();
 	}
 
 	public void draw() {
@@ -65,7 +66,7 @@ public class UI {
 			curPortrait = portraits[Player.PORTRAIT_SHAKEN_UP];
 		} else if (health >= 20) {
 			curPortrait = portraits[Player.PORTRAIT_HEAVY_DAMAGE];
-		} else if (health > 20) {
+		} else if (health < 20) {
 			curPortrait = portraits[Player.PORTRAIT_DYING];
 		}
 	}
