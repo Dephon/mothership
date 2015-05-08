@@ -22,8 +22,8 @@ public class Player extends Movable {
 	}
 
 	public void init() throws SlickException {
-		ui = new UI();
 		health = 100;
+		ui = new UI();
 	}
 
 	public void updateUI() {

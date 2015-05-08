@@ -87,6 +87,7 @@ public class GameState extends BasicGameState {
 		}
 		ammoManager.update(dt);
 		enemyManager.update(dt);
+		player.updateUI();
 		player.displace(wall);
 		ammoManager.displace(wall);
 		enemyManager.displace(wall);

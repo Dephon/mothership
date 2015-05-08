@@ -8,31 +8,38 @@ import org.newdawn.slick.geom.*;
 public abstract class Entity {
 
 	public Entity(String ref) throws SlickException {
-		sprite = new Image(ref);
+		// Every entity will have a default animation
+		currentAnimation = new Animation();
+		currentAnimation.addFrame(new Image(ref), 1000);
 		location = new Vector2f(0, 0);
 		direction = new Vector2f(0, 0);
-		box = makeBox(0, 0, sprite.getWidth(), sprite.getHeight());
+		box = makeBox(0, 0, currentAnimation.getWidth(),
+				currentAnimation.getHeight());
 		speed = 0;
 		dead = true;
 	}
 
 	public Entity(String ref, Vector2f loc) throws SlickException {
-		sprite = new Image(ref);
+		currentAnimation = new Animation();
+		currentAnimation.addFrame(new Image(ref), 1000);
 		location = new Vector2f(0, 0);
 		direction = new Vector2f(0, 0);
 		location.set(loc);
-		box = makeBox(loc.x, loc.y, sprite.getWidth(), sprite.getHeight());
+		box = makeBox(loc.x, loc.y, currentAnimation.getWidth(),
+				currentAnimation.getHeight());
 		speed = 0;
 		dead = true;
 	}
 
 	public Entity(String ref, Vector2f loc, Vector2f dir) throws SlickException {
-		sprite = new Image(ref);
+		currentAnimation = new Animation();
+		currentAnimation.addFrame(new Image(ref), 1000);
 		location = new Vector2f(0, 0);
 		direction = new Vector2f(0, 0);
 		location.set(loc);
 		direction.set(dir);
-		box = makeBox(loc.x, loc.y, sprite.getWidth(), sprite.getHeight());
+		box = makeBox(loc.x, loc.y, currentAnimation.getWidth(),
+				currentAnimation.getHeight());
 		speed = 0;
 		dead = true;
 	}
@@ -169,13 +176,13 @@ public abstract class Entity {
 
 	public void draw() {
 		if (!dead)
-			sprite.draw(box.getX(), box.getY());
+			currentAnimation.draw(box.getX(), box.getY());
 	}
 
 	public void debugDraw(Graphics graphics) {
 		if (!dead) {
 			graphics.draw(box);
-			sprite.draw(box.getX(), box.getY());
+			currentAnimation.draw(box.getX(), box.getY());
 		}
 	}
 
@@ -228,13 +235,18 @@ public abstract class Entity {
 		else
 			theta = (float) direction.getTheta();
 
-		sprite.rotate(theta);
+		rotateAnimation(currentAnimation, theta);
 		box.rotate(theta);
+	}
+
+	protected void rotateAnimation(Animation animation, float angle) {
+		for (int i = 0; i < animation.getFrameCount(); i++) {
+			animation.getImage(i).rotate(angle);
+		}
 	}
 
 	protected boolean dead;
 	protected float speed;
-	protected Image sprite;
 	protected Porygon box;
 	protected Vector2f direction;
 	protected Vector2f location;
