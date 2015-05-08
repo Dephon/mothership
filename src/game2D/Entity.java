@@ -218,9 +218,7 @@ public abstract class Entity {
 		return temp;
 	}
 
-	public void handleCollision() {
-
-	}
+	public abstract void handleCollisions();
 
 	/**
 	 * Rotates both the Image and Polygon with respect to the x axis
