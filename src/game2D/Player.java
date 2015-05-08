@@ -49,6 +49,36 @@ public class Player extends Movable {
 		ui.draw();
 	}
 
+	public void updateAnimation() {
+		if (direction.x == 0 && direction.y == 1) {
+			currentAnimation = movementAnimations[Player.DIRECTION_SOUTH];
+			currentAnimation.start();
+		} else if (direction.x == 0 && direction.y == -1) {
+			currentAnimation = movementAnimations[Player.DIRECTION_NORTH];
+			currentAnimation.start();
+		} else if (direction.x == -1 && direction.y == 0) {
+			currentAnimation = movementAnimations[Player.DIRECTION_WEST];
+			currentAnimation.start();
+		} else if (direction.x == 1 && direction.y == 0) {
+			currentAnimation = movementAnimations[Player.DIRECTION_EAST];
+			currentAnimation.start();
+		} else if (direction.x == 1 && direction.y == -1) {
+			currentAnimation = movementAnimations[Player.DIRECTION_NORTHEAST];
+			currentAnimation.start();
+		} else if (direction.x == 1 && direction.y == 1) {
+			currentAnimation = movementAnimations[Player.DIRECTION_SOUTHEAST];
+			currentAnimation.start();
+		} else if (direction.x == -1 && direction.y == 1) {
+			currentAnimation = movementAnimations[Player.DIRECTION_SOUTHWEST];
+			currentAnimation.start();
+		} else if (direction.x == -1 && direction.y == -1) {
+			currentAnimation = movementAnimations[Player.DIRECTION_NORTHWEST];
+			currentAnimation.start();
+		} else if (direction.x == 0 && direction.y == 0) {
+			currentAnimation.stop();
+		}
+	}
+
 	public static int DIRECTION_NORTH = 0;
 	public static int DIRECTION_NORTHEAST = 1;
 	public static int DIRECTION_EAST = 2;

@@ -206,14 +206,14 @@ public abstract class Entity {
 		}
 	}
 
-	private Porygon makeBox(float x, float y, float width, float height) {
-		float[][] points = { { x, y }, { width, y }, { width, height },
-				{ x, height } };
-		Porygon temp = new Porygon();
-		for (float[] i : points)
-			temp.addPoint(i[0], i[1]);
-		return temp;
-	}
+	// private Porygon makeBox(float x, float y, float width, float height) {
+	// float[][] points = { { x, y }, { width, y }, { width, height },
+	// { x, height } };
+	// Porygon temp = new Porygon();
+	// for (float[] i : points)
+	// temp.addPoint(i[0], i[1]);
+	// return temp;
+	// }
 
 	protected void updateBox() {
 		float[][] points = { { location.x, location.y },
