@@ -44,6 +44,7 @@ public class Player extends Movable {
 
 		hurt = AudioLoader.getAudio("WAV",
 				ResourceLoader.getResourceAsStream("data/sounds/hurt.wav"));
+
 	}
 
 	public void displace(EnemyManager enemyManager) {

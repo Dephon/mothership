@@ -65,7 +65,7 @@ public class Missile extends Ammo {
 	public void create(Vector2f loc, Vector2f dir) {
 		jerk = .00001f;
 		super.create(loc, dir);
-		sound.play();
+		sound.play(1f, .4f);
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class Missile extends Ammo {
 		dying = true;
 		updateBox();
 		sound.stop();
-		deathSound.play();
+		deathSound.play(1f, .4f);
 	}
 
 	protected float scale;
