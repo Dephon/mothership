@@ -5,6 +5,10 @@ import org.newdawn.slick.geom.*;
 import org.newdawn.slick.openal.*;
 
 public abstract class Movable extends Entity {
+	public Movable() {
+		super();
+		init();
+	}
 
 	public Movable(String ref) throws SlickException {
 		super(ref);

@@ -6,6 +6,12 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
 public abstract class Ammo extends Entity {
+	public Ammo() {
+		super();
+		acceleration = 0;
+		jerk = 0;
+	}
+
 	public Ammo(String ref) throws SlickException {
 		super(ref);
 		acceleration = 0;
@@ -24,6 +30,7 @@ public abstract class Ammo extends Entity {
 		jerk = 0;
 	}
 
+	@Override
 	public void update(int dt) {
 		acceleration += jerk * dt;
 		speed += acceleration * dt;

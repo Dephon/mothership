@@ -8,8 +8,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
 public class AmmoManager implements Manager {
-	public AmmoManager(Rectangle gameBounds, int maxAmount)
-			throws SlickException {
+	public AmmoManager(Porygon bounds, int maxAmount) throws SlickException {
 		bullets = new ArrayList<Bullet>();
 		missiles = new ArrayList<Missile>();
 		for (int i = 0; i < maxAmount; i++)
@@ -17,7 +16,7 @@ public class AmmoManager implements Manager {
 		for (int i = 0; i < maxAmount; i++)
 			missiles.add((Missile) AmmoFactory.getAmmo(AmmoEnum.MISSILE));
 		laser = (Laser) AmmoFactory.getAmmo(AmmoEnum.LASER);
-		this.gameBounds = gameBounds;
+		gameBounds = bounds;
 		currentAmmo = AmmoEnum.BULLET;
 		fireTimer = 0;
 		bulletCount = 0;
@@ -92,7 +91,7 @@ public class AmmoManager implements Manager {
 		for (Bullet bullet : bullets) {
 			if (!bullet.isDead()) {
 				bullet.update(dt);
-				if (bullet.intersects(gameBounds)) {
+				if (!bullet.intersects(gameBounds)) {
 					bullet.destroy();
 					bulletCount--;
 				}
@@ -101,7 +100,7 @@ public class AmmoManager implements Manager {
 		for (Missile missile : missiles) {
 			if (!missile.isDead()) {
 				missile.update(dt);
-				if (missile.intersects(gameBounds)) {
+				if (!missile.intersects(gameBounds)) {
 					missile.destroy();
 					missileCount--;
 				}
@@ -167,7 +166,7 @@ public class AmmoManager implements Manager {
 	private ArrayList<Bullet> bullets;
 	private ArrayList<Missile> missiles;
 	private Laser laser;
-	private Rectangle gameBounds;
+	private Porygon gameBounds;
 	private int bulletCount;
 	private int bulletIndex;
 	private int missileCount;

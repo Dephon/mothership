@@ -9,8 +9,7 @@ import org.newdawn.slick.util.*;
 
 public class Player extends Movable {
 
-	public Player(String ref) throws SlickException, IOException {
-		super(ref);
+	public Player() throws SlickException, IOException {
 		init();
 	}
 
@@ -20,7 +19,7 @@ public class Player extends Movable {
 	}
 
 	@Override
-	public void handleCollisions() {
+	public void handleCollision() {
 		// TODO Auto-generated method stub
 
 	}
@@ -45,6 +44,11 @@ public class Player extends Movable {
 
 		hurt = AudioLoader.getAudio("WAV",
 				ResourceLoader.getResourceAsStream("data/sounds/hurt.wav"));
+	}
+
+	public void displace(EnemyManager enemyManager) {
+		// TODO Auto-generated method stub
+
 	}
 
 	public void updateUI() {

@@ -4,6 +4,7 @@ import game2D.*;
 import game2D.Projectile.*;
 
 import java.io.*;
+import java.util.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -17,17 +18,21 @@ public class GameState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
+		ArrayList<Vector2f> points = new ArrayList<Vector2f>();
+		points.add(new Vector2f(0, 0));
+		points.add(new Vector2f(container.getWidth(), 0));
+		points.add(new Vector2f(container.getWidth(), container.getHeight()));
+		points.add(new Vector2f(0, container.getHeight()));
 		try {
 			player = new Player("data/S3K_Hyper_Knuckles.gif", new Vector2f());
+			player.create();
+			player.setSpeed(.1f);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		player.create();
-		player.setSpeed(.1f);
 		gameMap = new TiledMap("maps/mothership level 1_basic.tmx");
-		ammoManager = new AmmoManager(new Rectangle(0, 0, container.getWidth(),
-				container.getHeight()), 100);
+		ammoManager = new AmmoManager(new Porygon(points), 100);
 		ammoManager.setAmmo(AmmoEnum.BULLET);
 		enemyManager = new EnemyManager(new Rectangle(0, 0,
 				container.getWidth(), container.getHeight()), 100);
@@ -128,7 +133,8 @@ public class GameState extends BasicGameState {
 		player.displace(wall);
 		ammoManager.displace(wall);
 		enemyManager.displace(wall);
-		enemyManager.displace(player);
+		enemyManager.displace(ammoManager);
+		player.displace(enemyManager);
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public class Immovable extends Entity {
 	}
 
 	@Override
-	public void handleCollisions() {
+	public void handleCollision() {
 		// TODO Auto-generated method stub
 
 	}

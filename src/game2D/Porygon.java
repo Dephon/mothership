@@ -9,17 +9,17 @@ public class Porygon extends Polygon {
 	public Porygon() {
 		super();
 		sides = new ArrayList<Vector2f>();
-		pointCount = 0;
 		normalOfSides = new ArrayList<Vector2f>();
+		pointCount = 0;
 	}
 
-	public Porygon(float[] point) {
-		super(point);
+	public Porygon(ArrayList<Vector2f> points) {
+		super();
 		sides = new ArrayList<Vector2f>();
 		normalOfSides = new ArrayList<Vector2f>();
-		pointCount = points.length;
-		generateSides();
-		generateNormalOfSides();
+		pointCount = 0;
+		for (Vector2f point : points)
+			addPoint(point.x, point.y);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class Porygon extends Polygon {
 		generateNormalOfSides();
 	}
 
-	private void generateSides() {
+	protected void generateSides() {
 		float x, y;
 		if (pointCount > 1) {
 			sides.clear();
@@ -91,7 +91,7 @@ public class Porygon extends Polygon {
 		}
 	}
 
-	private void generateNormalOfSides() {
+	protected void generateNormalOfSides() {
 		Vector2f temp;
 		if (pointCount > 1) {
 			normalOfSides.clear();
@@ -104,9 +104,9 @@ public class Porygon extends Polygon {
 		}
 	}
 
-	private ArrayList<Vector2f> sides;
-	private ArrayList<Vector2f> normalOfSides;
+	protected ArrayList<Vector2f> sides;
+	protected ArrayList<Vector2f> normalOfSides;
 
-	private int pointCount;
-	private static final long serialVersionUID = 1L;
+	protected int pointCount;
+	protected static final long serialVersionUID = 1L;
 }

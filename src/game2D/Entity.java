@@ -7,38 +7,57 @@ import org.newdawn.slick.geom.*;
 
 public abstract class Entity {
 
+	public Entity() {
+		currentAnimation = new Animation();
+		deathAnimation = new Animation();
+		location = new Vector2f();
+		direction = new Vector2f();
+		speed = 0;
+		dead = true;
+		dying = false;
+		dyingTimer = 0;
+	}
+
 	public Entity(String ref) throws SlickException {
-		// Every entity will have a default animation
 		currentAnimation = new Animation();
 		currentAnimation.addFrame(new Image(ref), 1000);
-		location = new Vector2f(0, 0);
-		direction = new Vector2f(0, 0);
+		deathAnimation = new Animation();
+		location = new Vector2f();
+		direction = new Vector2f();
 		updateBox();
 		speed = 0;
 		dead = true;
+		dying = false;
+		dyingTimer = 0;
 	}
 
 	public Entity(String ref, Vector2f loc) throws SlickException {
 		currentAnimation = new Animation();
 		currentAnimation.addFrame(new Image(ref), 1000);
-		location = new Vector2f(0, 0);
-		direction = new Vector2f(0, 0);
+		deathAnimation = new Animation();
+		location = new Vector2f();
+		direction = new Vector2f();
 		location.set(loc);
 		updateBox();
 		speed = 0;
 		dead = true;
+		dying = false;
+		dyingTimer = 0;
 	}
 
 	public Entity(String ref, Vector2f loc, Vector2f dir) throws SlickException {
 		currentAnimation = new Animation();
 		currentAnimation.addFrame(new Image(ref), 1000);
-		location = new Vector2f(0, 0);
-		direction = new Vector2f(0, 0);
+		deathAnimation = new Animation();
+		location = new Vector2f();
+		direction = new Vector2f();
 		location.set(loc);
 		direction.set(dir);
 		updateBox();
 		speed = 0;
 		dead = true;
+		dying = false;
+		dyingTimer = 0;
 	}
 
 	public float getOriginX() {
@@ -130,20 +149,33 @@ public abstract class Entity {
 		} else {
 			location.add(dis);
 			box.setLocation(location);
+			handleCollision();
 			return true;
 		}
 	}
 
 	public boolean intersects(Entity rhs) {
-		Vector2f test = Collision.intersects(this, rhs);
-		if (test.x == 0 && test.y == 0)
-			return false;
-		else
-			return true;
+		Vector2f test;
+		if (!dead) {
+			test = Collision.intersects(this, rhs);
+			if (test.x == 0 && test.y == 0)
+				return false;
+			else
+				return true;
+		}
+		return false;
 	}
 
-	public boolean intersects(Rectangle rhs) {
-		return box.intersects(rhs);
+	public boolean intersects(Porygon rhs) {
+		Vector2f test;
+		if (!dead) {
+			test = Collision.intersects(this, rhs);
+			if (test.x == 0 && test.y == 0)
+				return false;
+			else
+				return true;
+		}
+		return false;
 	}
 
 	public void create() {
@@ -164,6 +196,8 @@ public abstract class Entity {
 	public void destroy() {
 		if (!dead) {
 			dead = true;
+			dying = false;
+			dyingTimer = 0;
 			speed = 0;
 			direction.x = 0;
 			direction.y = 0;
@@ -206,27 +240,30 @@ public abstract class Entity {
 		}
 	}
 
-	// private Porygon makeBox(float x, float y, float width, float height) {
-	// float[][] points = { { x, y }, { width, y }, { width, height },
-	// { x, height } };
-	// Porygon temp = new Porygon();
-	// for (float[] i : points)
-	// temp.addPoint(i[0], i[1]);
-	// return temp;
-	// }
+	protected Porygon makeBox(float x, float y, float width, float height) {
+		float[][] points = { { x, y }, { x + width, y },
+				{ x + width, y + height }, { x, y + height } };
+		Porygon temp = new Porygon();
+		for (float[] i : points)
+			temp.addPoint(i[0], i[1]);
+		temp.setLocation(x, y);
+		return temp;
+	}
 
 	protected void updateBox() {
-		float[][] points = { { location.x, location.y },
-				{ currentAnimation.getWidth(), location.y },
-				{ currentAnimation.getWidth(), currentAnimation.getHeight() },
-				{ location.x, currentAnimation.getHeight() } };
+		float x = location.x;
+		float y = location.y;
+		float[][] points = {
+				{ x, y },
+				{ x + currentAnimation.getWidth(), location.y },
+				{ x + currentAnimation.getWidth(),
+						y + currentAnimation.getHeight() },
+				{ location.x, y + currentAnimation.getHeight() } };
 		Porygon temp = new Porygon();
 		for (float[] i : points)
 			temp.addPoint(i[0], i[1]);
 		box = temp;
 	}
-
-	public abstract void handleCollisions();
 
 	/**
 	 * Rotates both the Image and Polygon with respect to the x axis
@@ -253,10 +290,17 @@ public abstract class Entity {
 		}
 	}
 
+	protected abstract void handleCollision();
+
 	protected boolean dead;
+	protected boolean dying;
+	protected int dyingTimer;
 	protected float speed;
 	protected Porygon box;
 	protected Vector2f direction;
 	protected Vector2f location;
 	protected Animation currentAnimation;
+	protected Animation deathAnimation;
+	protected Sound sound;
+	protected Sound deathSound;
 }

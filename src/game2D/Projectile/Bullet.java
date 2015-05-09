@@ -26,8 +26,7 @@ public class Bullet extends Ammo {
 	}
 
 	@Override
-	public void handleCollisions() {
-		// TODO Auto-generated method stub
+	public void handleCollision() {
 
 	}
 }

@@ -15,9 +15,8 @@ public class Enemy extends Movable {
 	}
 
 	@Override
-	public void handleCollisions() {
+	public void handleCollision() {
 		// TODO Auto-generated method stub
-
 	}
 
 	// @Override
