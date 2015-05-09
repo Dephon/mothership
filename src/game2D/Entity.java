@@ -180,17 +180,23 @@ public abstract class Entity {
 
 	public void create() {
 		dead = false;
+		dyingTimer = 0;
+		updateBox();
 	}
 
 	public void create(Vector2f loc) {
 		dead = false;
+		dyingTimer = 0;
 		setLoc(loc);
+		updateBox();
 	}
 
 	public void create(Vector2f loc, Vector2f dir) {
 		dead = false;
+		dyingTimer = 0;
 		setLoc(loc);
 		direction.set(dir);
+		updateBox();
 	}
 
 	public void destroy() {
@@ -206,25 +212,39 @@ public abstract class Entity {
 	}
 
 	public void draw() {
-		if (!dead)
-			currentAnimation.draw(box.getX(), box.getY());
+		if (!dead) {
+			if (dying) {
+				deathAnimation.draw(box.getX(), box.getY());
+			} else {
+				currentAnimation.draw(box.getX(), box.getY());
+			}
+		}
 	}
 
 	public void debugDraw(Graphics graphics) {
+
 		if (!dead) {
+			if (dying) {
+				deathAnimation.draw(box.getX(), box.getY());
+			} else {
+				currentAnimation.draw(box.getX(), box.getY());
+			}
 			graphics.draw(box);
-			currentAnimation.draw(box.getX(), box.getY());
+			graphics.drawGradientLine(box.getX(), box.getY(), 0, 0, 0, 0,
+					box.getX() + 1, box.getY() + 1, 0, 0, 0, 0);
 		}
 	}
 
 	public void update(int dt) {
 		if (!dead) {
-			Vector2f dV = new Vector2f();
-			dV.set(direction);
-			dV.x *= speed * dt;
-			dV.y *= speed * dt;
-			location.add(dV);
-			box.setLocation(location);
+			if (!dying) {
+				Vector2f dV = new Vector2f();
+				dV.set(direction);
+				dV.x *= speed * dt;
+				dV.y *= speed * dt;
+				location.add(dV);
+				box.setLocation(location);
+			}
 		}
 	}
 
@@ -241,8 +261,8 @@ public abstract class Entity {
 	}
 
 	protected Porygon makeBox(float x, float y, float width, float height) {
-		float[][] points = { { x, y }, { x + width, y },
-				{ x + width, y + height }, { x, y + height } };
+		float[][] points = { { x, y }, { width, y }, { width, height },
+				{ x, height } };
 		Porygon temp = new Porygon();
 		for (float[] i : points)
 			temp.addPoint(i[0], i[1]);
@@ -253,13 +273,19 @@ public abstract class Entity {
 	protected void updateBox() {
 		float x = location.x;
 		float y = location.y;
-		float[][] points = {
-				{ x, y },
-				{ x + currentAnimation.getWidth(), location.y },
-				{ x + currentAnimation.getWidth(),
-						y + currentAnimation.getHeight() },
-				{ location.x, y + currentAnimation.getHeight() } };
+		float width;
+		float height;
+		if (dying) {
+			width = deathAnimation.getWidth();
+			height = deathAnimation.getHeight();
+		} else {
+			width = currentAnimation.getWidth();
+			height = currentAnimation.getHeight();
+		}
+		float[][] points = { { x, y }, { x + width, y },
+				{ x + width, y + height }, { x, y + height } };
 		Porygon temp = new Porygon();
+		temp.setLocation(location);
 		for (float[] i : points)
 			temp.addPoint(i[0], i[1]);
 		box = temp;
@@ -291,6 +317,17 @@ public abstract class Entity {
 	}
 
 	protected abstract void handleCollision();
+
+	protected void TimeUntilDeath(int eta, int dt) {
+		if (!dead) {
+			if (dying) {
+				if (dyingTimer > eta)
+					destroy();
+				else
+					dyingTimer += dt;
+			}
+		}
+	}
 
 	protected boolean dead;
 	protected boolean dying;
