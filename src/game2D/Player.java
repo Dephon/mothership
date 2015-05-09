@@ -1,16 +1,20 @@
 package game2D;
 
+import java.io.*;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
+import org.newdawn.slick.openal.*;
+import org.newdawn.slick.util.*;
 
 public class Player extends Movable {
 
-	public Player(String ref) throws SlickException {
+	public Player(String ref) throws SlickException, IOException {
 		super(ref);
 		init();
 	}
 
-	public Player(String ref, Vector2f loc) throws SlickException {
+	public Player(String ref, Vector2f loc) throws SlickException, IOException {
 		super(ref, loc);
 		init();
 	}
@@ -21,7 +25,7 @@ public class Player extends Movable {
 
 	}
 
-	public void init() throws SlickException {
+	public void init() throws SlickException, IOException {
 		health = 100;
 		ui = new UI();
 		SpriteSheet movement = new SpriteSheet(new Image(
@@ -38,6 +42,9 @@ public class Player extends Movable {
 		// Start in the downward position.
 		currentAnimation = movementAnimations[Player.DIRECTION_SOUTH];
 		updateBox();
+
+		hurt = AudioLoader.getAudio("WAV",
+				ResourceLoader.getResourceAsStream("data/sounds/hurt.wav"));
 	}
 
 	public void updateUI() {

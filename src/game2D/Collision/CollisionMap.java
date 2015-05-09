@@ -5,10 +5,12 @@ import game2D.*;
 import java.util.*;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.openal.*;
 import org.newdawn.slick.tiled.*;
 
 public class CollisionMap {
 	private TiledMap map;
+	Audio backgroundMusic;
 	private Bucket[][] grid;
 	private int gridWidth;
 	private int gridHeight;
@@ -28,6 +30,7 @@ public class CollisionMap {
 				grid[i][j] = new Bucket(isBlocked);
 			}
 		}
+
 	}
 
 	public void addEntity(Entity ent) {

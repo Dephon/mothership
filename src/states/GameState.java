@@ -3,17 +3,26 @@ package states;
 import game2D.*;
 import game2D.Projectile.*;
 
+import java.io.*;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
+import org.newdawn.slick.openal.*;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.state.transition.*;
 import org.newdawn.slick.tiled.*;
+import org.newdawn.slick.util.*;
 
 public class GameState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
-		player = new Player("data/S3K_Hyper_Knuckles.gif", new Vector2f());
+		try {
+			player = new Player("data/S3K_Hyper_Knuckles.gif", new Vector2f());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		player.create();
 		player.setSpeed(.1f);
 		gameMap = new TiledMap("maps/mothership level 1_basic.tmx");
@@ -26,6 +35,20 @@ public class GameState extends BasicGameState {
 		wall = new Immovable("data/MetalBlock.png");
 		wall.create();
 		wall.setLoc(100, 0);
+
+		try {
+			backGround = AudioLoader.getAudio("WAV", ResourceLoader
+					.getResourceAsStream("data/sounds/d_e1m3.wav"));
+			backGround2 = AudioLoader
+					.getAudio(
+							"WAV",
+							ResourceLoader
+									.getResourceAsStream("data/sounds/Crateria_Underground_-_Super_Metroid.wav"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -75,6 +98,19 @@ public class GameState extends BasicGameState {
 			if (input.isKeyPressed(Input.KEY_2)) {
 				player.takeDamage(-10);
 			}
+			if (input.isKeyPressed(Input.KEY_3)) {
+				if (backGround.isPlaying())
+					backGround.stop();
+				else
+					backGround.playAsMusic(1f, 1f, true);
+			}
+			if (input.isKeyPressed(Input.KEY_4)) {
+				if (backGround2.isPlaying())
+					backGround2.stop();
+				else
+					backGround2.playAsMusic(1f, 1f, true);
+			}
+
 		}
 
 		if (input.isMouseButtonDown(0)) {
@@ -121,4 +157,6 @@ public class GameState extends BasicGameState {
 	EnemyManager enemyManager;
 	TiledMap gameMap;
 	Immovable wall;
+	Audio backGround;
+	Audio backGround2;
 }

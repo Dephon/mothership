@@ -2,24 +2,32 @@ package game2D;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
+import org.newdawn.slick.openal.*;
 
 public abstract class Movable extends Entity {
 
 	public Movable(String ref) throws SlickException {
 		super(ref);
-		// TODO Auto-generated constructor stub
+		init();
 	}
 
 	public Movable(String ref, Vector2f loc) throws SlickException {
 		super(ref, loc);
-		// TODO Auto-generated constructor stub
+		init();
 	}
 
-	// private void init() {
-	// health = 100;
-	// }
+	private void init() {
+		hurt = null;
+	}
 
 	public void takeDamage(int dmg) {
+
+		if (dmg > 0) {
+			if (hurt != null) {
+				hurt.playAsSoundEffect(1f, 1f, false);
+			}
+
+		}
 		health -= dmg;
 		if (health > 100)
 			health = 100;
@@ -30,5 +38,5 @@ public abstract class Movable extends Entity {
 	}
 
 	public int health;
-
+	Audio hurt;
 }
