@@ -31,7 +31,7 @@ public class MainMenuState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame sbg, int dt)
 			throws SlickException {
 
-		sbg.enterState(StateEnum.GAME);
+		sbg.enterState(StateEnum.GAME_LEVEL_ONE);
 
 		Input input = container.getInput();
 		mousePoint = new Circle(1, 1, 1);

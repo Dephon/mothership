@@ -273,9 +273,9 @@ public abstract class Entity {
 
 	protected void makeBox(float locX, float locY, float width, float height) {
 		Porygon temp = new Porygon();
-		float[][] points = { { locX, locY }, { width, locY },
-				{ width, height }, { locX, height } };
-		temp.setLocation(locX, locY);
+		float[][] points = { { locX, locY }, { locX + width, locY },
+				{ locX + width, locY + height }, { locX, locY + height } };
+		temp.setLocation(location);
 		for (float[] i : points)
 			temp.addPoint(i[0], i[1]);
 		box = temp;

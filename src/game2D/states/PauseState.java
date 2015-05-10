@@ -42,7 +42,7 @@ public class PauseState extends BasicGameState {
 
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			if (returnTo.intersects(mousePoint)) {
-				sbg.enterState(StateEnum.GAME, new FadeOutTransition(),
+				sbg.enterState(GameState.currentLevel, new FadeOutTransition(),
 						new FadeInTransition());
 			}
 			if (quit.intersects(mousePoint)) {

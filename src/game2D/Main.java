@@ -1,7 +1,7 @@
 package game2D;
 
 import game2D.states.*;
-import game2D.states.GameState;
+import game2D.states.levels.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
@@ -28,8 +28,10 @@ public class Main extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 		this.addState(new MainMenuState());
-		this.addState(new GameState());
 		this.addState(new GameOverState());
 		this.addState(new PauseState());
+		this.addState(new MapOne());
+		this.addState(new MapTwo());
+		this.addState(new MapThree());
 	}
 }

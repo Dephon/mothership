@@ -14,10 +14,12 @@ public class ObstacleManager extends Manager {
 	}
 
 	@Override
-	public void add(Vector2f position, Vector2f size) {
+	public void add(Vector2f pos, Vector2f size) {
 		Obstacle obstacle = (Obstacle) entities.get(ndx);
 		if (count < maxCount) {
-			obstacle.convertToInvObject(position.x, position.y, size.x, size.y);
+			obstacle.convertToInvObject(pos.x, 0, size.x, size.y);
+			if (pos.y > 0)
+				obstacle.setY(pos.y); // I hate slick2d so much
 			activeNdxs.add(ndx);
 			count++;
 			ndx++;
