@@ -1,4 +1,4 @@
-package game2D.collision;
+package game2D.collisions;
 
 import game2D.*;
 import game2D.abstracts.*;

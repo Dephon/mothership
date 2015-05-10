@@ -1,4 +1,4 @@
-package game2D.projectile;
+package game2D.projectiles;
 
 import game2D.abstracts.*;
 

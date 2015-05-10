@@ -1,8 +1,8 @@
 package game2D.states;
 
 import game2D.*;
-import game2D.collision.*;
-import game2D.projectile.*;
+import game2D.collisions.*;
+import game2D.projectiles.*;
 
 import java.io.*;
 import java.util.*;

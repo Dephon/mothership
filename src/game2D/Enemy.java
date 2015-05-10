@@ -1,7 +1,7 @@
 package game2D;
 
 import game2D.abstracts.*;
-import game2D.collision.*;
+import game2D.collisions.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
