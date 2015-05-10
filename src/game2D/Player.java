@@ -41,7 +41,7 @@ public class Player extends Movable {
 		}
 
 		// Start in the downward position.
-		currentAnimation = movementAnimations[Player.DIRECTION_SOUTH];
+		currentAnimation = movementAnimations[Player.DIRECTION_EAST];
 		updateBox();
 
 		hurt = AudioLoader.getAudio("WAV",

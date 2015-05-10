@@ -30,13 +30,13 @@ public class MapTwo extends GameState {
 		bounds = new Porygon(points);
 		try {
 			player = new Player();
-			player.setLoc(100, 100);
 			player.create();
+			player.setLoc(100, 100);
 			player.setSpeed(.1f);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		gameMap = new TiledMap("maps/level_3.tmx");
+		gameMap = new TiledMap("maps/level_1.tmx");
 		obstacleManager = new ObstacleManager(bounds, 100);
 		missileManager = new MissileManager(bounds, 100);
 		bulletManager = new BulletManager(bounds, 100);

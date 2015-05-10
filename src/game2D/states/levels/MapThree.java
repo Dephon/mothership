@@ -30,8 +30,8 @@ public class MapThree extends GameState {
 		bounds = new Porygon(points);
 		try {
 			player = new Player();
-			player.setLoc(100, 100);
 			player.create();
+			player.setLoc(0, 251);
 			player.setSpeed(.1f);
 		} catch (IOException e1) {
 			e1.printStackTrace();
