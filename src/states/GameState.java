@@ -53,7 +53,7 @@ public class GameState extends BasicGameState {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		ui = new UI();
 	}
 
 	@Override
@@ -134,7 +134,7 @@ public class GameState extends BasicGameState {
 		bulletManager.update(dt);
 		enemyManager.update(dt);
 		player.updateAnimation();
-		player.updateUI();
+		ui.update(player.getHealth());
 		player.displace(wall, CollisionEnum.BLOCKING);
 		bulletManager.displace(wall, CollisionEnum.BLOCKING);
 		missileManager.displace(wall, CollisionEnum.BLOCKING);
@@ -151,7 +151,7 @@ public class GameState extends BasicGameState {
 		bulletManager.debugDraw(graphics);
 		missileManager.debugDraw(graphics);
 		player.debugDraw(graphics);
-		player.drawUI();
+		ui.draw();
 		enemyManager.draw();
 		wall.debugDraw(graphics);
 
@@ -181,4 +181,5 @@ public class GameState extends BasicGameState {
 	Immovable wall;
 	Audio backGround;
 	Audio backGround2;
+	UI ui;
 }

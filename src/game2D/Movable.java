@@ -41,6 +41,10 @@ public abstract class Movable extends Entity {
 		}
 	}
 
+	public int getHealth() {
+		return health;
+	}
+
 	public int health;
 	Audio hurt;
 }

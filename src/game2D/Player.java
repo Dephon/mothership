@@ -26,7 +26,6 @@ public class Player extends Movable {
 
 	public void init() throws SlickException, IOException {
 		health = 100;
-		ui = new UI();
 		SpriteSheet movement = new SpriteSheet(new Image(
 				"data/sprites/move_animations.png"), 40, 40);
 		movementAnimations = new Animation[movement.getVerticalCount()];
@@ -54,15 +53,6 @@ public class Player extends Movable {
 
 	public void displace(Manager Manager, int CollisionEnum) {
 
-	}
-
-	public void updateUI() {
-		ui.update(health);
-
-	}
-
-	public void drawUI() {
-		ui.draw();
 	}
 
 	public void updateAnimation() {
@@ -105,7 +95,6 @@ public class Player extends Movable {
 	public static int DIRECTION_NORTHWEST = 7;
 
 	Animation[] movementAnimations;
-	private UI ui;
 }
 // @Override
 // public void handleCollisions() {
