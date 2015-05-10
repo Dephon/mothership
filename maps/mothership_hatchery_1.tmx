@@ -324,8 +324,8 @@
   </tile>
  </tileset>
  <layer name="Tile Layer 1" width="60" height="31">
-  <data encoding="base64" compression="zlib">
-   eJztWUtKxEAQrY4gfraCuFfBG+jCE4jiCdx4AKPjftRAH2DAjQcYlLmBMEfwdwC/e53Bwb2vSBfT04kahUkg5eLRn1Q6r3hd1enuxBBtANtBuQVseu08G8YzET0CD/SzrdTPYXtBXz/36yewm3dcmsE3fJ55Y4RtC6xijATlVUR0DdwAt8AAfe85/WGb/X2itAyffeD9vhktF4CZ6RRzOc/DMU5NymUF9dYveIbjsq+H4LgHXKJ+NFtvdOFjB762nb5V8xk3rJv7Mv+r5lOGvgMznP9V8ylD3zvEtVESv5zbpyaG+blqPuOExKyW/Cwxy/NZS37mtZvnM+tcd30ZXTefWWcN+rK//F+qJT9bt/ZqyM+i76TzVYu+7PNuVD2XsrAT/ftbVxwD94jfF6qeS5n+JkrWX8lXWtYj69Yjo8Rf1nZdyf5I9OX/Zy3z2T+v06Cv7Pm1nNfJnl/TeZ2c52iIX76naJOO/a/E7FmUapynb4z+feAAaHzzz1nU7i8oMnYRG4lZ9rXj/A3fewXegGW+c6LsfV/s7BZRXzKpLdvFnu0ajd7VWa9sUPYezwZ2zIXH7lGWn7SZZ8/Z9b1+ny/bt5y/nzaJ7Ss=
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+1ZS0rEQBCtjiB+toK4V8Eb6MITiOIJ3HgAo+N+1EAfYMCNBxiUuYEwR/B3AL97ncHBva9IF9PTiRqFSSDl4tGfVDqveF3V6e7EEG0A20G5BWx67TwbxjMRPQIP9LOt1M9he0FfP/frJ7Cbd1yawTd8nnljhG0LrGKMBOVVRHQN3AC3wAB97zn9YZv9faK0DJ994P2+GS0XgJnpFHM5z8MxTk3KZQX11i94huOyr4fguAdcon40W2904WMHvradvlXzGTesm/sy/6vmU4a+AzOc/1XzKUPfO8S1URK/nNunJob5uWo+44TErJb8LDHL81lLfua1m+cz61x3fRldN59ZZw36sr/8X6olP1u39mrIz6LvpPNVi77s825UPZeysBP9+1tXHAP3iN8Xqp5Lmf4mStZfyVda1iPr1iOjxF/Wdl3J/kj05f9nLfPZP6/ToK/s+bWc18meX9N5nZznaIhfvqdok479r8TsWZRqnKdvjP594ABofPPPWdTuLygydhEbiVn2teP8Dd97Bd6AZb5zoux9X+zsFlFfMqkt28We7RqN3tVZr2xQ9h7PBnbMhcfuUZaftJlnz9n1vX6fL9u3nL+fPhCAfRAdAAA=
   </data>
  </layer>
 </map>
