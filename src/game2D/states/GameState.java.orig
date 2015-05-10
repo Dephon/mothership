@@ -16,10 +16,12 @@ public abstract class GameState extends BasicGameState {
 	@Override
 	public abstract void update(GameContainer container, StateBasedGame sbg,
 			int dt) throws SlickException;
+		ui.update(player.getHealth());
 
 	@Override
 	public abstract void render(GameContainer container, StateBasedGame sbg,
 			Graphics graphics) throws SlickException;
+		ui.draw();
 
 	@Override
 	public abstract int getID();
@@ -37,5 +39,4 @@ public abstract class GameState extends BasicGameState {
 	protected int currentAmmo;
 	public static int currentLevel;
 	protected boolean debugDraw;
-	protected UI ui;
 }

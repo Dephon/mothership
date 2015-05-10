@@ -23,6 +23,7 @@ public class MapOne extends GameState {
 			throws SlickException {
 		Porygon bounds;
 		ArrayList<Vector2f> points = new ArrayList<Vector2f>();
+		ui = new UI();
 		points.add(new Vector2f(0, 0));
 		points.add(new Vector2f(container.getWidth(), 0));
 		points.add(new Vector2f(container.getWidth(), container.getHeight()));
@@ -160,6 +161,7 @@ public class MapOne extends GameState {
 		enemyManager.displace(obstacleManager, CollisionEnum.BLOCKING);
 		enemyManager.displace(bulletManager, CollisionEnum.DAMAGING);
 		enemyManager.displace(missileManager, CollisionEnum.DAMAGING);
+		ui.update(player.getHealth());
 	}
 
 	@Override
@@ -178,6 +180,7 @@ public class MapOne extends GameState {
 			player.draw();
 			obstacleManager.draw();
 			enemyManager.draw();
+			ui.draw();
 		}
 	}
 
