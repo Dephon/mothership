@@ -50,21 +50,18 @@ public class Missile extends Ammo {
 	public void create() {
 		jerk = .00001f;
 		super.create();
-		// sound.play();
 	}
 
 	@Override
 	public void create(Vector2f loc) {
 		jerk = .00001f;
 		super.create(loc);
-		// sound.play();
 	}
 
 	@Override
 	public void create(Vector2f loc, Vector2f dir) {
 		jerk = .00001f;
 		super.create(loc, dir);
-		// sound.play(1f, .4f);
 	}
 
 	@Override
@@ -74,6 +71,7 @@ public class Missile extends Ammo {
 			igniteTime = 0;
 			ignited = false;
 			super.destroy();
+			rotateOnlyImage(true);
 		}
 	}
 
