@@ -1,6 +1,7 @@
-package game2D.Collision;
+package game2D.collision;
 
 import game2D.*;
+import game2D.abstracts.*;
 
 import java.util.*;
 

@@ -1,6 +1,4 @@
-package game2D.Projectile;
-
-import game2D.*;
+package game2D.abstracts;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;

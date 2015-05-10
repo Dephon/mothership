@@ -1,4 +1,4 @@
-package game2D;
+package game2D.abstracts;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -21,7 +21,7 @@ public abstract class Movable extends Entity {
 	}
 
 	private void init() {
-		hurt = null;
+
 	}
 
 	public void takeDamage(int dmg) {
@@ -41,10 +41,6 @@ public abstract class Movable extends Entity {
 		}
 	}
 
-	public int getHealth() {
-		return health;
-	}
-
 	public int health;
-	Audio hurt;
+	protected Audio hurt;
 }

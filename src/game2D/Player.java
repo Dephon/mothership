@@ -1,6 +1,9 @@
 package game2D;
 
+import game2D.abstracts.*;
+
 import java.io.*;
+import java.util.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -24,7 +27,7 @@ public class Player extends Movable {
 
 	}
 
-	public void init() throws SlickException, IOException {
+	private void init() throws SlickException, IOException {
 		health = 100;
 		SpriteSheet movement = new SpriteSheet(new Image(
 				"data/sprites/move_animations.png"), 40, 40);
@@ -46,13 +49,19 @@ public class Player extends Movable {
 
 	}
 
-	public void displace(EnemyManager enemyManager) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void displace(Manager Manager, int CollisionEnum) {
-
+	public void displace(Manager rhs, int collisionEnum) {
+		ArrayList<Entity> secondList;
+		boolean displaced;
+		secondList = rhs.getActive();
+		if (!isDead()) {
+			for (Entity second : secondList) {
+				displaced = displace(second, collisionEnum);
+				if (displaced) {
+					handleCollision(collisionEnum);
+					rhs.handleCollision();
+				}
+			}
+		}
 	}
 
 	public void updateAnimation() {

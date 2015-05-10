@@ -1,4 +1,6 @@
-package game2D.Projectile;
+package game2D.projectile;
+
+import game2D.abstracts.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -30,13 +32,15 @@ public class AmmoFactory {
 	}
 
 	public static Ammo getAmmo(int ammoEnum, float locX, float locY,
-			Vector2f direction) throws SlickException {
+			float dirX, float dirY) throws SlickException {
 		if (ammoEnum == AmmoEnum.BULLET) {
-			return new Bullet(new Vector2f(locX, locY), direction);
+			return new Bullet(new Vector2f(locX, locY),
+					new Vector2f(dirX, dirY));
 		} else if (ammoEnum == AmmoEnum.MISSILE) {
-			return new Missile(new Vector2f(locX, locY), direction);
+			return new Missile(new Vector2f(locX, locY), new Vector2f(dirX,
+					dirY));
 		} else if (ammoEnum == AmmoEnum.LASER) {
-			return new Laser(new Vector2f(locX, locY), direction);
+			return new Laser(new Vector2f(locX, locY), new Vector2f(dirX, dirY));
 		} else {
 			return null;
 		}

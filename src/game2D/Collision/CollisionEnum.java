@@ -1,4 +1,4 @@
-package game2D.Collision;
+package game2D.collision;
 
 public class CollisionEnum {
 	public static final int BLOCKING = 0;

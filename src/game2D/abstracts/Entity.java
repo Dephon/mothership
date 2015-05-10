@@ -1,6 +1,7 @@
-package game2D;
+package game2D.abstracts;
 
-import game2D.Collision.*;
+import game2D.*;
+import game2D.collision.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -8,59 +9,48 @@ import org.newdawn.slick.geom.*;
 public abstract class Entity {
 
 	public Entity() {
-		currentAnimation = new Animation();
-		deathAnimation = new Animation();
-		location = new Vector2f();
-		direction = new Vector2f();
-		speed = 0;
-		dead = true;
-		dying = false;
-		dyingTimer = 0;
-		scale = 1.5f;
+		init();
 	}
 
 	public Entity(String ref) throws SlickException {
-		currentAnimation = new Animation();
+		init();
 		currentAnimation.addFrame(new Image(ref), 1000);
-		deathAnimation = new Animation();
-		location = new Vector2f();
-		direction = new Vector2f();
 		updateBox();
-		speed = 0;
-		dead = true;
-		dying = false;
-		dyingTimer = 0;
-		scale = 1.5f;
 	}
 
 	public Entity(String ref, Vector2f loc) throws SlickException {
-		currentAnimation = new Animation();
+		init();
 		currentAnimation.addFrame(new Image(ref), 1000);
-		deathAnimation = new Animation();
-		location = new Vector2f();
-		direction = new Vector2f();
 		location.set(loc);
 		updateBox();
-		speed = 0;
-		dead = true;
-		dying = false;
-		dyingTimer = 0;
-		scale = 1.5f;
 	}
 
 	public Entity(String ref, Vector2f loc, Vector2f dir) throws SlickException {
-		currentAnimation = new Animation();
+		init();
 		currentAnimation.addFrame(new Image(ref), 1000);
-		deathAnimation = new Animation();
-		location = new Vector2f();
-		direction = new Vector2f();
 		location.set(loc);
 		direction.set(dir);
 		updateBox();
+	}
+
+	protected Entity(float locX, float locY, float width, float height) {
+		init();
+		location.set(locX, locY);
+		makeBox(locX, locY, width, height);
+		invisible = true;
+	}
+
+	private void init() {
+		currentAnimation = new Animation();
+		deathAnimation = new Animation();
+		location = new Vector2f();
+		direction = new Vector2f();
 		speed = 0;
 		dead = true;
 		dying = false;
+		invisible = false;
 		dyingTimer = 0;
+		scale = 1.5f;
 	}
 
 	public float getOriginX() {
@@ -153,9 +143,9 @@ public abstract class Entity {
 			if (collisionEnum == CollisionEnum.BLOCKING) {
 				location.add(dis);
 				box.setLocation(location);
-			} else if (collisionEnum == CollisionEnum.DAMAGING) {
-				handleCollision(CollisionEnum.DAMAGING);
 			}
+			handleCollision(collisionEnum);
+			rhs.handleCollision(collisionEnum);
 			return true;
 		}
 	}
@@ -235,7 +225,9 @@ public abstract class Entity {
 			if (dying) {
 				deathAnimation.draw(box.getX(), box.getY());
 			} else {
-				currentAnimation.draw(box.getX(), box.getY());
+				if (!invisible) {
+					currentAnimation.draw(box.getX(), box.getY());
+				}
 			}
 		}
 	}
@@ -246,11 +238,11 @@ public abstract class Entity {
 			if (dying) {
 				deathAnimation.draw(box.getX(), box.getY());
 			} else {
-				currentAnimation.draw(box.getX(), box.getY());
+				if (!invisible) {
+					currentAnimation.draw(box.getX(), box.getY());
+				}
 			}
 			graphics.draw(box);
-			graphics.drawGradientLine(box.getX(), box.getY(), 0, 0, 0, 0,
-					box.getX() + 1, box.getY() + 1, 0, 0, 0, 0);
 		}
 	}
 
@@ -279,17 +271,18 @@ public abstract class Entity {
 		}
 	}
 
-	protected Porygon makeBox(float x, float y, float width, float height) {
-		float[][] points = { { x, y }, { width, y }, { width, height },
-				{ x, height } };
+	protected void makeBox(float locX, float locY, float width, float height) {
 		Porygon temp = new Porygon();
+		float[][] points = { { locX, locY }, { width, locY },
+				{ width, height }, { locX, height } };
+		temp.setLocation(locX, locY);
 		for (float[] i : points)
 			temp.addPoint(i[0], i[1]);
-		temp.setLocation(x, y);
-		return temp;
+		box = temp;
 	}
 
 	protected void updateBox() {
+		Porygon temp = new Porygon();
 		float x = location.x;
 		float y = location.y;
 		float width;
@@ -303,7 +296,6 @@ public abstract class Entity {
 		}
 		float[][] points = { { x, y }, { x + width, y },
 				{ x + width, y + height }, { x, y + height } };
-		Porygon temp = new Porygon();
 		temp.setLocation(location);
 		for (float[] i : points)
 			temp.addPoint(i[0], i[1]);
@@ -346,8 +338,6 @@ public abstract class Entity {
 		}
 	}
 
-	protected abstract void handleCollision(int collisionEnum);
-
 	protected void TimeUntilDeath(int eta, int dt) {
 		if (!dead) {
 			if (dying) {
@@ -359,8 +349,11 @@ public abstract class Entity {
 		}
 	}
 
+	protected abstract void handleCollision(int collisionEnum);
+
 	protected boolean dead;
 	protected boolean dying;
+	protected boolean invisible;
 	protected int dyingTimer;
 	protected float scale;
 	protected float speed;

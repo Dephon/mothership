@@ -1,8 +1,8 @@
-package states;
+package game2D.states;
 
 import game2D.*;
-import game2D.Collision.*;
-import game2D.Projectile.*;
+import game2D.collision.*;
+import game2D.projectile.*;
 
 import java.io.*;
 import java.util.*;
@@ -12,36 +12,37 @@ import org.newdawn.slick.geom.*;
 import org.newdawn.slick.openal.*;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.state.transition.*;
-import org.newdawn.slick.tiled.*;
+import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.*;
 
 public class GameState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
+		Porygon bounds;
 		ArrayList<Vector2f> points = new ArrayList<Vector2f>();
 		points.add(new Vector2f(0, 0));
 		points.add(new Vector2f(container.getWidth(), 0));
 		points.add(new Vector2f(container.getWidth(), container.getHeight()));
 		points.add(new Vector2f(0, container.getHeight()));
+		bounds = new Porygon(points);
 		try {
 			player = new Player();
+			player.setLoc(100, 100);
 			player.create();
 			player.setSpeed(.1f);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		gameMap = new TiledMap("maps/mothership level 1_basic.tmx");
-		missileManager = new MissileManager(new Porygon(points), 100);
-		bulletManager = new BulletManager(new Porygon(points), 100);
-		currentAmmo = AmmoEnum.BULLET;
-		enemyManager = new EnemyManager(new Rectangle(0, 0,
-				container.getWidth(), container.getHeight()), 100);
+		obstacleManager = new ObstacleManager(bounds, 100);
+		missileManager = new MissileManager(bounds, 100);
+		bulletManager = new BulletManager(bounds, 100);
+		enemyManager = new EnemyManager(bounds, 100);
 		enemyManager.add(new Vector2f(300, 300), new Vector2f(-1, 0));
-		wall = new Immovable("data/MetalBlock.png");
-		wall.create();
-		wall.setLoc(100, 0);
-
+		obstacleManager.add(new Vector2f(), new Vector2f(container.getWidth(),
+				80));
+		currentAmmo = AmmoEnum.BULLET;
 		try {
 			backGround = AudioLoader.getAudio("WAV", ResourceLoader
 					.getResourceAsStream("data/sounds/d_e1m3.wav"));
@@ -53,7 +54,7 @@ public class GameState extends BasicGameState {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		ui = new UI();
+
 	}
 
 	@Override
@@ -134,14 +135,13 @@ public class GameState extends BasicGameState {
 		bulletManager.update(dt);
 		enemyManager.update(dt);
 		player.updateAnimation();
-		ui.update(player.getHealth());
-		player.displace(wall, CollisionEnum.BLOCKING);
-		bulletManager.displace(wall, CollisionEnum.BLOCKING);
-		missileManager.displace(wall, CollisionEnum.BLOCKING);
-		enemyManager.displace(wall, CollisionEnum.BLOCKING);
+		player.displace(obstacleManager, CollisionEnum.BLOCKING);
+		player.displace(enemyManager, CollisionEnum.DAMAGING);
+		bulletManager.displace(obstacleManager, CollisionEnum.BLOCKING);
+		missileManager.displace(obstacleManager, CollisionEnum.BLOCKING);
+		enemyManager.displace(obstacleManager, CollisionEnum.BLOCKING);
 		enemyManager.displace(bulletManager, CollisionEnum.DAMAGING);
 		enemyManager.displace(missileManager, CollisionEnum.DAMAGING);
-		player.displace(enemyManager, CollisionEnum.DAMAGING);
 	}
 
 	@Override
@@ -151,16 +151,8 @@ public class GameState extends BasicGameState {
 		bulletManager.debugDraw(graphics);
 		missileManager.debugDraw(graphics);
 		player.debugDraw(graphics);
-		ui.draw();
+		obstacleManager.debugDraw(graphics);
 		enemyManager.draw();
-		wall.debugDraw(graphics);
-
-		// bulletManager.draw();
-		// missileManager.draw();
-		// player.draw();
-		// player.drawUI();
-		// enemyManager.draw();
-		// wall.draw();
 	}
 
 	@Override
@@ -174,12 +166,11 @@ public class GameState extends BasicGameState {
 
 	int currentAmmo;
 	Player player;
+	ObstacleManager obstacleManager;
 	MissileManager missileManager;
 	BulletManager bulletManager;
 	EnemyManager enemyManager;
 	TiledMap gameMap;
-	Immovable wall;
 	Audio backGround;
 	Audio backGround2;
-	UI ui;
 }

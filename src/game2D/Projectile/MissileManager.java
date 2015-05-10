@@ -1,70 +1,52 @@
-package game2D.Projectile;
+package game2D.projectile;
 
 import game2D.*;
+import game2D.abstracts.*;
 
 import java.util.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
-public class MissileManager implements Manager {
+public class MissileManager extends Manager {
 	public MissileManager(Porygon bounds, int maxAmount) throws SlickException {
-		missiles = new ArrayList<Missile>();
+		super(bounds, maxAmount);
 		for (int i = 0; i < maxAmount; i++)
-			missiles.add((Missile) AmmoFactory.getAmmo(AmmoEnum.MISSILE));
-		gameBounds = bounds;
-		fireTimer = 0;
-		missileCount = 0;
-		missileIndex = 0;
-		maxCount = maxAmount;
-		missileNdxs = new ArrayList<Integer>();
-		missileHitSound = new Sound("data/sounds/Missile_Explosion.wav");
-		missileSound = new Sound("data/sounds/Missile_Launch.wav");
+			entities.add((Missile) AmmoFactory.getAmmo(AmmoEnum.MISSILE));
+		sound = new Sound("data/sounds/Missile_Launch.wav");
+		hitSound = new Sound("data/sounds/Missile_Explosion.wav");
 	}
 
 	public void add(Vector2f position, Vector2f direction) {
 		Vector2f posAmmo = new Vector2f(position);
 		float missleCenterX, missleCenterY;
 		if (fireTimer > 200) {
-			if (missileCount < maxCount) {
-				missleCenterX = missiles.get(missileIndex).getCenterX();
-				missleCenterY = missiles.get(missileIndex).getCenterY();
+			if (count < maxCount) {
+				missleCenterX = entities.get(ndx).getCenterX();
+				missleCenterY = entities.get(ndx).getCenterY();
 				posAmmo.x -= missleCenterX;
 				posAmmo.y -= missleCenterY;
-				missiles.get(missileIndex).create(posAmmo, direction);
-				missileNdxs.add(missileIndex);
-				missileCount++;
-				missileIndex++;
+				entities.get(ndx).create(posAmmo, direction);
+				activeNdxs.add(ndx);
+				count++;
+				ndx++;
 				fireTimer = 0;
-				if (missileIndex == maxCount)
-					missileIndex = 0;
-				missileSound.stop();
-				missileSound.play(1f, .4f);
+				if (ndx == maxCount)
+					ndx = 0;
+				sound.stop();
+				sound.play(1f, .4f);
 			}
 		}
 	}
 
 	@Override
-	public void destroy(int ndx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public int getMissileCount() {
-		return missileCount;
-	}
-
-	public int getMissileIndex() {
-		return missileIndex;
-	}
-
 	public void update(int dt) {
-		for (Missile missile : missiles) {
+		for (Entity missile : entities) {
 			if (!missile.isDead()) {
 				missile.update(dt);
 				if (!missile.intersects(gameBounds)) {
 					missile.destroy();
-					missileCount--;
+					count--;
 				}
 			}
 		}
@@ -72,42 +54,40 @@ public class MissileManager implements Manager {
 			fireTimer += dt;
 	}
 
-	public void draw() {
-		for (Missile missile : missiles)
-			missile.draw();
-	}
-
-	public void debugDraw(Graphics graphics) {
-		for (Missile missile : missiles)
-			missile.debugDraw(graphics);
-	}
-
+	@Override
 	public void displace(Entity second, int CollisionEnum) {
 		boolean displaced;
-		for (Missile missile : missiles) {
+		for (Entity missile : entities) {
 			if (!missile.isDead()) {
 				displaced = missile.displace(second);
 				if (displaced) {
-					missileSound.stop();
-					missileHitSound.stop();
-					missileHitSound.play(1f, .4f);
+					handleCollision();
 				}
 			}
 		}
 	}
 
 	@Override
-	public void displace(Manager second, int CollisionEnum) {
-
+	public void displace(Manager rhs, int collisionEnum) {
+		boolean displaced;
+		ArrayList<Entity> secondList;
+		secondList = rhs.getActive();
+		for (Entity missile : entities) {
+			if (!missile.isDead()) {
+				for (Entity second : secondList) {
+					displaced = missile.displace(second, collisionEnum);
+					if (displaced) {
+						handleCollision();
+					}
+				}
+			}
+		}
 	}
 
-	private ArrayList<Integer> missileNdxs;
-	private ArrayList<Missile> missiles;
-	private Porygon gameBounds;
-	private int missileCount;
-	private int missileIndex;
-	private int fireTimer;
-	private int maxCount;
-	private Sound missileSound;
-	private Sound missileHitSound;
+	@Override
+	public void handleCollision() {
+		sound.stop();
+		hitSound.stop();
+		hitSound.play(1f, .4f);
+	}
 }

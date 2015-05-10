@@ -1,6 +1,7 @@
 package game2D;
 
-import game2D.Collision.*;
+import game2D.abstracts.*;
+import game2D.collision.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -22,23 +23,4 @@ public class Enemy extends Movable {
 			takeDamage(10);
 		}
 	}
-
-	// @Override
-	// public void handleCollisions() {
-	// Collision temp;
-	// while (!collisions.isEmpty()) {
-	// temp = collisions.remove();
-	// switch (temp.getID()) {
-	// case Collision.BLOCKED:
-	// break;
-	// case Collision.DAMAGING:
-	// break;
-	// case Collision.TRANSPORTING:
-	// break;
-	// default:
-	// break;
-	// }
-	// }
-	// }
-
 }

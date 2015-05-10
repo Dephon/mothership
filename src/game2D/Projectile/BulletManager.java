@@ -1,43 +1,36 @@
-package game2D.Projectile;
+package game2D.projectile;
 
 import game2D.*;
-
-import java.util.*;
+import game2D.abstracts.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
-public class BulletManager implements Manager {
+public class BulletManager extends Manager {
 
 	public BulletManager(Porygon bounds, int maxAmount) throws SlickException {
-		bullets = new ArrayList<Bullet>();
+		super(bounds, maxAmount);
 		for (int i = 0; i < maxAmount; i++)
-			bullets.add((Bullet) AmmoFactory.getAmmo(AmmoEnum.BULLET));
-		gameBounds = bounds;
-		fireTimer = 0;
-		count = 0;
-		ndx = 0;
-		maxCount = maxAmount;
-		activeNdxs = new ArrayList<Integer>();
-		bulletSound = new Sound("data/sounds/Bullet_Shot.wav");
+			entities.add((Bullet) AmmoFactory.getAmmo(AmmoEnum.BULLET));
+		sound = new Sound("data/sounds/Bullet_Shot.wav");
 	}
 
 	@Override
-	public void add(Vector2f position, Vector2f direction) {
-		Vector2f posAmmo = new Vector2f(position);
+	public void add(Vector2f loc, Vector2f dir) {
+		Vector2f posAmmo = new Vector2f(loc);
 		if (fireTimer > 100) {
 			if (count < maxCount) {
-				posAmmo.x -= bullets.get(ndx).getCenterX();
-				posAmmo.y -= bullets.get(ndx).getCenterY();
-				bullets.get(ndx).create(posAmmo, direction);
+				posAmmo.x -= entities.get(ndx).getCenterX();
+				posAmmo.y -= entities.get(ndx).getCenterY();
+				entities.get(ndx).create(posAmmo, dir);
 				activeNdxs.add(ndx);
 				count++;
 				ndx++;
 				fireTimer = 0;
 				if (ndx == maxCount)
 					ndx = 0;
-				bulletSound.stop();
-				bulletSound.play(1f, .4f);
+				sound.stop();
+				sound.play(1f, .4f);
 			}
 		}
 	}
@@ -47,14 +40,8 @@ public class BulletManager implements Manager {
 	}
 
 	@Override
-	public void destroy(int ndx) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void update(int dt) {
-		for (Bullet bullet : bullets) {
+		for (Entity bullet : entities) {
 			if (!bullet.isDead()) {
 				bullet.update(dt);
 				if (!bullet.intersects(gameBounds)) {
@@ -68,48 +55,26 @@ public class BulletManager implements Manager {
 	}
 
 	@Override
-	public void draw() {
-		for (Bullet bullet : bullets)
-			bullet.draw();
-	}
-
-	@Override
-	public void debugDraw(Graphics graphics) {
-		for (Bullet bullet : bullets)
-			bullet.debugDraw(graphics);
-	}
-
-	@Override
-	public void displace(Entity second, int CollisionEnum) {
+	public void displace(Entity rhs, int CollisionEnum) {
 		boolean displaced;
-		for (Bullet bullet : bullets) {
+		for (Entity bullet : entities) {
 			if (!bullet.isDead()) {
-				displaced = bullet.displace(second);
+				displaced = bullet.displace(rhs);
 				if (displaced) {
-					bulletSound.stop();
+					sound.stop();
 				}
 			}
 		}
 	}
 
 	@Override
-	public void displace(Manager second, int CollisionEnum) {
+	public void displace(Manager rhs, int collisionEnum) {
+		super.displace(rhs, collisionEnum);
+	}
+
+	@Override
+	public void handleCollision() {
 		// TODO Auto-generated method stub
-	}
 
-	public ArrayList<Bullet> getActiveBullets() {
-		ArrayList<Bullet> currentBullets = new ArrayList<Bullet>();
-		for (int i = 0; i < activeNdxs.size(); i++)
-			currentBullets.add(bullets.get(activeNdxs.get(i)));
-		return currentBullets;
 	}
-
-	private int count;
-	private int ndx;
-	private int fireTimer;
-	private int maxCount;
-	private ArrayList<Integer> activeNdxs;
-	private ArrayList<Bullet> bullets;
-	private Porygon gameBounds;
-	private Sound bulletSound;
 }

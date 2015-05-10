@@ -1,4 +1,4 @@
-package game2D.Projectile;
+package game2D.projectile;
 
 public class AmmoEnum {
 	public static final int BULLET = 0;

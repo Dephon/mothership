@@ -1,10 +1,10 @@
 package game2D;
 
+import game2D.states.*;
+import game2D.states.GameState;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
-
-import states.*;
-import states.GameState;
 
 /**
  */
