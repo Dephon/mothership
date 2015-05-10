@@ -1,5 +1,7 @@
 package game2D;
 
+import game2D.Collision.*;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
@@ -15,8 +17,10 @@ public class Enemy extends Movable {
 	}
 
 	@Override
-	public void handleCollision() {
-		// TODO Auto-generated method stub
+	public void handleCollision(int collisionEnum) {
+		if (collisionEnum == CollisionEnum.DAMAGING) {
+			takeDamage(10);
+		}
 	}
 
 	// @Override

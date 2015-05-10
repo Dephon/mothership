@@ -16,6 +16,7 @@ public abstract class Entity {
 		dead = true;
 		dying = false;
 		dyingTimer = 0;
+		scale = 1.5f;
 	}
 
 	public Entity(String ref) throws SlickException {
@@ -29,6 +30,7 @@ public abstract class Entity {
 		dead = true;
 		dying = false;
 		dyingTimer = 0;
+		scale = 1.5f;
 	}
 
 	public Entity(String ref, Vector2f loc) throws SlickException {
@@ -43,6 +45,7 @@ public abstract class Entity {
 		dead = true;
 		dying = false;
 		dyingTimer = 0;
+		scale = 1.5f;
 	}
 
 	public Entity(String ref, Vector2f loc, Vector2f dir) throws SlickException {
@@ -142,6 +145,21 @@ public abstract class Entity {
 		return dead;
 	}
 
+	public boolean displace(Entity rhs, int collisionEnum) {
+		Vector2f dis = Collision.intersects(this, rhs);
+		if (dis.x == 0 && dis.y == 0) {
+			return false;
+		} else {
+			if (collisionEnum == CollisionEnum.BLOCKING) {
+				location.add(dis);
+				box.setLocation(location);
+			} else if (collisionEnum == CollisionEnum.DAMAGING) {
+				handleCollision(CollisionEnum.DAMAGING);
+			}
+			return true;
+		}
+	}
+
 	public boolean displace(Entity rhs) {
 		Vector2f dis = Collision.intersects(this, rhs);
 		if (dis.x == 0 && dis.y == 0) {
@@ -149,7 +167,7 @@ public abstract class Entity {
 		} else {
 			location.add(dis);
 			box.setLocation(location);
-			handleCollision();
+			handleCollision(CollisionEnum.BLOCKING);
 			return true;
 		}
 	}
@@ -208,6 +226,7 @@ public abstract class Entity {
 			direction.x = 0;
 			direction.y = 0;
 			setLoc(0, 0);
+			deathAnimation.restart();
 		}
 	}
 
@@ -310,13 +329,24 @@ public abstract class Entity {
 		box.rotate(theta);
 	}
 
+	protected void rotateOnlyImage(boolean reverse) {
+		float theta;
+
+		if (reverse)
+			theta = (float) (360 - direction.getTheta());
+		else
+			theta = (float) direction.getTheta();
+
+		rotateAnimation(currentAnimation, theta);
+	}
+
 	protected void rotateAnimation(Animation animation, float angle) {
 		for (int i = 0; i < animation.getFrameCount(); i++) {
 			animation.getImage(i).rotate(angle);
 		}
 	}
 
-	protected abstract void handleCollision();
+	protected abstract void handleCollision(int collisionEnum);
 
 	protected void TimeUntilDeath(int eta, int dt) {
 		if (!dead) {
@@ -332,6 +362,7 @@ public abstract class Entity {
 	protected boolean dead;
 	protected boolean dying;
 	protected int dyingTimer;
+	protected float scale;
 	protected float speed;
 	protected Porygon box;
 	protected Vector2f direction;

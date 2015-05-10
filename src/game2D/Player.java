@@ -19,7 +19,7 @@ public class Player extends Movable {
 	}
 
 	@Override
-	public void handleCollision() {
+	public void handleCollision(int collisionEnum) {
 		// TODO Auto-generated method stub
 
 	}
@@ -49,6 +49,10 @@ public class Player extends Movable {
 
 	public void displace(EnemyManager enemyManager) {
 		// TODO Auto-generated method stub
+
+	}
+
+	public void displace(Manager Manager, int CollisionEnum) {
 
 	}
 

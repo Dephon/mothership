@@ -1,5 +1,6 @@
 package game2D.Collision;
 
-public enum CollisionEnum {
-
+public class CollisionEnum {
+	public static final int BLOCKING = 0;
+	public static final int DAMAGING = 1;
 }

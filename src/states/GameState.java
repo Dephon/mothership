@@ -1,6 +1,7 @@
 package states;
 
 import game2D.*;
+import game2D.Collision.*;
 import game2D.Projectile.*;
 
 import java.io.*;
@@ -24,16 +25,16 @@ public class GameState extends BasicGameState {
 		points.add(new Vector2f(container.getWidth(), container.getHeight()));
 		points.add(new Vector2f(0, container.getHeight()));
 		try {
-			player = new Player("data/S3K_Hyper_Knuckles.gif", new Vector2f());
+			player = new Player();
 			player.create();
 			player.setSpeed(.1f);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		gameMap = new TiledMap("maps/mothership level 1_basic.tmx");
-		ammoManager = new AmmoManager(new Porygon(points), 100);
-		ammoManager.setAmmo(AmmoEnum.BULLET);
+		missileManager = new MissileManager(new Porygon(points), 100);
+		bulletManager = new BulletManager(new Porygon(points), 100);
+		currentAmmo = AmmoEnum.BULLET;
 		enemyManager = new EnemyManager(new Rectangle(0, 0,
 				container.getWidth(), container.getHeight()), 100);
 		enemyManager.add(new Vector2f(300, 300), new Vector2f(-1, 0));
@@ -50,7 +51,6 @@ public class GameState extends BasicGameState {
 							ResourceLoader
 									.getResourceAsStream("data/sounds/Crateria_Underground_-_Super_Metroid.wav"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -65,13 +65,13 @@ public class GameState extends BasicGameState {
 
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			sbg.enterState(StateEnum.PAUSE);
-			// container.setPaused(true);
+			container.setPaused(true);
 		} else {
 			if (input.isKeyPressed(Input.KEY_SPACE)) {
-				if (ammoManager.getAmmo() == AmmoEnum.BULLET) {
-					ammoManager.setAmmo(AmmoEnum.MISSILE);
+				if (currentAmmo == AmmoEnum.BULLET) {
+					currentAmmo = AmmoEnum.MISSILE;
 				} else
-					ammoManager.setAmmo(AmmoEnum.BULLET);
+					currentAmmo = AmmoEnum.BULLET;
 			}
 			if (input.isKeyDown(Input.KEY_W)) { // Move up
 				if (player.getOriginY() >= 0)
@@ -124,29 +124,43 @@ public class GameState extends BasicGameState {
 			pVector.x = input.getAbsoluteMouseX() - player.getCenterX();
 			pVector.y = input.getAbsoluteMouseY() - player.getCenterY();
 			pVector = pVector.normalise();
-			ammoManager.add(location, pVector);
+			if (currentAmmo == AmmoEnum.BULLET) {
+				bulletManager.add(location, pVector);
+			} else if (currentAmmo == AmmoEnum.MISSILE) {
+				missileManager.add(location, pVector);
+			}
 		}
-		ammoManager.update(dt);
+		missileManager.update(dt);
+		bulletManager.update(dt);
 		enemyManager.update(dt);
 		player.updateAnimation();
 		player.updateUI();
-		player.displace(wall);
-		ammoManager.displace(wall);
-		enemyManager.displace(wall);
-		enemyManager.displace(ammoManager);
-		player.displace(enemyManager);
+		player.displace(wall, CollisionEnum.BLOCKING);
+		bulletManager.displace(wall, CollisionEnum.BLOCKING);
+		missileManager.displace(wall, CollisionEnum.BLOCKING);
+		enemyManager.displace(wall, CollisionEnum.BLOCKING);
+		enemyManager.displace(bulletManager, CollisionEnum.DAMAGING);
+		enemyManager.displace(missileManager, CollisionEnum.DAMAGING);
+		player.displace(enemyManager, CollisionEnum.DAMAGING);
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame sbg,
 			Graphics graphics) throws SlickException {
 		gameMap.render(0, 0);
-		graphics.drawString("Index: " + ammoManager.getMissileIndex(), 800, 0);
-		ammoManager.debugDraw(graphics);
+		bulletManager.debugDraw(graphics);
+		missileManager.debugDraw(graphics);
 		player.debugDraw(graphics);
 		player.drawUI();
 		enemyManager.draw();
 		wall.debugDraw(graphics);
+
+		// bulletManager.draw();
+		// missileManager.draw();
+		// player.draw();
+		// player.drawUI();
+		// enemyManager.draw();
+		// wall.draw();
 	}
 
 	@Override
@@ -158,8 +172,10 @@ public class GameState extends BasicGameState {
 		return; // Add breakpoint here
 	}
 
+	int currentAmmo;
 	Player player;
-	AmmoManager ammoManager;
+	MissileManager missileManager;
+	BulletManager bulletManager;
 	EnemyManager enemyManager;
 	TiledMap gameMap;
 	Immovable wall;

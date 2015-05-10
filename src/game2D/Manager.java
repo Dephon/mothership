@@ -14,7 +14,7 @@ public interface Manager {
 
 	public void debugDraw(Graphics graphics);
 
-	public void displace(Entity second);
+	public void displace(Entity second, int CollisionEnum);
 
-	public void displace(Manager second);
+	public void displace(Manager second, int CollisionEnum);
 }

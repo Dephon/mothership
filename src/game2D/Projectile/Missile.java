@@ -10,16 +10,17 @@ public class Missile extends Ammo {
 		super();
 		Image spriteSheet = new Image("data/Missile.png");
 		trailingFire = new Animation();
-		scale = 1.5f;
+		igniteTime = 0;
 		jerk = 0;
-		currentAnimation.addFrame(spriteSheet.getSubImage(2, 4, 50, 14), 1000);
+		ignited = false;
+		currentAnimation.addFrame(spriteSheet.getSubImage(3, 0, 92, 22), 100);
+		trailingFire.addFrame(spriteSheet.getSubImage(3, 26, 92, 22), 10);
+		trailingFire.addFrame(spriteSheet.getSubImage(3, 52, 92, 22), 10);
 		updateBox();
-		trailingFire.addFrame(spriteSheet.getSubImage(53, 6, 42, 22), 100);
-		trailingFire.addFrame(spriteSheet.getSubImage(98, 12, 42, 22), 100);
 		deathAnimation.addFrame(spriteSheet.getSubImage(142, 6, 32, 32)
-				.getScaledCopy(scale), 100);
+				.getScaledCopy(scale), 50);
 		deathAnimation.addFrame(spriteSheet.getSubImage(177, 6, 32, 32)
-				.getScaledCopy(scale), 100);
+				.getScaledCopy(scale), 50);
 		deathAnimation.addFrame(spriteSheet.getSubImage(212, 7, 32, 32)
 				.getScaledCopy(scale), 100);
 		deathAnimation.addFrame(spriteSheet.getSubImage(246, 7, 32, 32)
@@ -33,8 +34,6 @@ public class Missile extends Ammo {
 		deathAnimation.addFrame(spriteSheet.getSubImage(379, 7, 32, 32)
 				.getScaledCopy(scale), 100);
 		deathAnimation.setLooping(false);
-		deathSound = new Sound("data/sounds/Missile_Explosion.wav");
-		sound = new Sound("data/sounds/Missile_Launch.wav");
 	}
 
 	public Missile(Vector2f loc) throws SlickException {
@@ -51,27 +50,29 @@ public class Missile extends Ammo {
 	public void create() {
 		jerk = .00001f;
 		super.create();
-		sound.play();
+		// sound.play();
 	}
 
 	@Override
 	public void create(Vector2f loc) {
 		jerk = .00001f;
 		super.create(loc);
-		sound.play();
+		// sound.play();
 	}
 
 	@Override
 	public void create(Vector2f loc, Vector2f dir) {
 		jerk = .00001f;
 		super.create(loc, dir);
-		sound.play(1f, .4f);
+		// sound.play(1f, .4f);
 	}
 
 	@Override
 	public void destroy() {
 		if (!dead) {
 			jerk = 0;
+			igniteTime = 0;
+			ignited = false;
 			super.destroy();
 		}
 	}
@@ -91,21 +92,29 @@ public class Missile extends Ammo {
 	@Override
 	public void update(int dt) {
 		if (!dead) {
-			TimeUntilDeath(800, dt);
+			TimeUntilDeath(700, dt);
+			if (igniteTime > 300 && !ignited) {
+				ignited = true;
+				currentAnimation = trailingFire;
+				currentAnimation.setAutoUpdate(true);
+				rotateOnlyImage(false);
+			} else {
+				if (igniteTime < Integer.MAX_VALUE)
+					igniteTime += dt;
+			}
 			acceleration += jerk * dt;
 			super.update(dt);
 		}
 	}
 
 	@Override
-	protected void handleCollision() {
+	protected void handleCollision(int collisionEnum) {
 		dying = true;
 		updateBox();
-		sound.stop();
-		deathSound.play(1f, .4f);
 	}
 
-	protected float scale;
+	protected boolean ignited;
+	protected int igniteTime;
 	protected float jerk;
 	protected Animation trailingFire;
 }

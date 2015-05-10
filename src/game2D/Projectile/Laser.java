@@ -17,7 +17,7 @@ public class Laser extends Ammo {
 	}
 
 	@Override
-	public void handleCollision() {
+	public void handleCollision(int collisionEnum) {
 
 	}
 }
