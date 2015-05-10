@@ -18,7 +18,7 @@ public class BulletManager extends Manager {
 	@Override
 	public void add(Vector2f loc, Vector2f dir) {
 		Vector2f posAmmo = new Vector2f(loc);
-		if (fireTimer > 100) {
+		if (fireTimer > 200) {
 			if (count < maxCount) {
 				posAmmo.x -= entities.get(ndx).getCenterX();
 				posAmmo.y -= entities.get(ndx).getCenterY();
