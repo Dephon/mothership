@@ -60,8 +60,8 @@ public class PauseState extends BasicGameState {
 		// disp.fill(quit);
 		// disp.fill(mousePoint);
 
-		disp.drawImage(pausedLogo, (container.getWidth() - 400) / 2f,
-				container.getWidth() / 7.5f);
+		disp.drawImage(pausedLogo, (container.getWidth() - 629) / 2f,
+				container.getHeight() / 6f);
 		disp.drawImage(backButton, returnTo.getX(), returnTo.getY());
 		disp.drawImage(quitButton, quit.getX(), quit.getY());
 	}

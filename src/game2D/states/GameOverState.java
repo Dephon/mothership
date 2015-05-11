@@ -43,8 +43,8 @@ public class GameOverState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame sbg,
 			Graphics disp) throws SlickException {
 
-		disp.drawImage(loseLogo, (container.getWidth() - 600) / 2f,
-				container.getWidth() / 7.5f);
+		disp.drawImage(loseLogo, (container.getWidth() - 698) / 2f,
+				container.getHeight() / 7.5f);
 		disp.drawImage(backButton, returnTo.getX(), returnTo.getY());
 
 	}

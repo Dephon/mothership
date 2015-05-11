@@ -3,7 +3,6 @@ package game2D.states;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 import org.newdawn.slick.state.*;
-import org.newdawn.slick.state.transition.*;
 
 public class MainMenuState extends BasicGameState {
 
@@ -31,7 +30,7 @@ public class MainMenuState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame sbg, int dt)
 			throws SlickException {
 
-		sbg.enterState(StateEnum.GAME_LEVEL_ONE);
+		// sbg.enterState(StateEnum.GAME_LEVEL_ONE);
 
 		Input input = container.getInput();
 		mousePoint = new Circle(1, 1, 1);
@@ -40,8 +39,9 @@ public class MainMenuState extends BasicGameState {
 
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			if (start.intersects(mousePoint)) {
-				sbg.enterState(1, new FadeOutTransition(),
-						new FadeInTransition());
+				sbg.enterState(StateEnum.GAME_LEVEL_ONE);
+				// sbg.enterState(StateEnum.GAME_LEVEL_ONE,
+				// new FadeOutTransition(), new FadeInTransition());
 			}
 			if (quit.intersects(mousePoint)) {
 				container.exit();
@@ -66,8 +66,8 @@ public class MainMenuState extends BasicGameState {
 		// disp.fill(quit);
 
 		disp.setBackground(Color.gray);
-		disp.drawImage(nameLogo, (container.getWidth() - 600) / 2f,
-				container.getWidth() / 7.5f);
+		disp.drawImage(nameLogo, (container.getWidth() - 927) / 2f,
+				container.getHeight() / 7.5f);
 		disp.drawImage(startButton, start.getX(), start.getY());
 		disp.drawImage(quitButton, quit.getX(), quit.getY());
 
