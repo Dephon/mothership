@@ -19,7 +19,12 @@ public class Laser extends Ammo {
 	}
 
 	@Override
-	public void handleCollision(int collisionEnum) {
+	public void handleCollision(int collisionEnum, int statDamage) {
 
+	}
+
+	@Override
+	protected int getDeathTimer() {
+		return 0;
 	}
 }

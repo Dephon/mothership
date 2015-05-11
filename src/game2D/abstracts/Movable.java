@@ -1,5 +1,7 @@
 package game2D.abstracts;
 
+import game2D.collisions.*;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
@@ -48,6 +50,13 @@ public abstract class Movable extends Entity {
 		}
 	}
 
+	@Override
+	public void handleCollision(int collisionEnum, int statDamage) {
+		if (collisionEnum == CollisionEnum.DAMAGING) {
+			takeDamage(statDamage);
+		}
+	}
+
 	public void updateAnimation(Vector2f dir) {
 		if (dir.x == 0 && dir.y == 1) {
 			currentAnimation = movementAnimations[DIRECTION_SOUTH];
@@ -92,6 +101,5 @@ public abstract class Movable extends Entity {
 	protected final int DIRECTION_WEST = 6;
 	protected final int DIRECTION_NORTHWEST = 7;
 	protected int maxHealth;
-	protected int maxInvTime;
 	protected int health;
 }

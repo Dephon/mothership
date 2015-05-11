@@ -23,7 +23,6 @@ public abstract class Immovable extends Entity {
 	}
 
 	@Override
-	public void handleCollision(int collisionEnum) {
-		// TODO Auto-generated method stub
+	public void handleCollision(int collisionEnum, int statDamage) {
 	}
 }

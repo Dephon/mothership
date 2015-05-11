@@ -8,6 +8,20 @@ import org.newdawn.slick.geom.*;
 public class Missile extends Ammo {
 	public Missile() throws SlickException {
 		super();
+		init();
+	}
+
+	public Missile(Vector2f loc) throws SlickException {
+		super("data/Missile.png", loc);
+		init();
+	}
+
+	public Missile(Vector2f loc, Vector2f dir) throws SlickException {
+		super("data/Missile.png", loc, dir);
+		init();
+	}
+
+	private void init() throws SlickException {
 		Image spriteSheet = new Image("data/Missile.png");
 		trailingFire = new Animation();
 		igniteTime = 0;
@@ -34,16 +48,7 @@ public class Missile extends Ammo {
 		deathAnimation.addFrame(spriteSheet.getSubImage(379, 7, 32, 32)
 				.getScaledCopy(scale), 100);
 		deathAnimation.setLooping(false);
-	}
-
-	public Missile(Vector2f loc) throws SlickException {
-		super("data/Missile.png", loc);
-		jerk = 0;
-	}
-
-	public Missile(Vector2f loc, Vector2f dir) throws SlickException {
-		super("data/Missile.png", loc, dir);
-		jerk = 0;
+		statDamage = 100;
 	}
 
 	@Override
@@ -62,6 +67,11 @@ public class Missile extends Ammo {
 	public void create(Vector2f loc, Vector2f dir) {
 		jerk = .00001f;
 		super.create(loc, dir);
+	}
+
+	@Override
+	protected int getDeathTimer() {
+		return 700;
 	}
 
 	@Override
@@ -90,7 +100,6 @@ public class Missile extends Ammo {
 	@Override
 	public void update(int dt) {
 		if (!dead) {
-			TimeUntilDeath(700, dt);
 			if (igniteTime > 300 && !ignited) {
 				ignited = true;
 				currentAnimation = trailingFire;
@@ -106,7 +115,7 @@ public class Missile extends Ammo {
 	}
 
 	@Override
-	protected void handleCollision(int collisionEnum) {
+	protected void handleCollision(int collisionEnum, int statDamage) {
 		dying = true;
 		updateBox();
 	}

@@ -1,7 +1,6 @@
 package game2D;
 
 import game2D.abstracts.*;
-import game2D.collisions.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -20,16 +19,9 @@ public final class Player extends Movable {
 	protected void init() throws SlickException {
 		super.init();
 		damaged = false;
-		invincible = 200;
+		maxInvTime = 1000;
 		currentAnimation = movementAnimations[DIRECTION_EAST];
 		updateBox();
-	}
-
-	@Override
-	public void handleCollision(int collisionEnum) {
-		if (collisionEnum == CollisionEnum.DAMAGING) {
-
-		}
 	}
 
 	@Override
@@ -75,6 +67,7 @@ public final class Player extends Movable {
 		}
 	}
 
+	protected int maxInvTime;
 	protected int invincible;
 	protected boolean damaged;
 }

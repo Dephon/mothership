@@ -6,28 +6,35 @@ import org.newdawn.slick.geom.*;
 public abstract class Ammo extends Entity {
 	public Ammo() {
 		super();
-		acceleration = 0;
+		init();
 	}
 
 	public Ammo(String ref) throws SlickException {
 		super(ref);
-		acceleration = 0;
+		init();
 	}
 
 	public Ammo(String ref, Vector2f loc) throws SlickException {
 		super(ref, loc);
-		acceleration = 0;
+		init();
 	}
 
 	public Ammo(String ref, Vector2f loc, Vector2f dir) throws SlickException {
 		super(ref, loc, dir);
+		init();
+	}
+
+	private void init() {
 		acceleration = 0;
 	}
 
 	@Override
 	public void update(int dt) {
-		speed += acceleration * dt;
-		super.update(dt);
+		if (!dead) {
+			TimeUntilDeath(getDeathTimer(), dt);
+			speed += acceleration * dt;
+			super.update(dt);
+		}
 	}
 
 	@Override
@@ -64,6 +71,8 @@ public abstract class Ammo extends Entity {
 		}
 		return displaced;
 	}
+
+	protected abstract int getDeathTimer();
 
 	protected float acceleration;
 }

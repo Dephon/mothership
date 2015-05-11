@@ -51,6 +51,8 @@ public abstract class Entity {
 		invisible = false;
 		dyingTimer = 0;
 		scale = 1.5f;
+		statDamage = 0;
+		statSplashDamage = 0;
 	}
 
 	public float getOriginX() {
@@ -145,12 +147,26 @@ public abstract class Entity {
 				box.setLocation(location);
 			}
 			if (rhs.isDying()) {
-				handleCollision(CollisionEnum.NONE);
+				handleCollision(collisionEnum, rhs.getStatSplashDamage());
+				handleCollision(collisionEnum, 0);
+			} else {
+				handleCollision(collisionEnum, rhs.getStatDamage());
+				rhs.handleCollision(collisionEnum, 0);
 			}
-			handleCollision(collisionEnum);
-			rhs.handleCollision(collisionEnum);
 			return true;
 		}
+	}
+
+	public boolean isSplashDamage() {
+		return splashDamage;
+	}
+
+	public int getStatDamage() {
+		return statDamage;
+	}
+
+	public int getStatSplashDamage() {
+		return statSplashDamage;
 	}
 
 	public boolean isDying() {
@@ -164,7 +180,7 @@ public abstract class Entity {
 		} else {
 			location.add(dis);
 			box.setLocation(location);
-			handleCollision(CollisionEnum.BLOCKING);
+			handleCollision(CollisionEnum.BLOCKING, 0);
 			return true;
 		}
 	}
@@ -358,11 +374,14 @@ public abstract class Entity {
 		}
 	}
 
-	protected abstract void handleCollision(int collisionEnum);
+	protected abstract void handleCollision(int collisionEnum, int statDamage);
 
 	protected boolean dead;
 	protected boolean dying;
+	protected boolean splashDamage;
 	protected boolean invisible;
+	protected int statDamage;
+	protected int statSplashDamage;
 	protected int dyingTimer;
 	protected float scale;
 	protected float speed;
@@ -375,5 +394,4 @@ public abstract class Entity {
 	protected Animation hitAnimation;
 	protected Sound sound;
 	protected Sound deathSound;
-
 }

@@ -8,6 +8,20 @@ import org.newdawn.slick.geom.*;
 public class Bullet extends Ammo {
 	public Bullet() throws SlickException {
 		super();
+		init();
+	}
+
+	public Bullet(Vector2f loc) throws SlickException {
+		super("data/Bullet.png", loc);
+		init();
+	}
+
+	public Bullet(Vector2f loc, Vector2f dir) throws SlickException {
+		super("data/Bullet.png", loc, dir);
+		init();
+	}
+
+	private void init() throws SlickException {
 		Image temp = new Image("data/Bullet.png");
 		currentAnimation.addFrame(temp.getScaledCopy(scale), 1000);
 		updateBox();
@@ -17,47 +31,9 @@ public class Bullet extends Ammo {
 		deathAnimation.addFrame(temp.getSubImage(19, 0, 16, 21), 100);
 		deathAnimation.addFrame(temp.getSubImage(38, 0, 16, 21), 100);
 		deathAnimation.setLooping(false);
-		this.speed = 1;
+		speed = 1;
 		sound = new Sound("data/sounds/Bullet_Shot.wav");
-	}
-
-	// public Missile() throws SlickException {
-	// super();
-	// Image spriteSheet = new Image("data/Missile.png");
-	// trailingFire = new Animation();
-	// scale = 1.5f;
-	// jerk = 0;
-	// currentAnimation.addFrame(spriteSheet.getSubImage(2, 4, 50, 14), 1000);
-	// updateBox();
-	// trailingFire.addFrame(spriteSheet.getSubImage(53, 6, 42, 22), 100);
-	// trailingFire.addFrame(spriteSheet.getSubImage(98, 12, 42, 22), 100);
-	// deathAnimation.addFrame(spriteSheet.getSubImage(142, 6, 32, 32)
-	// .getScaledCopy(scale), 50);
-	// deathAnimation.addFrame(spriteSheet.getSubImage(177, 6, 32, 32)
-	// .getScaledCopy(scale), 50);
-	// deathAnimation.addFrame(spriteSheet.getSubImage(212, 7, 32, 32)
-	// .getScaledCopy(scale), 100);
-	// deathAnimation.addFrame(spriteSheet.getSubImage(246, 7, 32, 32)
-	// .getScaledCopy(scale), 100);
-	// deathAnimation.addFrame(spriteSheet.getSubImage(280, 6, 32, 32)
-	// .getScaledCopy(scale), 100);
-	// deathAnimation.addFrame(spriteSheet.getSubImage(313, 6, 32, 32)
-	// .getScaledCopy(scale), 100);
-	// deathAnimation.addFrame(spriteSheet.getSubImage(346, 7, 32, 32)
-	// .getScaledCopy(scale), 100);
-	// deathAnimation.addFrame(spriteSheet.getSubImage(379, 7, 32, 32)
-	// .getScaledCopy(scale), 100);
-	// deathAnimation.setLooping(false);
-	// }
-
-	public Bullet(Vector2f loc) throws SlickException {
-		super("data/Bullet.png", loc);
-		speed = 1;
-	}
-
-	public Bullet(Vector2f loc, Vector2f dir) throws SlickException {
-		super("data/Bullet.png", loc, dir);
-		speed = 1;
+		statDamage = 10;
 	}
 
 	@Override
@@ -80,7 +56,6 @@ public class Bullet extends Ammo {
 	@Override
 	public void update(int dt) {
 		if (!dead) {
-			TimeUntilDeath(300, dt);
 			super.update(dt);
 		}
 	}
@@ -92,8 +67,13 @@ public class Bullet extends Ammo {
 	}
 
 	@Override
-	public void handleCollision(int collisionEnum) {
+	public void handleCollision(int collisionEnum, int statDamage) {
 		dying = true;
 		updateBox();
+	}
+
+	@Override
+	protected int getDeathTimer() {
+		return 300;
 	}
 }
