@@ -50,7 +50,7 @@ public class UI {
 		uiBar.draw(0, 560);
 		curPortrait.draw(623, 560);
 		if (firstDigit != numbers[0])
-			firstDigit.draw(500, 557);
+			firstDigit.draw(506, 557);
 		if (secondDigit != numbers[0] || health == 100)
 			secondDigit.draw(540, 557);
 		thirdDigit.draw(580, 557);

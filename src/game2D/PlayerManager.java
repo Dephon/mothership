@@ -105,6 +105,9 @@ public class PlayerManager extends Manager {
 			hitSound.stop();
 			hitSound.play();
 		}
+		if (collisionEnum == CollisionEnum.MEDPACK) {
+			player.addHealth(20);
+		}
 		super.handleCollision(entity, collisionEnum, damage);
 	}
 

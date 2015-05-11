@@ -2,6 +2,7 @@ package game2D.states;
 
 import game2D.*;
 import game2D.collisions.*;
+import game2D.pickups.*;
 import game2D.projectiles.*;
 
 import java.util.*;
@@ -30,10 +31,12 @@ public abstract class GameState extends BasicGameState {
 		missiles = new MissileManager(bounds, 100);
 		bullets = new BulletManager(bounds, 100);
 		enemies = new EnemyManager(bounds, 100);
+		medPacks = new MedPackManager(bounds, 100);
 		ui = new UI();
 
 		enemies.add(300, 300, 0, 0);
 		players.add(100, 100, 1, 0);
+		medPacks.add(500, 200, 0, 0);
 
 		setMap();
 		setWalls(container);
@@ -95,6 +98,7 @@ public abstract class GameState extends BasicGameState {
 			players.update(dt);
 			players.displace(obstacles, CollisionEnum.BLOCKING);
 			players.displace(enemies, CollisionEnum.DAMAGING);
+			players.displace(medPacks, CollisionEnum.MEDPACK);
 			bullets.displace(obstacles, CollisionEnum.BLOCKING);
 			missiles.displace(obstacles, CollisionEnum.BLOCKING);
 			enemies.displace(obstacles, CollisionEnum.BLOCKING);
@@ -115,6 +119,7 @@ public abstract class GameState extends BasicGameState {
 			players.debugDraw(graphics);
 			obstacles.debugDraw(graphics);
 			enemies.debugDraw(graphics);
+			medPacks.debugDraw(graphics);
 			graphics.drawString("(" + debugX + "," + debugY + ")", 0, 0);
 			ui.draw();
 		} else {
@@ -123,6 +128,7 @@ public abstract class GameState extends BasicGameState {
 			players.draw();
 			obstacles.draw();
 			enemies.draw();
+			medPacks.draw();
 			ui.draw();
 		}
 	}
@@ -172,6 +178,7 @@ public abstract class GameState extends BasicGameState {
 	protected MissileManager missiles;
 	protected BulletManager bullets;
 	protected EnemyManager enemies;
+	protected MedPackManager medPacks;
 	protected TiledMap gameMap;
 	protected Music background;
 	protected UI ui;
