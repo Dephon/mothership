@@ -10,6 +10,7 @@ public class MedPack extends Entity {
 		super();
 		SpriteSheet medPackSheet = new SpriteSheet(new Image(
 				"data/sprites/medpack.png"), 32, 32);
+
 		currentAnimation = new Animation(medPackSheet, 500);
 		updateBox();
 	}

@@ -1,5 +1,6 @@
 package game2D.states.levels;
 
+import game2D.*;
 import game2D.states.*;
 import game2D.states.GameState;
 
@@ -41,7 +42,9 @@ public class MapOne extends GameState {
 		// Bottom Wall
 		obstacles.add(0f, 530, 411, 30);
 		obstacles.add(550, 530, 430, 30);
-		// obstacles.add(pos, size);
+		// Transport
+		mapMover.add(0, 283, 1, 122, ThreeStateEnum.LEFT);
+		mapMover.add(959, 283, 1, 122, ThreeStateEnum.RIGHT);
 	}
 
 	@Override
