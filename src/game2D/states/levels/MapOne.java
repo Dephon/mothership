@@ -39,7 +39,7 @@ public class MapOne extends GameState {
 		obstacles.add(0, 0, 25, 282);
 		obstacles.add(0, 406, 25, 156);
 		// Bottom Wall
-		obstacles.add(0f, 469f, container.getWidth(), 26f);
+		obstacles.add(0f, 560, container.getWidth(), 26f);
 
 	}
 

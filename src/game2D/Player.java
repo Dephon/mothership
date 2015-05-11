@@ -18,7 +18,7 @@ public final class Player extends Movable {
 
 	protected void init() throws SlickException {
 		super.init();
-		damaged = false;
+		invin = false;
 		maxInvTime = 1000;
 		currentAnimation = movementAnimations[DIRECTION_EAST];
 		updateBox();
@@ -31,30 +31,56 @@ public final class Player extends Movable {
 
 	@Override
 	public void takeDamage(int dmg) {
-		if (!damaged) {
+		if (!invin) {
 			super.takeDamage(dmg);
-			damaged = true;
+			invin = true;
 		}
 	};
 
 	@Override
 	public void update(Vector2f dir, int dt) {
 		super.update(dir, dt);
-		damagedCheck(dt);
+		invincCheck(dt);
 	};
 
-	private void damagedCheck(int dt) {
-		if (damaged) {
-			invincible += dt;
-			if (invincible > maxInvTime) {
-				damaged = false;
-				invincible = 0;
+	private void invincCheck(int dt) {
+		if (invin) {
+			invinTimer += dt;
+			if (invinTimer > maxInvTime) {
+				invin = false;
+				invinTimer = 0;
 			}
 		}
 	}
 
 	public boolean isDamaged() {
-		return damaged;
+		if (health < maxHealth)
+			return true;
+		else
+			return false;
+	}
+
+	// @Override
+	// public void draw() {
+	// if (damaged) {
+	// if (invincible % 5 == 0) {
+	// super.draw();
+	// }
+	// }
+	// }
+	//
+	// @Override
+	// public void debugDraw(Graphics graphics) {
+	// if (!damaged || show) {
+	// super.debugDraw(graphics);
+	// } else {
+	//
+	// }
+	// graphics.draw(box);
+	// }
+
+	public boolean isInvin() {
+		return invin;
 	}
 
 	@Override
@@ -71,7 +97,8 @@ public final class Player extends Movable {
 		}
 	}
 
+	protected boolean show;
 	protected int maxInvTime;
-	protected int invincible;
-	protected boolean damaged;
+	protected int invinTimer;
+	protected boolean invin;
 }

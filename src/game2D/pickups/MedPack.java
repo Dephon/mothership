@@ -17,7 +17,6 @@ public class MedPack extends Entity {
 	@Override
 	public void handleCollision(int collisionEnum, int statDamage) {
 		dead = true;
-
 	}
 
 }

@@ -3,6 +3,8 @@ package game2D;
 import game2D.abstracts.*;
 import game2D.collisions.*;
 
+import java.util.*;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
@@ -99,11 +101,51 @@ public class PlayerManager extends Manager {
 	}
 
 	@Override
+	public void displace(Manager rhs, int collisionEnum) {
+		Player player;
+		ArrayList<Entity> secondList;
+		Vector2f dis;
+		secondList = rhs.getActive();
+		for (Entity entity : entities) {
+			if (!entity.isDead()) {
+				for (Entity second : secondList) {
+					dis = Collision.intersects(entity, second);
+					if (dis.x != 0 || dis.y != 0) {
+						if (collisionEnum == CollisionEnum.BLOCKING) {
+							entity.displace(dis);
+							handleCollision(entity, collisionEnum,
+									second.getStatDamage());
+							rhs.handleCollision(second, collisionEnum, 0);
+						} else if (collisionEnum == CollisionEnum.MEDPACK) {
+							player = (Player) entity;
+							if (player.isDamaged()) {
+								handleCollision(entity, collisionEnum, 0);
+								rhs.handleCollision(entity, collisionEnum, 0);
+								return;
+							}
+						} else {
+							if (second.isDying()) {
+								handleCollision(entity, collisionEnum,
+										second.getStatSplashDamage());
+								rhs.handleCollision(second, collisionEnum, 0);
+							} else {
+								handleCollision(entity, collisionEnum,
+										second.getStatDamage());
+								rhs.handleCollision(second, collisionEnum, 0);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@Override
 	public void handleCollision(Entity entity, int collisionEnum, int damage) {
 		Player player = (Player) entity;
 		if (collisionEnum == CollisionEnum.DAMAGING && !player.isDamaged()) {
 			hitSound.stop();
-			hitSound.play();
+			hitSound.play(1, 3);
 		}
 		if (collisionEnum == CollisionEnum.MEDPACK) {
 			player.addHealth(20);
