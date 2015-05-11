@@ -31,7 +31,7 @@ public class Main extends StateBasedGame {
 		this.addState(new GameOverState());
 		this.addState(new PauseState());
 		this.addState(new MapOne());
-		this.addState(new MapTwo());
-		this.addState(new MapThree());
+		// this.addState(new MapTwo());
+		// this.addState(new MapThree());
 	}
 }

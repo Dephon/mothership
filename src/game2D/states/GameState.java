@@ -49,6 +49,11 @@ public abstract class GameState extends BasicGameState {
 		Vector2f pVector = new Vector2f();
 		Input input = container.getInput();
 
+		if (levelChanged) {
+			postChangeLevel();
+			levelChanged = false;
+		}
+
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			sbg.enterState(StateEnum.PAUSE);
 		} else {
@@ -134,6 +139,16 @@ public abstract class GameState extends BasicGameState {
 			currentAmmo = AmmoEnum.BULLET;
 	}
 
+	public boolean isLevelChanged() {
+		return levelChanged;
+	}
+
+	protected void postChangeLevel() {
+		if (isLevelChanged()) {
+			background.play();
+		}
+	}
+
 	public void Debug() {
 		return; // Add breakpoint here
 	}
@@ -159,4 +174,5 @@ public abstract class GameState extends BasicGameState {
 	protected int currentAmmo;
 	public static int currentLevel;
 	protected boolean debugDraw;
+	protected boolean levelChanged;
 }

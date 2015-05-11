@@ -19,7 +19,7 @@ public class Enemy extends Movable {
 
 	protected void init() {
 		statDamage = 10;
-		speed = .2f;
+		speed = .06f;
 	}
 
 	@Override

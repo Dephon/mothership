@@ -1,11 +1,20 @@
 package game2D.states.levels;
 
 import game2D.states.*;
+import game2D.states.GameState;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.*;
 
 public class MapOne extends GameState {
+
+	@Override
+	public void init(GameContainer container, StateBasedGame sbg)
+			throws SlickException {
+		super.init(container, sbg);
+		levelChanged = true;
+	}
 
 	@Override
 	public int getID() {
@@ -24,6 +33,13 @@ public class MapOne extends GameState {
 		obstacles.add(938f, 0f, 25, container.getHeight());
 		obstacles.add(0f, 469f, container.getWidth(), 26f);
 	}
+
+	@Override
+	public void update(GameContainer container,
+			org.newdawn.slick.state.StateBasedGame sbg, int dt)
+			throws SlickException {
+		super.update(container, sbg, dt);
+	};
 
 	@Override
 	public void setMusic() throws SlickException {
