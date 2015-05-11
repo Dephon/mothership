@@ -41,7 +41,7 @@ public class PlayerManager extends Manager {
 			Player player = (Player) entities.get(playerNum - 1);
 			if (player.getOriginY() <= 0 && dir.y < 0)
 				dir.y = 0;
-			else if (player.getEndY() >= gameBounds.getHeight() && dir.y > 0)
+			else if (player.getEndY() >= 560 && dir.y > 0)
 				dir.y = 0;
 			if (player.getOriginX() <= 0 && dir.x < 0)
 				dir.x = 0;
@@ -120,7 +120,7 @@ public class PlayerManager extends Manager {
 							player = (Player) entity;
 							if (player.isDamaged()) {
 								handleCollision(entity, collisionEnum, 0);
-								rhs.handleCollision(entity, collisionEnum, 0);
+								rhs.handleCollision(second, collisionEnum, 0);
 								return;
 							}
 						} else {

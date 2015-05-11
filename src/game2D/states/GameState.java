@@ -22,7 +22,7 @@ public abstract class GameState extends BasicGameState {
 
 		points.add(new Vector2f(0, 0));
 		points.add(new Vector2f(container.getWidth(), 0));
-		points.add(new Vector2f(container.getWidth(), container.getHeight()));
+		points.add(new Vector2f(container.getWidth(), 560));
 		points.add(new Vector2f(0, container.getHeight()));
 		bounds = new Porygon(points);
 

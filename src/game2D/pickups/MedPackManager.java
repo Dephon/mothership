@@ -15,4 +15,6 @@ public class MedPackManager extends Manager {
 
 	}
 
+	// public
+
 }
