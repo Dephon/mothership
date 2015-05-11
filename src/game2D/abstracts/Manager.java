@@ -23,7 +23,11 @@ public abstract class Manager {
 		ndx = 0;
 	}
 
-	public abstract void add(Vector2f position, Vector2f direction);
+	public abstract void add(Vector2f pos, Vector2f dir);
+
+	public void add(float posX, float posY, float dirX, float dirY) {
+		add(new Vector2f(posX, posY), new Vector2f(dirX, dirY));
+	}
 
 	public abstract void handleCollision();
 

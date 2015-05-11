@@ -2,10 +2,9 @@ package game2D.abstracts;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
-import org.newdawn.slick.openal.*;
 
 public abstract class Movable extends Entity {
-	public Movable() {
+	public Movable() throws SlickException {
 		super();
 		init();
 	}
@@ -20,31 +19,79 @@ public abstract class Movable extends Entity {
 		init();
 	}
 
-	private void init() {
-
-	}
-
-	public void takeDamage(int dmg) {
-
-		if (dmg > 0) {
-			if (hurt != null) {
-				hurt.playAsSoundEffect(1f, 1f, false);
-			}
-
-		}
-		health -= dmg;
-		if (health > 100)
-			health = 100;
-		if (health <= 0) {
-			health = 0;
-			dead = true;
-		}
+	protected void init() throws SlickException {
+		setAnimations();
 	}
 
 	public int getHealth() {
 		return health;
 	}
 
-	public int health;
-	protected Audio hurt;
+	@Override
+	public void create() {
+		super.create();
+		maxHealth = getMaxHP();
+		health = maxHealth;
+	}
+
+	public void addHealth(int heal) {
+		health += heal;
+		if (health > maxHealth)
+			health = maxHealth;
+	}
+
+	public void takeDamage(int dmg) {
+		health -= dmg;
+		if (health <= 0) {
+			health = 0;
+			dead = true;
+		}
+	}
+
+	public void updateAnimation(Vector2f dir) {
+		if (dir.x == 0 && dir.y == 1) {
+			currentAnimation = movementAnimations[DIRECTION_SOUTH];
+			currentAnimation.start();
+		} else if (dir.x == 0 && dir.y == -1) {
+			currentAnimation = movementAnimations[DIRECTION_NORTH];
+			currentAnimation.start();
+		} else if (dir.x == -1 && dir.y == 0) {
+			currentAnimation = movementAnimations[DIRECTION_WEST];
+			currentAnimation.start();
+		} else if (dir.x == 1 && dir.y == 0) {
+			currentAnimation = movementAnimations[DIRECTION_EAST];
+			currentAnimation.start();
+		} else if (dir.x == 1 && dir.y == -1) {
+			currentAnimation = movementAnimations[DIRECTION_NORTHEAST];
+			currentAnimation.start();
+		} else if (dir.x == 1 && dir.y == 1) {
+			currentAnimation = movementAnimations[DIRECTION_SOUTHEAST];
+			currentAnimation.start();
+		} else if (dir.x == -1 && dir.y == 1) {
+			currentAnimation = movementAnimations[DIRECTION_SOUTHWEST];
+			currentAnimation.start();
+		} else if (dir.x == -1 && dir.y == -1) {
+			currentAnimation = movementAnimations[DIRECTION_NORTHWEST];
+			currentAnimation.start();
+		} else if (dir.x == 0 && dir.y == 0) {
+			currentAnimation.stop();
+		}
+	}
+
+	protected abstract int getMaxHP();
+
+	protected abstract void setAnimations() throws SlickException;
+
+	protected Animation[] movementAnimations;
+	protected final int DIRECTION_NORTH = 0;
+	protected final int DIRECTION_NORTHEAST = 1;
+	protected final int DIRECTION_EAST = 2;
+	protected final int DIRECTION_SOUTHEAST = 3;
+	protected final int DIRECTION_SOUTH = 4;
+	protected final int DIRECTION_SOUTHWEST = 5;
+	protected final int DIRECTION_WEST = 6;
+	protected final int DIRECTION_NORTHWEST = 7;
+	protected int maxHealth;
+	protected int maxInvTime;
+	protected int health;
 }

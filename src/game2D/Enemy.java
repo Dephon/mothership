@@ -21,6 +21,19 @@ public class Enemy extends Movable {
 	public void handleCollision(int collisionEnum) {
 		if (collisionEnum == CollisionEnum.DAMAGING) {
 			takeDamage(10);
+		} else if (collisionEnum == CollisionEnum.NONE) {
+			return;
 		}
+	}
+
+	@Override
+	protected void setAnimations() throws SlickException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected int getMaxHP() {
+		return 100;
 	}
 }

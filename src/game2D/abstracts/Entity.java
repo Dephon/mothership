@@ -144,10 +144,17 @@ public abstract class Entity {
 				location.add(dis);
 				box.setLocation(location);
 			}
+			if (rhs.isDying()) {
+				handleCollision(CollisionEnum.NONE);
+			}
 			handleCollision(collisionEnum);
 			rhs.handleCollision(collisionEnum);
 			return true;
 		}
+	}
+
+	public boolean isDying() {
+		return dying;
 	}
 
 	public boolean displace(Entity rhs) {
@@ -246,6 +253,7 @@ public abstract class Entity {
 		}
 	}
 
+	// For projectiles
 	public void update(int dt) {
 		if (!dead) {
 			if (!dying) {
@@ -259,6 +267,7 @@ public abstract class Entity {
 		}
 	}
 
+	// For Movables
 	public void update(Vector2f dir, int dt) {
 		if (!dead) {
 			Vector2f dV = new Vector2f();
@@ -361,7 +370,10 @@ public abstract class Entity {
 	protected Vector2f direction;
 	protected Vector2f location;
 	protected Animation currentAnimation;
+	protected Animation aliveAnimation;
 	protected Animation deathAnimation;
+	protected Animation hitAnimation;
 	protected Sound sound;
 	protected Sound deathSound;
+
 }
