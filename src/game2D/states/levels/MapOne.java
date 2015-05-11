@@ -16,6 +16,7 @@ public class MapOne extends GameState {
 			throws SlickException {
 		super.init(container, sbg);
 		levelChanged = true;
+		currentLevel = StateEnum.GAME_LEVEL_ONE;
 		enemies.spawnAtRandom(10000, 1000);
 		enemies.addSpawnLocation(new Vector2f(940, 350));
 		enemies.addSpawnLocation(new Vector2f(495, 64));
@@ -28,7 +29,7 @@ public class MapOne extends GameState {
 
 	@Override
 	public void setMap() throws SlickException {
-		gameMap = new TiledMap("maps/level_1.tmx");
+		gameMap = new TiledMap("maps/OldMap.tmx");
 	}
 
 	@Override
@@ -52,8 +53,7 @@ public class MapOne extends GameState {
 	}
 
 	@Override
-	public void update(GameContainer container,
-			org.newdawn.slick.state.StateBasedGame sbg, int dt)
+	public void update(GameContainer container, StateBasedGame sbg, int dt)
 			throws SlickException {
 		super.update(container, sbg, dt);
 	};

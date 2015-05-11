@@ -108,6 +108,7 @@ public abstract class GameState extends BasicGameState {
 			enemies.displace(missiles, CollisionEnum.DAMAGING);
 			ui.update(players.getHealth(1), currentAmmo);
 			map = players.checkTransport(mapMover);
+			changeMap(map, sbg);
 		}
 	}
 
@@ -136,15 +137,21 @@ public abstract class GameState extends BasicGameState {
 		}
 	}
 
-	public void goMapLeft() {
-		if (currentLevel > StateEnum.GAME_LEVEL_ONE) {
-
-		}
-	}
-
-	public void goMapRight() {
-		if (currentLevel < StateEnum.GAME_LEVEL_THREE) {
-
+	public void changeMap(int map, StateBasedGame sbg) {
+		if (map == ThreeStateEnum.LEFT) {
+			if (currentLevel > StateEnum.GAME_LEVEL_ONE) {
+				currentLevel--;
+				levelChanged = true;
+				sbg.enterState(currentLevel, new FadeOutTransition(),
+						new FadeInTransition());
+			}
+		} else if (map == ThreeStateEnum.RIGHT) {
+			if (currentLevel < StateEnum.GAME_LEVEL_THREE) {
+				currentLevel++;
+				levelChanged = true;
+				sbg.enterState(currentLevel, new FadeOutTransition(),
+						new FadeInTransition());
+			}
 		}
 	}
 
@@ -199,8 +206,8 @@ public abstract class GameState extends BasicGameState {
 	protected Music background;
 	protected UI ui;
 	protected int currentAmmo;
+	protected static boolean levelChanged;
 	public static int currentLevel;
 	protected boolean debugDraw;
-	protected boolean levelChanged;
 	protected int map;
 }

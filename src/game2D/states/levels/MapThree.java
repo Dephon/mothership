@@ -1,5 +1,6 @@
 package game2D.states.levels;
 
+import game2D.*;
 import game2D.states.*;
 import game2D.states.GameState;
 
@@ -30,9 +31,23 @@ public class MapThree extends GameState {
 		gameMap = new TiledMap("maps/level_3.tmx");
 	}
 
-	@Override
 	public void setWalls(GameContainer container) throws SlickException {
-		// TODO Generate Walls
+		// Top Wall
+		obstacles.add(0, 0, 447, 63);
+		obstacles.add(544, 0, 416, 63);
+		obstacles.add(0, 0, 960, 33);
+		// Right Wall
+		obstacles.add(938, 0, 22, 282);
+		obstacles.add(938, 406, 22, 156);
+		// Left Wall
+		obstacles.add(0, 0, 25, 282);
+		obstacles.add(0, 406, 25, 156);
+		// Bottom Wall
+		obstacles.add(0f, 530, 411, 30);
+		obstacles.add(550, 530, 430, 30);
+		// Transport
+		mapMover.add(0, 283, 1, 122, ThreeStateEnum.LEFT);
+		mapMover.add(959, 283, 1, 122, ThreeStateEnum.RIGHT);
 	}
 
 	@Override

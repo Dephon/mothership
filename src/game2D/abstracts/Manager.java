@@ -105,6 +105,7 @@ public abstract class Manager {
 				for (Entity second : secondList) {
 					dis = Collision.intersects(entity, second);
 					if (dis.x != 0 || dis.y != 0) {
+						entity.displace(dis);
 						trans = (Transport) second;
 						threeStateEnum = trans.getMapSide();
 					}

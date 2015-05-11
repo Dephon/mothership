@@ -39,7 +39,7 @@ public class MainMenuState extends BasicGameState {
 
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			if (start.intersects(mousePoint)) {
-				sbg.enterState(StateEnum.GAME_LEVEL_ONE);
+				sbg.enterState(StateEnum.GAME_LEVEL_TWO);
 				// sbg.enterState(StateEnum.GAME_LEVEL_ONE,
 				// new FadeOutTransition(), new FadeInTransition());
 			}

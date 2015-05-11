@@ -7,22 +7,19 @@ import org.newdawn.slick.*;
 public class UI {
 
 	public UI() throws SlickException {
-
 		// INIT PORTRAIT
 		SpriteSheet heads = new SpriteSheet(new Image(
 				"data/UI/doom heads smaller.png"), 77, 80);
 
 		portraits = new Animation[heads.getVerticalCount()];
 
-		for (int i = 0; i < heads.getVerticalCount(); i++) {
+		for (int i = 0; i < heads.getVerticalCount(); i++)
 			portraits[i] = new Animation();
-		}
+
 		// Prepare animation classes
-		for (int i = 0; i < heads.getVerticalCount(); i++) {
-			for (int j = 0; j < heads.getHorizontalCount(); j++) {
+		for (int i = 0; i < heads.getVerticalCount(); i++)
+			for (int j = 0; j < heads.getHorizontalCount(); j++)
 				portraits[i].addFrame(heads.getSprite(j, i), 700);
-			}
-		}
 
 		// Set to healthy by default.
 		curPortrait = portraits[UI.PORTRAIT_HEALTHY];
@@ -47,7 +44,8 @@ public class UI {
 		alienMap = new Animation(mapSheet, 4000);
 		chainGun = new Image("data/UI/chaingun.png");
 		rocket = new Image("data/UI/rocket.png");
-		// updateHealthCounter();
+		health = 0;
+		updateHealthCounter();
 	}
 
 	public void draw() {
