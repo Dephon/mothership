@@ -39,6 +39,10 @@ public class UI {
 		}
 
 		uiBar = new Image("data/UI/UIbarmaybe scaled orig.png");
+
+		SpriteSheet mapSheet = new SpriteSheet(new Image(
+				"data/UI/UI alien thing.png"), 160, 80);
+		alienMap = new Animation(mapSheet, 4000);
 		// updateHealthCounter();
 	}
 
@@ -46,10 +50,11 @@ public class UI {
 		uiBar.draw(0, 560);
 		curPortrait.draw(623, 560);
 		if (firstDigit != numbers[0])
-			firstDigit.draw(490, 557);
+			firstDigit.draw(500, 557);
 		if (secondDigit != numbers[0] || health == 100)
-			secondDigit.draw(535, 557);
+			secondDigit.draw(540, 557);
 		thirdDigit.draw(580, 557);
+		alienMap.draw(0, 560);
 	}
 
 	public void update(int healthUpdate) {
@@ -96,6 +101,7 @@ public class UI {
 	private Image uiBar;
 	private Image[] numbers;
 	private Animation[] portraits;
+	private Animation alienMap;
 	public Animation curPortrait;
 
 }
