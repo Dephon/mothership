@@ -8,7 +8,7 @@ public class UI {
 
 		// INIT PORTRAIT
 		SpriteSheet heads = new SpriteSheet(new Image(
-				"data/UI/doom heads smaller.png"), 107, 111);
+				"data/UI/doom heads smaller.png"), 77, 80);
 
 		portraits = new Animation[heads.getVerticalCount()];
 
@@ -37,16 +37,19 @@ public class UI {
 				k++;
 			}
 		}
+
+		uiBar = new Image("data/UI/UIbarmaybe scaled orig.png");
 		// updateHealthCounter();
 	}
 
 	public void draw() {
-		curPortrait.draw(0, 533);
+		uiBar.draw(0, 560);
+		curPortrait.draw(623, 560);
 		if (firstDigit != numbers[0])
-			firstDigit.draw(120, 557);
+			firstDigit.draw(490, 557);
 		if (secondDigit != numbers[0] || health == 100)
-			secondDigit.draw(165, 557);
-		thirdDigit.draw(210, 557);
+			secondDigit.draw(535, 557);
+		thirdDigit.draw(580, 557);
 	}
 
 	public void update(int healthUpdate) {
@@ -90,6 +93,7 @@ public class UI {
 	private Image secondDigit;
 	private Image thirdDigit;
 
+	private Image uiBar;
 	private Image[] numbers;
 	private Animation[] portraits;
 	public Animation curPortrait;
