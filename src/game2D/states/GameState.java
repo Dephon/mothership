@@ -76,6 +76,8 @@ public abstract class GameState extends BasicGameState {
 			}
 
 			if (input.isMouseButtonDown(0)) {
+				debugX = input.getAbsoluteMouseX();
+				debugY = input.getAbsoluteMouseY();
 				location.x = players.fireX(1);
 				location.y = players.fireY(1);
 				pVector.x = input.getAbsoluteMouseX() - players.fireX(1);
@@ -113,6 +115,7 @@ public abstract class GameState extends BasicGameState {
 			players.debugDraw(graphics);
 			obstacles.debugDraw(graphics);
 			enemies.debugDraw(graphics);
+			graphics.drawString("(" + debugX + "," + debugY + ")", 0, 0);
 			ui.draw();
 		} else {
 			bullets.draw();
@@ -145,7 +148,7 @@ public abstract class GameState extends BasicGameState {
 
 	protected void postChangeLevel() {
 		if (isLevelChanged()) {
-			background.play();
+			background.loop();
 		}
 	}
 
@@ -163,6 +166,7 @@ public abstract class GameState extends BasicGameState {
 
 	public abstract void setMusic() throws SlickException;
 
+	protected int debugX, debugY;
 	protected PlayerManager players;
 	protected ObstacleManager obstacles;
 	protected MissileManager missiles;

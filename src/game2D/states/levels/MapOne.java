@@ -28,10 +28,19 @@ public class MapOne extends GameState {
 
 	@Override
 	public void setWalls(GameContainer container) throws SlickException {
-		obstacles.add(0, 0, container.getWidth(), 62.5f);
-		obstacles.add(0, 0, 25, container.getHeight());
-		obstacles.add(938f, 0f, 25, container.getHeight());
+		// Top Wall
+		obstacles.add(0, 0, 447, 63);
+		obstacles.add(544, 0, 416, 63);
+		obstacles.add(0, 0, 960, 33);
+		// Right Wall
+		obstacles.add(938, 0, 22, 282);
+		obstacles.add(938, 406, 22, 156);
+		// Left Wall
+		obstacles.add(0, 0, 25, 282);
+		obstacles.add(0, 406, 25, 156);
+		// Bottom Wall
 		obstacles.add(0f, 469f, container.getWidth(), 26f);
+
 	}
 
 	@Override
