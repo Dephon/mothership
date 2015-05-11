@@ -83,7 +83,7 @@ public abstract class GameState extends BasicGameState {
 			}
 			missiles.update(dt);
 			bullets.update(dt);
-			enemies.update(dt);
+			enemies.update(players.getCenter(1), dt);
 			players.update(dt);
 			players.displace(obstacles, CollisionEnum.BLOCKING);
 			players.displace(enemies, CollisionEnum.DAMAGING);

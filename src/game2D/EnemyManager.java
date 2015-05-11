@@ -36,6 +36,14 @@ public class EnemyManager extends Manager {
 		}
 	}
 
+	public void update(Vector2f loc, int dt) {
+		for (Entity alien : entities) {
+			if (!alien.isDead()) {
+				alien.update(loc, dt);
+			}
+		}
+	}
+
 	@Override
 	public void handleCollision() {
 		// TODO Auto-generated method stub

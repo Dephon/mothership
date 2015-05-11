@@ -61,6 +61,15 @@ public class PlayerManager extends Manager {
 		}
 	}
 
+	public Vector2f getCenter(int player) {
+		try {
+			Player temp = (Player) (entities.get(player - 1));
+			return new Vector2f(temp.getCenterX(), temp.getCenterY());
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+
 	public float fireX(int player) {
 		try {
 			return entities.get(player - 1).getCenterX();

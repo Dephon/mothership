@@ -7,8 +7,8 @@ public class UI {
 	public UI() throws SlickException {
 
 		// INIT PORTRAIT
-		SpriteSheet heads = new SpriteSheet(
-				new Image("data/UI/doom heads.png"), 133, 139);
+		SpriteSheet heads = new SpriteSheet(new Image(
+				"data/UI/doom heads smaller.png"), 107, 111);
 
 		portraits = new Animation[heads.getVerticalCount()];
 
@@ -26,8 +26,8 @@ public class UI {
 		curPortrait = portraits[UI.PORTRAIT_HEALTHY];
 
 		// INIT NUMBERS
-		SpriteSheet nums = new SpriteSheet(
-				new Image("data/UI/doom numbers.png"), 92, 144);
+		SpriteSheet nums = new SpriteSheet(new Image(
+				"data/UI/doom numbers smaller.png"), 45, 70);
 		numbers = new Image[10];
 
 		int k = 0;
@@ -37,16 +37,16 @@ public class UI {
 				k++;
 			}
 		}
-		updateHealthCounter();
+		// updateHealthCounter();
 	}
 
 	public void draw() {
-		curPortrait.draw(20, 500);
+		curPortrait.draw(0, 533);
 		if (firstDigit != numbers[0])
-			firstDigit.draw(600, 500);
+			firstDigit.draw(120, 557);
 		if (secondDigit != numbers[0] || health == 100)
-			secondDigit.draw(700, 500);
-		thirdDigit.draw(800, 500);
+			secondDigit.draw(165, 557);
+		thirdDigit.draw(210, 557);
 	}
 
 	public void update(int healthUpdate) {
