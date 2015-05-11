@@ -1,5 +1,7 @@
 package game2D;
 
+import game2D.projectiles.*;
+
 import org.newdawn.slick.*;
 
 public class UI {
@@ -43,6 +45,8 @@ public class UI {
 		SpriteSheet mapSheet = new SpriteSheet(new Image(
 				"data/UI/UI alien thing.png"), 160, 80);
 		alienMap = new Animation(mapSheet, 4000);
+		chainGun = new Image("data/UI/chaingun.png");
+		rocket = new Image("data/UI/rocket.png");
 		// updateHealthCounter();
 	}
 
@@ -55,13 +59,17 @@ public class UI {
 			secondDigit.draw(540, 557);
 		thirdDigit.draw(580, 557);
 		alienMap.draw(0, 560);
+		if (currentAmmo == AmmoEnum.BULLET)
+			chainGun.draw(275, 590);
+		else
+			rocket.draw(270, 590);
 	}
 
-	public void update(int healthUpdate) {
+	public void update(int healthUpdate, int ammo) {
 		health = healthUpdate;
 		updatePortrait();
 		updateHealthCounter();
-
+		currentAmmo = ammo;
 	}
 
 	private void updatePortrait() {
@@ -93,11 +101,14 @@ public class UI {
 	public static int PORTRAIT_SLIGHT_DAMAGE = 1;
 	public static int PORTRAIT_HEALTHY = 0;
 
+	private int currentAmmo;
 	private int health;
 	private Image firstDigit;
 	private Image secondDigit;
 	private Image thirdDigit;
 
+	private Image rocket;
+	private Image chainGun;
 	private Image uiBar;
 	private Image[] numbers;
 	private Animation[] portraits;

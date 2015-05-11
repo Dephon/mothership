@@ -105,7 +105,7 @@ public abstract class GameState extends BasicGameState {
 			enemies.displace(bullets, CollisionEnum.DAMAGING);
 			enemies.displace(missiles, CollisionEnum.DAMAGING);
 
-			ui.update(players.getHealth(1));
+			ui.update(players.getHealth(1), currentAmmo);
 		}
 	}
 
