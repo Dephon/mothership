@@ -94,6 +94,26 @@ public abstract class Manager {
 		}
 	}
 
+	public int checkTransport(TransportManager rhs) {
+		int threeStateEnum = ThreeStateEnum.NONE;
+		Transport trans;
+		ArrayList<Entity> secondList;
+		Vector2f dis;
+		secondList = rhs.getActive();
+		for (Entity entity : entities) {
+			if (!entity.isDead()) {
+				for (Entity second : secondList) {
+					dis = Collision.intersects(entity, second);
+					if (dis.x != 0 || dis.y != 0) {
+						trans = (Transport) second;
+						threeStateEnum = trans.getMapSide();
+					}
+				}
+			}
+		}
+		return threeStateEnum;
+	}
+
 	public ArrayList<Entity> getActive() {
 		ArrayList<Entity> currentBullets = new ArrayList<Entity>();
 		for (int i = 0; i < activeNdxs.size(); i++)

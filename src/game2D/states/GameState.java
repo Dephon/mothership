@@ -22,7 +22,7 @@ public abstract class GameState extends BasicGameState {
 
 		points.add(new Vector2f(0, 0));
 		points.add(new Vector2f(container.getWidth(), 0));
-		points.add(new Vector2f(container.getWidth(), container.getHeight()));
+		points.add(new Vector2f(container.getWidth(), 560));
 		points.add(new Vector2f(0, container.getHeight()));
 		bounds = new Porygon(points);
 
@@ -32,6 +32,7 @@ public abstract class GameState extends BasicGameState {
 		bullets = new BulletManager(bounds, 100);
 		enemies = new EnemyManager(bounds, 100);
 		medPacks = new MedPackManager(bounds, 100);
+		mapMover = new TransportManager(bounds, 2);
 		ui = new UI();
 
 		enemies.add(300, 300, 0, 0);
@@ -99,13 +100,14 @@ public abstract class GameState extends BasicGameState {
 			players.displace(obstacles, CollisionEnum.BLOCKING);
 			players.displace(enemies, CollisionEnum.DAMAGING);
 			players.displace(medPacks, CollisionEnum.MEDPACK);
+			players.displace(mapMover, CollisionEnum.TRANSPORTING);
 			bullets.displace(obstacles, CollisionEnum.BLOCKING);
 			missiles.displace(obstacles, CollisionEnum.BLOCKING);
 			enemies.displace(obstacles, CollisionEnum.BLOCKING);
 			enemies.displace(bullets, CollisionEnum.DAMAGING);
 			enemies.displace(missiles, CollisionEnum.DAMAGING);
-
 			ui.update(players.getHealth(1), currentAmmo);
+			map = players.checkTransport(mapMover);
 		}
 	}
 
@@ -121,6 +123,7 @@ public abstract class GameState extends BasicGameState {
 			enemies.debugDraw(graphics);
 			medPacks.debugDraw(graphics);
 			graphics.drawString("(" + debugX + "," + debugY + ")", 0, 0);
+			graphics.drawString("Moving to map: " + map, 400, 0);
 			ui.draw();
 		} else {
 			bullets.draw();
@@ -130,6 +133,18 @@ public abstract class GameState extends BasicGameState {
 			enemies.draw();
 			medPacks.draw();
 			ui.draw();
+		}
+	}
+
+	public void goMapLeft() {
+		if (currentLevel > StateEnum.GAME_LEVEL_ONE) {
+
+		}
+	}
+
+	public void goMapRight() {
+		if (currentLevel < StateEnum.GAME_LEVEL_THREE) {
+
 		}
 	}
 
@@ -179,6 +194,7 @@ public abstract class GameState extends BasicGameState {
 	protected BulletManager bullets;
 	protected EnemyManager enemies;
 	protected MedPackManager medPacks;
+	protected TransportManager mapMover;
 	protected TiledMap gameMap;
 	protected Music background;
 	protected UI ui;
@@ -186,4 +202,5 @@ public abstract class GameState extends BasicGameState {
 	public static int currentLevel;
 	protected boolean debugDraw;
 	protected boolean levelChanged;
+	protected int map;
 }

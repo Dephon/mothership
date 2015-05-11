@@ -34,4 +34,14 @@ public class Transport extends Immovable {
 		invisible = true;
 		dead = false;
 	}
+
+	public void setMapSide(int threeStateEnum) {
+		mapSide = threeStateEnum;
+	}
+
+	public int getMapSide() {
+		return mapSide;
+	}
+
+	protected int mapSide;
 }
