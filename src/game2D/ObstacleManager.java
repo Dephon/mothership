@@ -33,8 +33,7 @@ public class ObstacleManager extends Manager {
 	}
 
 	@Override
-	public void handleCollision() {
-
+	public void handleCollision(Entity entity, int collisionEnum, int damage) {
+		entity.handleCollision(collisionEnum, damage);
 	}
-
 }

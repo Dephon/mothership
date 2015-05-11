@@ -62,16 +62,6 @@ public abstract class Ammo extends Entity {
 		}
 	}
 
-	@Override
-	public boolean displace(Entity rhs) {
-		boolean displaced = super.displace(rhs);
-		if (displaced) {
-			acceleration = 0;
-			speed = 0;
-		}
-		return displaced;
-	}
-
 	protected abstract int getDeathTimer();
 
 	protected float acceleration;

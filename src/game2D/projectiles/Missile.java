@@ -86,18 +86,6 @@ public class Missile extends Ammo {
 	}
 
 	@Override
-	public boolean displace(Entity rhs) {
-		boolean displaced = false;
-		if (!dead) {
-			displaced = super.displace(rhs);
-			if (displaced) {
-				jerk = 0;
-			}
-		}
-		return displaced;
-	}
-
-	@Override
 	public void update(int dt) {
 		if (!dead) {
 			if (igniteTime > 300 && !ignited) {
@@ -115,7 +103,7 @@ public class Missile extends Ammo {
 	}
 
 	@Override
-	protected void handleCollision(int collisionEnum, int statDamage) {
+	public void handleCollision(int collisionEnum, int statDamage) {
 		dying = true;
 		updateBox();
 	}

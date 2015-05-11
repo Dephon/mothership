@@ -53,6 +53,10 @@ public final class Player extends Movable {
 		}
 	}
 
+	public boolean isDamaged() {
+		return damaged;
+	}
+
 	@Override
 	protected void setAnimations() throws SlickException {
 		SpriteSheet movement = new SpriteSheet(new Image(

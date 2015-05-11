@@ -1,6 +1,7 @@
 package game2D.abstracts;
 
 import game2D.*;
+import game2D.collisions.*;
 
 import java.util.*;
 
@@ -23,13 +24,28 @@ public abstract class Manager {
 		ndx = 0;
 	}
 
-	public abstract void add(Vector2f pos, Vector2f dir);
+	public void add(Vector2f loc, Vector2f dir) {
+		Entity entity = entities.get(ndx);
+		if (count < maxCount) {
+			entity.create();
+			entity.setLoc(loc);
+			entity.setDir(dir);
+			activeNdxs.add(ndx);
+			count++;
+			ndx++;
+			if (ndx == maxCount)
+				ndx = 0;
+		}
+	}
+
+	public void remove(Entity entity) {
+		activeNdxs.remove((Integer) entities.indexOf(entity));
+		count--;
+	}
 
 	public void add(float posX, float posY, float dirX, float dirY) {
 		add(new Vector2f(posX, posY), new Vector2f(dirX, dirY));
 	}
-
-	public abstract void handleCollision();
 
 	public void update(int dt) {
 		for (Entity entity : entities) {
@@ -51,25 +67,27 @@ public abstract class Manager {
 			entity.debugDraw(graphics);
 	}
 
-	public void displace(Entity rhs, int collisionEnum) {
-		for (Entity entity : entities) {
-			if (!entity.isDead()) {
-				entity.displace(rhs, collisionEnum);
-			}
-		}
-	}
-
 	public void displace(Manager rhs, int collisionEnum) {
 		ArrayList<Entity> secondList;
-		boolean displaced;
+		Vector2f dis;
 		secondList = rhs.getActive();
 		for (Entity entity : entities) {
 			if (!entity.isDead()) {
 				for (Entity second : secondList) {
-					displaced = entity.displace(second, collisionEnum);
-					if (displaced) {
-						handleCollision();
-						rhs.handleCollision();
+					dis = Collision.intersects(entity, second);
+					if (dis.x != 0 || dis.y != 0) {
+						if (collisionEnum == CollisionEnum.BLOCKING) {
+							entity.displace(dis);
+						}
+						if (second.isDying()) {
+							handleCollision(entity, collisionEnum,
+									second.getStatSplashDamage());
+							rhs.handleCollision(second, collisionEnum, 0);
+						} else {
+							handleCollision(entity, collisionEnum,
+									second.getStatDamage());
+							rhs.handleCollision(second, collisionEnum, 0);
+						}
 					}
 				}
 			}
@@ -81,6 +99,12 @@ public abstract class Manager {
 		for (int i = 0; i < activeNdxs.size(); i++)
 			currentBullets.add(entities.get(activeNdxs.get(i)));
 		return currentBullets;
+	}
+
+	public void handleCollision(Entity entity, int collisionEnum, int damage) {
+		entity.handleCollision(collisionEnum, damage);
+		if (entity.isDead())
+			remove(entity);
 	}
 
 	protected int count;

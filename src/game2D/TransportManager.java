@@ -31,8 +31,7 @@ public class TransportManager extends Manager {
 	}
 
 	@Override
-	public void handleCollision() {
-		// TODO Auto-generated method stub
+	public void handleCollision(Entity entity, int collisionEnum, int damage) {
 	}
 
 }

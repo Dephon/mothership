@@ -1,6 +1,7 @@
 package game2D;
 
 import game2D.abstracts.*;
+import game2D.collisions.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -11,24 +12,25 @@ public class PlayerManager extends Manager {
 		super(bounds, maxAmount);
 		for (int i = 0; i < maxAmount; i++) {
 			entities.add(new Player());
-			entities.get(i).create();
-			entities.get(i).setLoc(100, 100);
 			entities.get(i).setSpeed(.1f);
 		}
+		hitSound = new Sound("data/sounds/player_hurt.wav");
 	}
 
 	@Override
 	public void add(Vector2f loc, Vector2f dir) {
-		Player player = (Player) entities.get(ndx);
-		if (count < maxCount) {
-			player.create();
-			player.setLoc(loc);
-			player.setDir(dir);
-			activeNdxs.add(ndx);
-			count++;
-			ndx++;
-			if (ndx == maxCount)
-				ndx = 0;
+		for (Entity temp : entities) {
+			Player player = (Player) temp;
+			if (count < maxCount) {
+				player.create();
+				player.setLoc(loc);
+				player.setDir(dir);
+				activeNdxs.add(ndx);
+				count++;
+				ndx++;
+				if (ndx == maxCount)
+					ndx = 0;
+			}
 		}
 	}
 
@@ -97,9 +99,13 @@ public class PlayerManager extends Manager {
 	}
 
 	@Override
-	public void handleCollision() {
-		// TODO Auto-generated method stub
-
+	public void handleCollision(Entity entity, int collisionEnum, int damage) {
+		Player player = (Player) entity;
+		if (collisionEnum == CollisionEnum.DAMAGING && !player.isDamaged()) {
+			hitSound.stop();
+			hitSound.play();
+		}
+		super.handleCollision(entity, collisionEnum, damage);
 	}
 
 }

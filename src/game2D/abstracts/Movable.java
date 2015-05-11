@@ -46,7 +46,7 @@ public abstract class Movable extends Entity {
 		health -= dmg;
 		if (health <= 0) {
 			health = 0;
-			dead = true;
+			destroy();
 		}
 	}
 

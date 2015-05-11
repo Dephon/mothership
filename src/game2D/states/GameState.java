@@ -32,14 +32,14 @@ public abstract class GameState extends BasicGameState {
 		enemies = new EnemyManager(bounds, 100);
 		ui = new UI();
 
-		enemies.add(300, 300, -1, 0);
+		enemies.add(300, 300, 0, 0);
 		players.add(100, 100, 1, 0);
 
 		setMap();
 		setWalls(container);
 		setMusic();
 		currentAmmo = AmmoEnum.BULLET;
-		debugDraw = false;
+		debugDraw = true;
 	}
 
 	@Override
@@ -83,6 +83,7 @@ public abstract class GameState extends BasicGameState {
 			}
 			missiles.update(dt);
 			bullets.update(dt);
+			enemies.update(dt);
 			enemies.update(players.getCenter(1), dt);
 			players.update(dt);
 			players.displace(obstacles, CollisionEnum.BLOCKING);
@@ -107,6 +108,7 @@ public abstract class GameState extends BasicGameState {
 			players.debugDraw(graphics);
 			obstacles.debugDraw(graphics);
 			enemies.debugDraw(graphics);
+			ui.draw();
 		} else {
 			bullets.draw();
 			missiles.draw();
@@ -117,13 +119,13 @@ public abstract class GameState extends BasicGameState {
 		}
 	}
 
-	public void getPlayerInfo() {
-
-	}
-
-	public void setPlayerInfo() {
-
-	}
+	// public void getPlayerInfo(GameState gs) {
+	//
+	// }
+	//
+	// public void setPlayerInfo(GameState gs) {
+	//
+	// }
 
 	protected void switchAmmo() {
 		if (currentAmmo == AmmoEnum.BULLET)

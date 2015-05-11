@@ -3,8 +3,6 @@ package game2D.projectiles;
 import game2D.*;
 import game2D.abstracts.*;
 
-import java.util.*;
-
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
@@ -55,39 +53,10 @@ public class MissileManager extends Manager {
 	}
 
 	@Override
-	public void displace(Entity second, int CollisionEnum) {
-		boolean displaced;
-		for (Entity missile : entities) {
-			if (!missile.isDead()) {
-				displaced = missile.displace(second);
-				if (displaced) {
-					handleCollision();
-				}
-			}
-		}
-	}
-
-	@Override
-	public void displace(Manager rhs, int collisionEnum) {
-		boolean displaced;
-		ArrayList<Entity> secondList;
-		secondList = rhs.getActive();
-		for (Entity missile : entities) {
-			if (!missile.isDead()) {
-				for (Entity second : secondList) {
-					displaced = missile.displace(second, collisionEnum);
-					if (displaced) {
-						handleCollision();
-					}
-				}
-			}
-		}
-	}
-
-	@Override
-	public void handleCollision() {
+	public void handleCollision(Entity entity, int collisionEnum, int damage) {
 		sound.stop();
 		hitSound.stop();
 		hitSound.play(1f, .4f);
+		entity.handleCollision(collisionEnum, damage);
 	}
 }

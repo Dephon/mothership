@@ -1,6 +1,7 @@
 package game2D;
 
 import game2D.abstracts.*;
+import game2D.collisions.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -45,7 +46,11 @@ public class EnemyManager extends Manager {
 	}
 
 	@Override
-	public void handleCollision() {
-		// TODO Auto-generated method stub
+	public void handleCollision(Entity entity, int collisionEnum, int damage) {
+		if (collisionEnum == CollisionEnum.DAMAGING) {
+			// hitSound.stop();
+			// hitSound.play();
+		}
+		super.handleCollision(entity, collisionEnum, damage);
 	}
 }

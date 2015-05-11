@@ -55,26 +55,8 @@ public class BulletManager extends Manager {
 	}
 
 	@Override
-	public void displace(Entity rhs, int CollisionEnum) {
-		boolean displaced;
-		for (Entity bullet : entities) {
-			if (!bullet.isDead()) {
-				displaced = bullet.displace(rhs);
-				if (displaced) {
-					sound.stop();
-				}
-			}
-		}
-	}
-
-	@Override
-	public void displace(Manager rhs, int collisionEnum) {
-		super.displace(rhs, collisionEnum);
-	}
-
-	@Override
-	public void handleCollision() {
-		// TODO Auto-generated method stub
-
+	public void handleCollision(Entity entity, int collisionEnum, int damage) {
+		sound.stop();
+		entity.handleCollision(collisionEnum, damage);
 	}
 }

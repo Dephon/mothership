@@ -137,26 +137,6 @@ public abstract class Entity {
 		return dead;
 	}
 
-	public boolean displace(Entity rhs, int collisionEnum) {
-		Vector2f dis = Collision.intersects(this, rhs);
-		if (dis.x == 0 && dis.y == 0) {
-			return false;
-		} else {
-			if (collisionEnum == CollisionEnum.BLOCKING) {
-				location.add(dis);
-				box.setLocation(location);
-			}
-			if (rhs.isDying()) {
-				handleCollision(collisionEnum, rhs.getStatSplashDamage());
-				handleCollision(collisionEnum, 0);
-			} else {
-				handleCollision(collisionEnum, rhs.getStatDamage());
-				rhs.handleCollision(collisionEnum, 0);
-			}
-			return true;
-		}
-	}
-
 	public boolean isSplashDamage() {
 		return splashDamage;
 	}
@@ -171,18 +151,6 @@ public abstract class Entity {
 
 	public boolean isDying() {
 		return dying;
-	}
-
-	public boolean displace(Entity rhs) {
-		Vector2f dis = Collision.intersects(this, rhs);
-		if (dis.x == 0 && dis.y == 0) {
-			return false;
-		} else {
-			location.add(dis);
-			box.setLocation(location);
-			handleCollision(CollisionEnum.BLOCKING, 0);
-			return true;
-		}
 	}
 
 	public boolean intersects(Entity rhs) {
@@ -267,6 +235,11 @@ public abstract class Entity {
 			}
 			graphics.draw(box);
 		}
+	}
+
+	public void displace(Vector2f dis) {
+		location.add(dis);
+		box.setLocation(location);
 	}
 
 	// For projectiles
@@ -374,7 +347,7 @@ public abstract class Entity {
 		}
 	}
 
-	protected abstract void handleCollision(int collisionEnum, int statDamage);
+	public abstract void handleCollision(int collisionEnum, int statDamage);
 
 	protected boolean dead;
 	protected boolean dying;
