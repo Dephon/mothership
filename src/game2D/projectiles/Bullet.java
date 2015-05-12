@@ -72,4 +72,10 @@ public class Bullet extends Ammo {
 	protected int getDeathTimer() {
 		return 300;
 	}
+
+	public Bullet(Double test) {
+		super();
+		speed = 1;
+		statDamage = 25;
+	}
 }

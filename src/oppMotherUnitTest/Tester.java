@@ -3,7 +3,8 @@ package oppMotherUnitTest;
 import static org.junit.Assert.*;
 import game2D.*;
 import game2D.abstracts.*;
-import game2D.states.levels.*;
+import game2D.projectiles.*;
+
 import java.util.*;
 
 import org.junit.*;
@@ -53,74 +54,76 @@ public class Tester {
 		// Player should have 70 hp after test.
 		assertEquals(playerHealth, 70);
 
+		totalScore++;
+
+	}
+
+	@Test
+	public void testBulletManager() {
+		int tempScore = 0;
+		Double happy = 100.0; // Number of bullets
+		Double sad = 1.0; // Bullet type
+		try {
+			mockMapOne testLevel = new mockMapOne(happy, sad);
+			BulletManager testManager = testLevel.getBullets();
+			assertEquals(testManager.getActive().size(), 0);
+			for (int i = 0; i < happy.intValue(); i++) {
+				testManager.testCreate();
+			}
+			assertEquals(testManager.getActive().size(), happy.intValue());
+			for (int i = 10; i < 20; i++) {
+				testManager.testRemove(i);
+			}
+			assertEquals(testManager.getActive().size(), happy.intValue() - 10);
+		} catch (SlickException e) {
+			fail("Slick Exception");
+			e.printStackTrace();
+		}
+		totalScore++;
 	}
 
 	@Test
 	public void testEnemyManager() { // White-box
-		int tempScore = 0;
 		Double happy = 100.0; // Number of Enemies
 		Double sad = 100.0; // Health
 		try {
 			mockMapOne testLevel = new mockMapOne(happy, sad);
 			EnemyManager testManager = testLevel.getEnemies();
-			if (testManager.getActive().size() == 0) {
-				tempScore++;
-			}
+			assertEquals(testManager.getActive().size(), 0);
 			for (int i = 0; i < happy.intValue(); i++) {
-				testManager.add();
+				testManager.testAdd();
 			}
-			if (testManager.getActive().size() == happy.intValue()) {
-				tempScore++;
-			}
+			assertEquals(testManager.getActive().size(), happy.intValue());
 			ArrayList<Entity> tempor = testManager.getActive();
 			for (int i = 10; i < 20; i++) {
 				testManager.remove(tempor.get(i));
 			}
-			if (testManager.getActive().size() == 90) {
-				tempScore++;
-			}
+			assertEquals(testManager.getActive().size(), happy.intValue() - 10);
 		} catch (SlickException e) {
 			fail("Slick Exception");
 			e.printStackTrace();
 		}
-		if (tempScore == 3) {
-			totalScore++;
-		} else {
-			fail("Missed at least one point");
-		}
+		totalScore++;
 	}
 
 	@Test
 	public void testPlayer() { // White-box
-		int tempScore = 0;
 		Double happy = 100.0;
 		try {
 			Player toTest = new Player(happy);
-			if (!toTest.isDamaged()) {
-				tempScore++;
-			}
+			assertEquals(toTest.isDamaged(), false);
 			toTest.addHealth(20);
-			if (toTest.getHealth() == toTest.getMaxHealth()) {
-				tempScore++;
-			}
+			assertEquals(toTest.getHealth(), toTest.getMaxHealth());
 			toTest.takeDamage(50);
-			if (toTest.getHealth() == toTest.getMaxHealth() - 50) {
-				tempScore++;
-			}
+			assertEquals(toTest.getHealth(), toTest.getMaxHealth() - 50);
 			toTest.takeDamage(50);
-			if (toTest.isDead()) {
-				tempScore++;
-			}
+			assertEquals(toTest.isDead(), true);
 		} catch (SlickException e) {
 			fail("SlickException");
 			e.printStackTrace();
 		}
 
-		if (tempScore == 4) {
-			totalScore++;
-		} else {
-			fail("Missed at least one point");
-		}
+		totalScore++;
 	}
 
 	@Test
@@ -131,25 +134,16 @@ public class Tester {
 		try {
 			mockMapOne testLevel = new mockMapOne(happy, sad);
 			PlayerManager testManager = testLevel.getPlayers();
-			if (testManager.getHealth(happy.intValue()) == 100) {
-				tempScore++;
-			}
+			assertEquals(testManager.getHealth(happy.intValue()),
+					sad.intValue());
 			testManager.get(happy.intValue()).takeDamage(100);
-			if (testManager.areDead()) {
-				tempScore++;
-			}
-			if (testLevel.GameOver()) {
-				tempScore++;
-			}
+			assertEquals(testManager.areDead(), true);
+			assertEquals(testLevel.GameOver(), true);
 		} catch (SlickException e) {
 			fail("Slick Exception");
 			e.printStackTrace();
 		}
-		if (tempScore == 3) {
-			totalScore++;
-		} else {
-			fail("Missed at least one point");
-		}
+		totalScore++;
 	}
 
 	@Test

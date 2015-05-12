@@ -250,10 +250,15 @@ public abstract class mockGameState extends BasicGameState {
 		return enemies;
 	}
 
+	public BulletManager getBullets() {
+		return bullets;
+	}
+
 	public mockGameState(Double thisIsATest, Double otherOne)
 			throws SlickException {
 		players = new PlayerManager(thisIsATest, otherOne);
 		enemies = new EnemyManager(thisIsATest, otherOne);
+		bullets = new BulletManager(thisIsATest, otherOne);
 
 	}
 }

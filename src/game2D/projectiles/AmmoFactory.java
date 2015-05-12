@@ -45,4 +45,12 @@ public class AmmoFactory {
 			return null;
 		}
 	}
+
+	public static Ammo getAmmo(Double ammoEnum) throws SlickException {
+		if (ammoEnum.intValue() == AmmoEnum.BULLET) {
+			return new Bullet(ammoEnum);
+		} else {
+			return null;
+		}
+	}
 }

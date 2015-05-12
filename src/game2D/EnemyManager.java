@@ -98,7 +98,7 @@ public class EnemyManager extends Manager {
 	private ArrayList<EnemySpawner> spawnLocations;
 	private Random rand;
 
-	public void add() {
+	public void testAdd() {
 		// Enemy alien = (Enemy) entities.get(ndx);
 		if (count < maxCount) {
 			activeNdxs.add(ndx);
