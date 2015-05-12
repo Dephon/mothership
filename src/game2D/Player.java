@@ -101,4 +101,10 @@ public final class Player extends Movable {
 	protected int maxInvTime;
 	protected int invinTimer;
 	protected boolean invin;
+
+	public Player(Double toTest) throws SlickException {
+		super(toTest);
+		invin = false;
+	}
+
 }

@@ -102,4 +102,15 @@ public abstract class Movable extends Entity {
 	protected final int DIRECTION_NORTHWEST = 7;
 	protected int maxHealth;
 	protected int health;
+
+	public Movable(Double toTest) throws SlickException {
+		maxHealth = toTest.intValue();
+		health = maxHealth;
+
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
 }

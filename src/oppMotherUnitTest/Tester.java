@@ -1,8 +1,11 @@
 package oppMotherUnitTest;
 
 import static org.junit.Assert.*;
+import game2D.*;
+import game2D.states.levels.*;
 
 import org.junit.*;
+import org.newdawn.slick.*;
 
 public class Tester {
 
@@ -15,7 +18,7 @@ public class Tester {
 
 	@AfterClass
 	public static void afterTesting() {
-		System.out.println("Total tests passed out of 10 : " + totalScore);
+		System.out.println("Total tests passed out of 6 : " + totalScore);
 	}
 
 	@Test
@@ -29,8 +32,37 @@ public class Tester {
 	}
 
 	@Test
-	public void testPlayerManager() {
-		fail("Not yet implemented");
+	public void testPlayer() { // White-box
+		int tempScore = 0;
+		MapOne testLevel = new MapOne();
+		Double happy = 100.0;
+		try {
+			Player toTest = new Player(happy);
+			if (!toTest.isDamaged()) {
+				tempScore++;
+			}
+			toTest.addHealth(20);
+			if (toTest.getHealth() == toTest.getMaxHealth()) {
+				tempScore++;
+			}
+			toTest.takeDamage(50);
+			if (toTest.getHealth() == toTest.getMaxHealth() - 50) {
+				tempScore++;
+			}
+			toTest.takeDamage(50);
+			if (toTest.isDead()) {
+				tempScore++;
+			}
+		} catch (SlickException e) {
+			fail("SlickException");
+			e.printStackTrace();
+		}
+
+		if (tempScore == 4) {
+			totalScore++;
+		} else {
+			fail("Missed at least one point");
+		}
 	}
 
 	@Test
