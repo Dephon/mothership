@@ -2,7 +2,6 @@ package oppMotherUnitTest;
 
 import static org.junit.Assert.*;
 import game2D.*;
-import game2D.states.levels.*;
 
 import java.util.*;
 
@@ -39,7 +38,6 @@ public class Tester {
 	@Test
 	public void testPlayer() { // White-box
 		int tempScore = 0;
-		MapOne testLevel = new MapOne();
 		Double happy = 100.0;
 		try {
 			Player toTest = new Player(happy);
@@ -71,12 +69,36 @@ public class Tester {
 	}
 
 	@Test
-	public void testLossCondition() {
-		fail("Not yet implemented");
+	public void testLossCondition() { // Black-box
+		int tempScore = 0;
+		Double happy = 1.0; // Number of Players
+		Double sad = 100.0; // Health
+		try {
+			mockMapOne testLevel = new mockMapOne(happy, sad);
+			PlayerManager testManager = testLevel.getPlayers();
+			if (testManager.getHealth(happy.intValue()) == 100) {
+				tempScore++;
+			}
+			testManager.get(happy.intValue()).takeDamage(100);
+			if (testManager.areDead()) {
+				tempScore++;
+			}
+			if (testLevel.GameOver()) {
+				tempScore++;
+			}
+		} catch (SlickException e) {
+			fail("Slick Exception");
+			e.printStackTrace();
+		}
+		if (tempScore == 3) {
+			totalScore++;
+		} else {
+			fail("Missed a point");
+		}
 	}
 
 	@Test
-	public void testUI() {
+	public void testUI() { // Black-box
 		mockUI ui = new mockUI();
 		Random rand = new Random();
 		// Test Health Counter
@@ -93,6 +115,7 @@ public class Tester {
 
 			ui.update(100, wep);
 		}
+		totalScore++;
 
 	}
 

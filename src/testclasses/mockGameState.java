@@ -1,9 +1,11 @@
-package game2D.states;
+package testclasses;
 
 import game2D.*;
 import game2D.collisions.*;
 import game2D.pickups.*;
 import game2D.projectiles.*;
+import game2D.states.*;
+import game2D.states.GameState;
 
 import java.util.*;
 
@@ -13,7 +15,7 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.state.transition.*;
 import org.newdawn.slick.tiled.*;
 
-public abstract class GameState extends BasicGameState {
+public abstract class mockGameState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
@@ -239,4 +241,13 @@ public abstract class GameState extends BasicGameState {
 	protected static int currentLevel;
 	protected static boolean setup;
 
+	public boolean GameOver() {
+		return players.areDead();
+	}
+
+	public mockGameState(Double thisIsATest, Double otherOne)
+			throws SlickException {
+		players = new PlayerManager(thisIsATest, otherOne);
+
+	}
 }

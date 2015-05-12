@@ -137,4 +137,14 @@ public abstract class Manager {
 	protected Porygon gameBounds;
 	protected Sound sound;
 	protected Sound hitSound;
+
+	public Manager(Double thisIsATest) {
+		maxCount = thisIsATest.intValue();
+		entities = new ArrayList<Entity>();
+		activeNdxs = new ArrayList<Integer>();
+		fireTimer = 0;
+		count = 0;
+		ndx = 0;
+
+	}
 }

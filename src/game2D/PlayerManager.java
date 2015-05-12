@@ -181,4 +181,14 @@ public class PlayerManager extends Manager {
 		super.handleCollision(entity, collisionEnum, damage);
 	}
 
+	public PlayerManager(Double thisIsATest, Double otherOne)
+			throws SlickException {
+		super(thisIsATest);
+		for (int i = 0; i < thisIsATest.intValue(); i++) {
+			entities.add(new Player(otherOne));
+			entities.get(i).setSpeed(.1f);
+		}
+
+	}
+
 }
