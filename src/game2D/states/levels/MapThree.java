@@ -43,14 +43,18 @@ public class MapThree extends GameState {
 		obstacles.add(0, 310, 25, 330);
 		// Bottom Wall
 		obstacles.add(0, 545, 960, 15);
-		// Obstacles
+		// Bottom Wall Obstacles
 		obstacles.add(100, 530, 56, 15);
 		obstacles.add(260, 530, 56, 15);
 		obstacles.add(628, 530, 56, 15);
 		obstacles.add(773, 530, 56, 15);
+		// Right Wall Obstacles
+		obstacles.add(915, 115, 20, 25);
+		obstacles.add(915, 420, 20, 25);
+		obstacles.add(915, 515, 20, 25);
 		// Transport
-		mapMover.add(0, 283, 1, 122, ThreeStateEnum.LEFT);
-		mapMover.add(959, 283, 1, 122, ThreeStateEnum.RIGHT);
+		mapMover.add(0, 234, 1, 75, ThreeStateEnum.LEFT);
+		mapMover.add(959, 234, 1, 75, ThreeStateEnum.RIGHT);
 	}
 
 	@Override
