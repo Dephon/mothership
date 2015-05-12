@@ -39,7 +39,7 @@ public abstract class GameState extends BasicGameState {
 		setWalls(container);
 		setMusic();
 		currentAmmo = AmmoEnum.BULLET;
-		debugDraw = false;
+		debugDraw = true;
 	}
 
 	@Override
@@ -103,9 +103,9 @@ public abstract class GameState extends BasicGameState {
 			enemies.displace(missiles, CollisionEnum.DAMAGING);
 			ui.update(players.getHealth(1), currentAmmo,
 					players.getMissileCount(1));
-			if (enemies.getActive().size() == 0)
-				map = players.checkTransport(mapMover);
-			changeMap(map, sbg);
+			if (enemies.getActive().size() == 0) {
+				changeLevel(players.checkTransport(mapMover), sbg);
+			}
 		}
 	}
 
@@ -146,22 +146,53 @@ public abstract class GameState extends BasicGameState {
 		}
 	}
 
-	// (270, 570);
-
-	public void changeMap(int map, StateBasedGame sbg) {
-		if (map == ThreeStateEnum.LEFT) {
-			if (currentLevel > StateEnum.GAME_LEVEL_ONE) {
-				levelChanged = true;
-				sbg.enterState(currentLevel - 1, new FadeOutTransition(),
-						new FadeInTransition());
+	// Transfer Data to the other state
+	protected void preChangeLevel(int dir, StateBasedGame sbg) {
+		GameState state;
+		if (dir == ThreeStateEnum.LEFT) {
+			if (currentLevel == StateEnum.GAME_LEVEL_THREE)
+				resetMusic = true;
+			currentLevel--;
+			state = (GameState) sbg.getState(currentLevel);
+			state.setMissileCount(missiles.getMissileCount());
+			state.setcurrentAmmo(currentAmmo);
+			players.setDir(-1, 0);
+			players.setLoc(state.defaultRightSpawn());
+			levelChanged = true;
+		} else if (dir == ThreeStateEnum.RIGHT) {
+			if (currentLevel == StateEnum.GAME_LEVEL_TWO) {
+				resetMusic = true;
 			}
-		} else if (map == ThreeStateEnum.RIGHT) {
-			if (currentLevel < StateEnum.GAME_LEVEL_THREE) {
-				levelChanged = true;
-				sbg.enterState(currentLevel + 1, new FadeOutTransition(),
-						new FadeInTransition());
-			}
+			currentLevel++;
+			state = (GameState) sbg.getState(currentLevel);
+			state.setMissileCount(missiles.getMissileCount());
+			state.setcurrentAmmo(currentAmmo);
+			players.setDir(1, 0);
+			players.setLoc(state.defaultLeftSpawn());
+			levelChanged = true;
 		}
+	}
+
+	// Change state
+	protected void changeLevel(int dir, StateBasedGame sbg) {
+		if (dir != ThreeStateEnum.NONE) {
+			preChangeLevel(dir, sbg);
+			sbg.enterState(currentLevel, new FadeOutTransition(),
+					new FadeInTransition());
+		}
+	}
+
+	// Process state change
+	protected void postChangeLevel(StateBasedGame sbg) {
+		levelChanged = false;
+		if (resetMusic) {
+			bgm.loop();
+			resetMusic = false;
+		}
+	}
+
+	public void setMissileCount(int count) {
+		missiles.setMissileCount(count);
 	}
 
 	public Music getMusic() {
@@ -187,41 +218,6 @@ public abstract class GameState extends BasicGameState {
 		return levelChanged;
 	}
 
-	protected void postChangeLevel(StateBasedGame sbg) {
-		levelChanged = false;
-
-		if (getID() < currentLevel) { // Moved to an earlier level
-			currentLevel--;
-			players.setDir(-1, 0);
-			players.setLoc(defaultRightSpawn());
-			if (currentLevel == StateEnum.GAME_LEVEL_THREE || setup) {
-				bgm.loop();
-			} else { // Moved to a later level or new game
-				currentLevel++;
-				players.setDir(1, 0);
-				players.setLoc(defaultLeftSpawn());
-				if (currentLevel == StateEnum.GAME_LEVEL_THREE || setup) {
-					bgm.loop();
-				}
-			}
-		}
-		if (setup)
-			setup = false;
-		else
-			transferInfo(sbg);
-	}
-
-	// There's no way of passing data between states in slick2d,
-	// so I have to do this.
-	protected void transferInfo(StateBasedGame sbg) {
-		GameState temp;
-		temp = (GameState) sbg.getState(currentLevel);
-		this.setPlayers(temp.getPlayers());
-		if (currentLevel != StateEnum.GAME_LEVEL_THREE) {
-			bgm = temp.getMusic();
-		}
-	}
-
 	public void Debug() {
 		return; // Add breakpoint here
 	}
@@ -230,15 +226,27 @@ public abstract class GameState extends BasicGameState {
 		return medPacks;
 	}
 
+	public int getMissileCount() {
+		return missiles.getMissileCount();
+	}
+
 	@Override
 	public abstract int getID();
 
-	public abstract void setMap() throws SlickException;
+	public void setcurrentAmmo(int ammoEnum) {
+		currentAmmo = ammoEnum;
+	}
 
-	public abstract void setWalls(GameContainer container)
+	public int getcurrentAmmo() {
+		return currentAmmo;
+	}
+
+	protected abstract void setMap() throws SlickException;
+
+	protected abstract void setWalls(GameContainer container)
 			throws SlickException;
 
-	public abstract void setMusic() throws SlickException;
+	protected abstract void setMusic() throws SlickException;
 
 	public abstract Vector2f defaultLeftSpawn();
 
@@ -260,6 +268,5 @@ public abstract class GameState extends BasicGameState {
 	protected boolean debugDraw;
 	protected static boolean levelChanged;
 	protected static int currentLevel;
-	protected static boolean setup;
-
+	protected static boolean resetMusic;
 }

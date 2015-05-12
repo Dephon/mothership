@@ -14,6 +14,8 @@ public class MapThree extends GameState {
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
 		super.init(container, sbg);
+		MapOne map = (MapOne) sbg.getState(StateEnum.GAME_LEVEL_ONE);
+		players = map.getPlayers();
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public class MapThree extends GameState {
 
 	@Override
 	public Vector2f defaultLeftSpawn() {
-		return new Vector2f(1, 272);
+		return new Vector2f(2, 272);
 	}
 
 	@Override

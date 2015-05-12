@@ -24,8 +24,8 @@ public class MapOne extends GameState {
 			throws SlickException {
 		super.init(container, sbg);
 		currentLevel = StateEnum.GAME_LEVEL_ONE;
-		players.add(defaultLeftSpawn().x, defaultLeftSpawn().y, 0, 1);
-		setup = true;
+		players.add(defaultLeftSpawn().x, defaultLeftSpawn().y, 1, 0);
+		resetMusic = true;
 		nonTiledBackground = new Image("maps/gottagofast.png")
 				.getScaledCopy(1.9f);
 		nonTiledMap = new Image("maps/rock3.png").getScaledCopy(3);
@@ -71,7 +71,7 @@ public class MapOne extends GameState {
 		Vector2f pVector = new Vector2f();
 		Input input = container.getInput();
 
-		if (levelChanged || setup) {
+		if (levelChanged || resetMusic) {
 			postChangeLevel(sbg);
 		}
 
@@ -122,9 +122,9 @@ public class MapOne extends GameState {
 			enemies.displace(missiles, CollisionEnum.DAMAGING);
 			ui.update(players.getHealth(1), currentAmmo,
 					players.getMissileCount(1));
-			if (enemies.getActive().size() == 0)
-				map = players.checkTransport(mapMover);
-			changeMap(map, sbg);
+			if (enemies.getActive().size() == 0) {
+				changeLevel(players.checkTransport(mapMover), sbg);
+			}
 		}
 	}
 
@@ -140,7 +140,7 @@ public class MapOne extends GameState {
 
 	@Override
 	public Vector2f defaultRightSpawn() {
-		return new Vector2f(958, 339);
+		return new Vector2f(910, 335);
 	}
 
 	@Override

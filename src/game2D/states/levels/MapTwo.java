@@ -13,12 +13,15 @@ public class MapTwo extends GameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
+		MapOne map = (MapOne) sbg.getState(StateEnum.GAME_LEVEL_ONE);
 		super.init(container, sbg);
 		enemies.enableSpawns(false);
 		enemies.addSpawner(new Vector2f(940, 350), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(495, 64), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(460, 530), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(5, 350), 2000, 20000, true);
+		players = map.getPlayers();
+		bgm = map.getMusic();
 	}
 
 	@Override
@@ -64,11 +67,11 @@ public class MapTwo extends GameState {
 
 	@Override
 	public Vector2f defaultLeftSpawn() {
-		return new Vector2f(2, 344);
+		return new Vector2f(3, 338);
 	}
 
 	@Override
 	public Vector2f defaultRightSpawn() {
-		return new Vector2f(900, 344);
+		return new Vector2f(870, 344);
 	}
 }

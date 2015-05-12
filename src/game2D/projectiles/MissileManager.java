@@ -76,5 +76,9 @@ public class MissileManager extends Manager {
 			missileCount = 20;
 	}
 
+	public void setMissileCount(int count) {
+		missileCount = count;
+	}
+
 	int missileCount;
 }
