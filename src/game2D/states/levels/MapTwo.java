@@ -15,9 +15,11 @@ public class MapTwo extends GameState {
 			throws SlickException {
 		super.init(container, sbg);
 		currentLevel = StateEnum.GAME_LEVEL_TWO;
-		enemies.spawnAtRandom(10000, 1000);
-		enemies.addSpawnLocation(new Vector2f(940, 350));
-		enemies.addSpawnLocation(new Vector2f(495, 64));
+		enemies.enableSpawns(true);
+		enemies.addSpawner(new Vector2f(940, 350), 2000, 20000, true);
+		enemies.addSpawner(new Vector2f(495, 64), 2000, 20000, true);
+		enemies.addSpawner(new Vector2f(460, 530), 2000, 20000, true);
+		enemies.addSpawner(new Vector2f(5, 350), 2000, 20000, true);
 	}
 
 	@Override

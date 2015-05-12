@@ -14,10 +14,9 @@ public class EnemyManager extends Manager {
 		for (int i = 0; i < maxAmount; i++)
 			entities.add(new Enemy("data/Alien_PlaceHolder.gif"));
 
-		spawnLocations = new ArrayList<Vector2f>();
+		spawnLocations = new ArrayList<EnemySpawner>();
 		rand = new Random();
-		lastSpawn = 0;
-		spawnAtRandom = false;
+		spawnsEnabled = false;
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class EnemyManager extends Manager {
 				alien.update(dt);
 			}
 		}
-		if (spawnAtRandom)
+		if (spawnsEnabled)
 			updateSpawns(dt);
 	}
 
@@ -52,7 +51,7 @@ public class EnemyManager extends Manager {
 				alien.update(loc, dt);
 			}
 		}
-		if (spawnAtRandom)
+		if (spawnsEnabled)
 			updateSpawns(dt);
 	}
 
@@ -65,45 +64,38 @@ public class EnemyManager extends Manager {
 		super.handleCollision(entity, collisionEnum, damage);
 	}
 
-	public void spawnAtRandom(int duration, int rate) {
-		spawnAtRandom = true;
-		enemySpawnInterval = duration;
-		spawnRate = rate;
+	public void addSpawner(Vector2f loc, int rate, int dur, boolean active) {
+		spawnLocations.add(new EnemySpawner(loc, rate, dur, active));
 	}
 
-	public void stopRandomSpawns() {
-		spawnAtRandom = false;
-
+	public void enableSpawns(boolean state) {
+		spawnsEnabled = state;
 	}
 
 	private void updateSpawns(int dt) {
 		if (spawnLocations.isEmpty()) {
-			spawnAtRandom = false;
+			spawnsEnabled = false;
 			return;
 		}
 
-		if (enemySpawnInterval > 0) {
-			enemySpawnInterval -= dt;
-			lastSpawn += dt;
-			if (lastSpawn >= spawnRate) {
-				lastSpawn = 0;
-				add(spawnLocations.get(rand.nextInt(spawnLocations.size())),
-						new Vector2f(0, 0));
+		for (EnemySpawner e : spawnLocations) {
+			if (e.isActive()) {
+				e.setLastSpawn(e.getLastSpawn() + dt);
+				e.setDuration(e.getDuration() - dt);
+				if (e.getDuration() <= 0) {
+					e.setActive(false);
+					continue;
+				}
+				if (e.getLastSpawn() >= e.getSpawnRate()) {
+					add(e.getLocation(), new Vector2f(0, 0));
+					e.setLastSpawn(0);
+				}
 			}
-		} else {
-			spawnAtRandom = false;
 		}
 	}
 
-	public void addSpawnLocation(Vector2f loc) {
-		spawnLocations.add(loc);
-	}
-
-	private boolean spawnAtRandom;
-	private ArrayList<Vector2f> spawnLocations;
-	private int enemySpawnInterval;
-	private int spawnRate;
-	private int lastSpawn;
+	private boolean spawnsEnabled;
+	private ArrayList<EnemySpawner> spawnLocations;
 	private Random rand;
 
 	public void add() {
