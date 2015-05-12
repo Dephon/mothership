@@ -49,4 +49,8 @@ public class Enemy extends Movable {
 		}
 	}
 
+	public Enemy(Double toTest) throws SlickException {
+		super(toTest);
+	}
+
 }

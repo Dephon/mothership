@@ -105,4 +105,24 @@ public class EnemyManager extends Manager {
 	private int spawnRate;
 	private int lastSpawn;
 	private Random rand;
+
+	public void add() {
+		Enemy alien = (Enemy) entities.get(ndx);
+		if (count < maxCount) {
+			activeNdxs.add(ndx);
+			count++;
+			ndx++;
+			if (ndx == maxCount)
+				ndx = 0;
+		}
+	}
+
+	public EnemyManager(Double thisIsATest, Double otherOne)
+			throws SlickException {
+		super(thisIsATest);
+		for (int i = 0; i < thisIsATest.intValue(); i++) {
+			entities.add(new Enemy(otherOne));
+		}
+
+	}
 }

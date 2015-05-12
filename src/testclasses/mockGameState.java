@@ -245,9 +245,14 @@ public abstract class mockGameState extends BasicGameState {
 		return players.areDead();
 	}
 
+	public EnemyManager getEnemies() {
+		return enemies;
+	}
+
 	public mockGameState(Double thisIsATest, Double otherOne)
 			throws SlickException {
 		players = new PlayerManager(thisIsATest, otherOne);
+		enemies = new EnemyManager(thisIsATest, otherOne);
 
 	}
 }

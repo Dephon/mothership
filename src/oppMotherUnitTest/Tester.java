@@ -2,6 +2,7 @@ package oppMotherUnitTest;
 
 import static org.junit.Assert.*;
 import game2D.*;
+import game2D.abstracts.*;
 
 import java.util.*;
 
@@ -31,8 +32,38 @@ public class Tester {
 	}
 
 	@Test
-	public void testEnemyManager() {
-		fail("Not yet implemented");
+	public void testEnemyManager() { // White-box
+		int tempScore = 0;
+		Double happy = 100.0; // Number of Enemies
+		Double sad = 100.0; // Health
+		try {
+			mockMapOne testLevel = new mockMapOne(happy, sad);
+			EnemyManager testManager = testLevel.getEnemies();
+			if (testManager.getActive().size() == 0) {
+				tempScore++;
+			}
+			for (int i = 0; i < happy.intValue(); i++) {
+				testManager.add();
+			}
+			if (testManager.getActive().size() == happy.intValue()) {
+				tempScore++;
+			}
+			ArrayList<Entity> tempor = testManager.getActive();
+			for (int i = 10; i < 20; i++) {
+				testManager.remove(tempor.get(i));
+			}
+			if (testManager.getActive().size() == 90) {
+				tempScore++;
+			}
+		} catch (SlickException e) {
+			fail("Slick Exception");
+			e.printStackTrace();
+		}
+		if (tempScore == 3) {
+			totalScore++;
+		} else {
+			fail("Missed at least one point");
+		}
 	}
 
 	@Test
@@ -93,7 +124,7 @@ public class Tester {
 		if (tempScore == 3) {
 			totalScore++;
 		} else {
-			fail("Missed a point");
+			fail("Missed at least one point");
 		}
 	}
 
