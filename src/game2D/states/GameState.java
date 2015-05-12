@@ -203,6 +203,10 @@ public abstract class GameState extends BasicGameState {
 		return; // Add breakpoint here
 	}
 
+	public MedPackManager getMedPacks() {
+		return medPacks;
+	}
+
 	@Override
 	public abstract int getID();
 

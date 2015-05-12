@@ -93,6 +93,23 @@ public class UI {
 		firstDigit = numbers[health / 100];
 	}
 
+	public Image getDigit(int i) {
+		switch (i) {
+		case 1:
+			return firstDigit;
+		case 2:
+			return secondDigit;
+		case 3:
+			return thirdDigit;
+		default:
+			return null;
+		}
+	}
+
+	public Image[] getNumbers() {
+		return numbers;
+	}
+
 	public static int PORTRAIT_DYING = 4;
 	public static int PORTRAIT_HEAVY_DAMAGE = 3;
 	public static int PORTRAIT_SHAKEN_UP = 2;
