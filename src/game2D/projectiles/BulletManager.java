@@ -29,7 +29,6 @@ public class BulletManager extends Manager {
 				fireTimer = 0;
 				if (ndx == maxCount)
 					ndx = 0;
-				sound.stop();
 				sound.play(1f, .4f);
 			}
 		}
@@ -56,7 +55,6 @@ public class BulletManager extends Manager {
 
 	@Override
 	public void handleCollision(Entity entity, int collisionEnum, int damage) {
-		sound.stop();
 		entity.handleCollision(collisionEnum, damage);
 	}
 }

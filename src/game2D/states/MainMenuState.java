@@ -10,12 +10,24 @@ public class MainMenuState extends BasicGameState {
 	private Image nameLogo;
 	private Image startButton;
 	private Image quitButton;
+	private Image background;
+	private Image[] mothership;
+	private Animation ani;
 	private Rectangle start, quit;
 	private Circle mousePoint;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
+		mothership = new Image[3];
+		background = new Image("data/title/space.png").getScaledCopy(4);
+		mothership[0] = new Image("data/title/mothership_000.gif")
+				.getScaledCopy(3.2f);
+		mothership[1] = new Image("data/title/mothership_001.gif")
+				.getScaledCopy(3.2f);
+		mothership[2] = new Image("data/title/mothership_002.gif")
+				.getScaledCopy(3.2f);
+		ani = new Animation(mothership, 200);
 		nameLogo = new Image("dickPics/logo.png");
 		startButton = new Image("dickPics/playGameButton.png");
 		quitButton = new Image("dickPics/quitGameButton.png");
@@ -65,6 +77,8 @@ public class MainMenuState extends BasicGameState {
 		// disp.fill(quit);
 
 		disp.setBackground(Color.gray);
+		background.draw();
+		ani.draw(0, 0);
 		disp.drawImage(nameLogo, (container.getWidth() - 927) / 2f,
 				container.getHeight() / 7.5f);
 		disp.drawImage(startButton, start.getX(), start.getY());

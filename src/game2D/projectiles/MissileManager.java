@@ -54,25 +54,6 @@ public class MissileManager extends Manager {
 			fireTimer += dt;
 	}
 
-	// public void displace(ObstacleManager rhs, int collisionEnum) {
-	// ArrayList<Entity> secondList;
-	// Vector2f dis;
-	// secondList = rhs.getActive();
-	// for (Entity entity : entities) {
-	// if (!entity.isDead()) {
-	// for (Entity second : secondList) {
-	// dis = Collision.intersects(entity, second);
-	// if (dis.x != 0 || dis.y != 0) {
-	// if (collisionEnum == CollisionEnum.BLOCKING) {
-	// entity.displace(dis);
-	// }
-	// handleCollision(entity, collisionEnum, 0);
-	// }
-	// }
-	// }
-	// }
-	// }
-
 	@Override
 	public void handleCollision(Entity entity, int collisionEnum, int damage) {
 		if (!entity.isDying()) {
