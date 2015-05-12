@@ -137,6 +137,11 @@ public abstract class Manager {
 	protected Sound sound;
 	protected Sound hitSound;
 
+	public void testRemove(int index) {
+		activeNdxs.remove(index);
+		count--;
+	}
+
 	public Manager(Double thisIsATest) {
 		maxCount = thisIsATest.intValue();
 		entities = new ArrayList<Entity>();

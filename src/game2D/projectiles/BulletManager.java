@@ -60,4 +60,24 @@ public class BulletManager extends Manager {
 	public void handleCollision(Entity entity, int collisionEnum, int damage) {
 		entity.handleCollision(collisionEnum, damage);
 	}
+
+	public void testCreate() {
+
+		if (count < maxCount) {
+			activeNdxs.add(ndx);
+			count++;
+			ndx++;
+			if (ndx == maxCount)
+				ndx = 0;
+
+		}
+	}
+
+	public BulletManager(Double numBullets, Double bulletType)
+			throws SlickException {
+		super(numBullets);
+		for (int i = 0; i < numBullets.intValue(); i++) {
+			entities.add((Bullet) AmmoFactory.getAmmo(bulletType));
+		}
+	}
 }
