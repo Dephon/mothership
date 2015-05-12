@@ -33,7 +33,7 @@ public class Bullet extends Ammo {
 		deathAnimation.setLooping(false);
 		speed = 1;
 		sound = new Sound("data/sounds/Bullet_Shot.wav");
-		statDamage = 5;
+		statDamage = 25;
 	}
 
 	@Override

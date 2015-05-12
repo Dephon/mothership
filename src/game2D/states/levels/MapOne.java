@@ -17,6 +17,7 @@ public class MapOne extends GameState {
 		super.init(container, sbg);
 		levelChanged = true;
 		currentLevel = StateEnum.GAME_LEVEL_ONE;
+		enemies.enableSpawns(true);
 		enemies.addSpawner(new Vector2f(940, 350), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(495, 64), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(460, 530), 2000, 20000, true);
