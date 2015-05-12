@@ -65,6 +65,15 @@ public class PlayerManager extends Manager {
 		}
 	}
 
+	public int getMissileCount(int player) {
+		try {
+			Player temp = (Player) (entities.get(player - 1));
+			return temp.getMissileCount();
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return -1;
+		}
+	}
+
 	public void setDir(Vector2f dir) {
 		for (Entity entity : entities)
 			entity.setDir(dir);

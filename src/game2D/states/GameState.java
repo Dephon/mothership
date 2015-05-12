@@ -105,7 +105,8 @@ public abstract class GameState extends BasicGameState {
 			enemies.displace(obstacles, CollisionEnum.BLOCKING);
 			enemies.displace(bullets, CollisionEnum.DAMAGING);
 			enemies.displace(missiles, CollisionEnum.DAMAGING);
-			ui.update(players.getHealth(1), currentAmmo);
+			ui.update(players.getHealth(1), currentAmmo,
+					players.getMissileCount(1));
 			if (enemies.getActive().size() == 0)
 				map = players.checkTransport(mapMover);
 			changeMap(map, sbg);

@@ -63,11 +63,12 @@ public class UI {
 			rocket.draw(270, 590);
 	}
 
-	public void update(int healthUpdate, int ammo) {
+	public void update(int healthUpdate, int ammoType, int missileCount) {
 		health = healthUpdate;
 		updatePortrait();
 		updateHealthCounter();
-		currentAmmo = ammo;
+		currentAmmo = ammoType;
+		missiles = missileCount;
 	}
 
 	private void updatePortrait() {
@@ -118,6 +119,7 @@ public class UI {
 
 	private int currentAmmo;
 	private int health;
+	private int missiles;
 	private Image firstDigit;
 	private Image secondDigit;
 	private Image thirdDigit;

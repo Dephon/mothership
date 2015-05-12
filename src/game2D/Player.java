@@ -20,6 +20,7 @@ public final class Player extends Movable {
 		super.init();
 		invin = false;
 		maxInvTime = 1000;
+		missiles = 10;
 		currentAnimation = movementAnimations[DIRECTION_EAST];
 		updateBox();
 	}
@@ -60,6 +61,10 @@ public final class Player extends Movable {
 			return false;
 	}
 
+	public int getMissileCount() {
+		return missiles;
+	}
+
 	// @Override
 	// public void draw() {
 	// if (damaged) {
@@ -97,6 +102,7 @@ public final class Player extends Movable {
 		}
 	}
 
+	protected int missiles;
 	protected boolean show;
 	protected int maxInvTime;
 	protected int invinTimer;
