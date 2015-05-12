@@ -60,7 +60,7 @@ public class MapThree extends GameState {
 
 	@Override
 	public void setMusic() throws SlickException {
-		background = new Music(
+		bgm = new Music(
 				"data/sounds/Crateria_Underground_-_Super_Metroid.wav");
 	}
 

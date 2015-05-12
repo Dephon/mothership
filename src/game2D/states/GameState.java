@@ -154,6 +154,10 @@ public abstract class GameState extends BasicGameState {
 		}
 	}
 
+	public Music getMusic() {
+		return bgm;
+	}
+
 	public void setPlayers(PlayerManager info) {
 		players = info;
 	}
@@ -174,13 +178,13 @@ public abstract class GameState extends BasicGameState {
 	}
 
 	protected void postChangeLevel(StateBasedGame sbg) {
-		background.loop();
+		// bgm.loop();
 		levelChanged = false;
 
 		if (setup)
 			setup = false;
 		else
-			setPlayerInfo(sbg);
+			transferInfo(sbg);
 
 		if (getID() > currentLevel) { // Moved to a later level
 			currentLevel++;
@@ -195,10 +199,11 @@ public abstract class GameState extends BasicGameState {
 
 	// There's no way of passing data between states in slick2d,
 	// so I have to do this.
-	protected void setPlayerInfo(StateBasedGame sbg) {
+	protected void transferInfo(StateBasedGame sbg) {
 		GameState temp;
 		temp = (GameState) sbg.getState(currentLevel);
 		this.setPlayers(temp.getPlayers());
+		bgm = temp.getMusic();
 	}
 
 	public void Debug() {
@@ -232,7 +237,7 @@ public abstract class GameState extends BasicGameState {
 	protected MedPackManager medPacks;
 	protected TransportManager mapMover;
 	protected TiledMap gameMap;
-	protected Music background;
+	protected Music bgm;
 	protected UI ui;
 	protected int map;
 	protected int currentAmmo;

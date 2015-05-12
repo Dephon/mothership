@@ -39,17 +39,17 @@ public class Missile extends Ammo {
 		deathAnimation.addFrame(spriteSheet.getSubImage(177, 6, 32, 32)
 				.getScaledCopy(splashScale), 50);
 		deathAnimation.addFrame(spriteSheet.getSubImage(212, 7, 32, 32)
-				.getScaledCopy(splashScale), 100);
+				.getScaledCopy(splashScale), 50);
 		deathAnimation.addFrame(spriteSheet.getSubImage(246, 7, 32, 32)
-				.getScaledCopy(splashScale), 100);
+				.getScaledCopy(splashScale), 50);
 		deathAnimation.addFrame(spriteSheet.getSubImage(280, 6, 32, 32)
-				.getScaledCopy(splashScale), 100);
+				.getScaledCopy(splashScale), 50);
 		deathAnimation.addFrame(spriteSheet.getSubImage(313, 6, 32, 32)
-				.getScaledCopy(splashScale), 100);
+				.getScaledCopy(splashScale), 50);
 		deathAnimation.addFrame(spriteSheet.getSubImage(346, 7, 32, 32)
-				.getScaledCopy(splashScale), 100);
+				.getScaledCopy(splashScale), 50);
 		deathAnimation.addFrame(spriteSheet.getSubImage(379, 7, 32, 32)
-				.getScaledCopy(splashScale), 100);
+				.getScaledCopy(splashScale), 50);
 		deathAnimation.setLooping(false);
 		statDamage = 100;
 		statSplashDamage = 100;
@@ -75,7 +75,7 @@ public class Missile extends Ammo {
 
 	@Override
 	protected int getDeathTimer() {
-		return 700;
+		return 400;
 	}
 
 	@Override

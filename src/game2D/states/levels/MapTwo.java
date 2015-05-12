@@ -14,7 +14,6 @@ public class MapTwo extends GameState {
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
 		super.init(container, sbg);
-		currentLevel = StateEnum.GAME_LEVEL_TWO;
 		enemies.enableSpawns(true);
 		enemies.addSpawner(new Vector2f(940, 350), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(495, 64), 2000, 20000, true);
@@ -60,7 +59,7 @@ public class MapTwo extends GameState {
 
 	@Override
 	public void setMusic() throws SlickException {
-		background = new Music("data/sounds/despair_tower_top.wav");
+		bgm = new Music("data/sounds/despair_tower_top.wav");
 	}
 
 	@Override
