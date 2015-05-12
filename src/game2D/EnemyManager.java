@@ -99,7 +99,7 @@ public class EnemyManager extends Manager {
 	private Random rand;
 
 	public void add() {
-		Enemy alien = (Enemy) entities.get(ndx);
+		// Enemy alien = (Enemy) entities.get(ndx);
 		if (count < maxCount) {
 			activeNdxs.add(ndx);
 			count++;

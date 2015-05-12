@@ -1,6 +1,7 @@
 package game2D.projectiles;
 
 import game2D.abstracts.*;
+import game2D.collisions.*;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -93,16 +94,25 @@ public class Missile extends Ammo {
 	@Override
 	public void update(int dt) {
 		if (!dead) {
-			if (igniteTime > 300 && !ignited) {
-				ignited = true;
-				currentAnimation = trailingFire;
-				rotate(true, false);
-			} else {
-				if (igniteTime < Integer.MAX_VALUE)
-					igniteTime += dt;
+			if (!dying) {
+				if (igniteTime > 300 && !ignited) {
+					ignited = true;
+					currentAnimation = trailingFire;
+					rotate(true, false);
+				} else {
+					if (igniteTime < Integer.MAX_VALUE)
+						igniteTime += dt;
+				}
+				acceleration += jerk * dt;
+				speed += acceleration * dt;
 			}
-			acceleration += jerk * dt;
-			super.update(dt);
+			TimeUntilDeath(getDeathTimer(), dt);
+			Vector2f dV = new Vector2f();
+			dV.set(direction);
+			dV.x *= speed * dt;
+			dV.y *= speed * dt;
+			location.add(dV);
+			box.setLocation(location);
 		}
 	}
 
@@ -119,6 +129,9 @@ public class Missile extends Ammo {
 	public void handleCollision(int collisionEnum, int statDamage) {
 		dying = true;
 		displace(someMathFunction());
+		if (collisionEnum == CollisionEnum.BLOCKING) {
+			speed = 0;
+		}
 		updateBox();
 	}
 

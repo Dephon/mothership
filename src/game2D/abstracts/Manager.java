@@ -82,7 +82,6 @@ public abstract class Manager {
 						if (second.isDying()) {
 							handleCollision(entity, collisionEnum,
 									second.getStatSplashDamage());
-							rhs.handleCollision(second, collisionEnum, 0);
 						} else {
 							handleCollision(entity, collisionEnum,
 									second.getStatDamage());

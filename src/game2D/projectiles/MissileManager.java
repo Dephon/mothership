@@ -39,18 +39,39 @@ public class MissileManager extends Manager {
 
 	@Override
 	public void update(int dt) {
-		for (Entity missile : entities) {
+		for (Entity missile : getActive()) {
 			if (!missile.isDead()) {
 				missile.update(dt);
 				if (!missile.intersects(gameBounds)) {
 					missile.destroy();
 					remove(missile);
 				}
+			} else {
+				remove(missile);
 			}
 		}
 		if (dt < Integer.MAX_VALUE)
 			fireTimer += dt;
 	}
+
+	// public void displace(ObstacleManager rhs, int collisionEnum) {
+	// ArrayList<Entity> secondList;
+	// Vector2f dis;
+	// secondList = rhs.getActive();
+	// for (Entity entity : entities) {
+	// if (!entity.isDead()) {
+	// for (Entity second : secondList) {
+	// dis = Collision.intersects(entity, second);
+	// if (dis.x != 0 || dis.y != 0) {
+	// if (collisionEnum == CollisionEnum.BLOCKING) {
+	// entity.displace(dis);
+	// }
+	// handleCollision(entity, collisionEnum, 0);
+	// }
+	// }
+	// }
+	// }
+	// }
 
 	@Override
 	public void handleCollision(Entity entity, int collisionEnum, int damage) {
@@ -58,8 +79,7 @@ public class MissileManager extends Manager {
 			sound.stop();
 			hitSound.stop();
 			hitSound.play(1f, .4f);
-			entity.handleCollision(collisionEnum, damage);
-			remove(entity);
 		}
+		entity.handleCollision(collisionEnum, damage);
 	}
 }
