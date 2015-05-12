@@ -1,0 +1,22 @@
+info face="Press Start" size=32 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=32 base=28 scaleW=256 scaleH=256 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="press start_0.png"
+chars count=18
+char id=48   x=0     y=0     width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=49   x=62    y=29    width=26    height=28    xoffset=3     yoffset=0     xadvance=32    page=0  chnl=15
+char id=50   x=31    y=0     width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=51   x=62    y=0     width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=52   x=93    y=0     width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=53   x=124   y=0     width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=54   x=155   y=0     width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=55   x=186   y=0     width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=56   x=217   y=0     width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=57   x=0     y=29    width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=64   x=31    y=29    width=30    height=28    xoffset=-1    yoffset=0     xadvance=32    page=0  chnl=15
+char id=97   x=170   y=29    width=26    height=20    xoffset=3     yoffset=8     xadvance=32    page=0  chnl=15
+char id=98   x=116   y=29    width=22    height=28    xoffset=3     yoffset=0     xadvance=32    page=0  chnl=15
+char id=99   x=197   y=29    width=22    height=20    xoffset=3     yoffset=8     xadvance=32    page=0  chnl=15
+char id=100  x=89    y=29    width=26    height=28    xoffset=3     yoffset=0     xadvance=32    page=0  chnl=15
+char id=101  x=220   y=29    width=22    height=20    xoffset=3     yoffset=8     xadvance=32    page=0  chnl=15
+char id=109  x=139   y=29    width=30    height=20    xoffset=-1    yoffset=8     xadvance=32    page=0  chnl=15
+char id=111  x=0     y=58    width=22    height=20    xoffset=3     yoffset=8     xadvance=32    page=0  chnl=15
