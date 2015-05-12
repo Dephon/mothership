@@ -35,5 +35,6 @@ public class Main extends StateBasedGame {
 		this.addState(new MapOne());
 		this.addState(new MapTwo());
 		this.addState(new MapThree());
+		this.addState(new CongratulationsState());
 	}
 }

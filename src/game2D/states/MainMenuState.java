@@ -31,10 +31,10 @@ public class MainMenuState extends BasicGameState {
 		nameLogo = new Image("dickPics/logo.png");
 		startButton = new Image("dickPics/playGameButton.png");
 		quitButton = new Image("dickPics/quitGameButton.png");
-		start = new Rectangle((container.getWidth() - 150) / 3f + 75,
-				container.getHeight() / 3.0f, 200, 100);
-		quit = new Rectangle((container.getWidth() - 150) / 3f + 75,
+		start = new Rectangle((container.getWidth() - 150) / 2f,
 				container.getHeight() / 2.3f, 200, 100);
+		quit = new Rectangle((container.getWidth() - 150) / 2f,
+				container.getHeight() / 1.8f, 200, 100);
 		mousePoint = new Circle(1, 1, 1);
 
 	}

@@ -20,10 +20,10 @@ public class PauseState extends BasicGameState {
 		backButton = new Image("dickPics/returnToGame.png");
 		quitButton = new Image("dickPics/quitGameButton.png");
 
-		returnTo = new Rectangle((container.getWidth() - 150) / 2f - 20,
-				container.getHeight() / 2.7f, 150, 50);
-		quit = new Rectangle((container.getWidth() - 150) / 2f - 20,
+		returnTo = new Rectangle((container.getWidth() - 150) / 2f,
 				container.getHeight() / 2.2f, 150, 50);
+		quit = new Rectangle((container.getWidth() - 150) / 2f,
+				container.getHeight() / 1.8f, 150, 50);
 		mousePoint = new Circle(1, 1, 1);
 	}
 

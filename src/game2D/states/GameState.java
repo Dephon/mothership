@@ -53,6 +53,16 @@ public abstract class GameState extends BasicGameState {
 			postChangeLevel(sbg);
 		}
 
+		if (input.isKeyPressed(Input.KEY_COMMA)) {
+			GameState temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_ONE);
+			temp.init(container, sbg);
+			temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_TWO);
+			temp.init(container, sbg);
+			temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_THREE);
+			temp.init(container, sbg);
+			sbg.enterState(StateEnum.CongratulationsState);
+		}
+
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			sbg.enterState(StateEnum.PAUSE);
 		} else {
