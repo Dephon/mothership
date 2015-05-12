@@ -14,7 +14,7 @@ public class MapTwo extends GameState {
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
 		super.init(container, sbg);
-		enemies.enableSpawns(true);
+		enemies.enableSpawns(false);
 		enemies.addSpawner(new Vector2f(940, 350), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(495, 64), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(460, 530), 2000, 20000, true);
@@ -64,7 +64,7 @@ public class MapTwo extends GameState {
 
 	@Override
 	public Vector2f defaultLeftSpawn() {
-		return new Vector2f(1, 344);
+		return new Vector2f(2, 344);
 	}
 
 	@Override

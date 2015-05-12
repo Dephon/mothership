@@ -55,13 +55,11 @@ public class MapThree extends GameState {
 		obstacles.add(915, 515, 20, 25);
 		// Transport
 		mapMover.add(0, 234, 1, 75, ThreeStateEnum.LEFT);
-		mapMover.add(959, 234, 1, 75, ThreeStateEnum.RIGHT);
 	}
 
 	@Override
 	public void setMusic() throws SlickException {
-		bgm = new Music(
-				"data/sounds/Crateria_Underground_-_Super_Metroid.wav");
+		bgm = new Music("data/sounds/Crateria_Underground_-_Super_Metroid.wav");
 	}
 
 	@Override

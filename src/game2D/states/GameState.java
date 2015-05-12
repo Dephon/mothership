@@ -35,15 +35,11 @@ public abstract class GameState extends BasicGameState {
 		mapMover = new TransportManager(bounds, 2);
 		ui = new UI();
 
-		enemies.add(300, 300, 0, 0);
-		players.add(defaultLeftSpawn().x, defaultRightSpawn().y, 1, 0);
-		// medPacks.add(500, 200, 0, 0);
-
 		setMap();
 		setWalls(container);
 		setMusic();
 		currentAmmo = AmmoEnum.BULLET;
-		debugDraw = true;
+		debugDraw = false;
 	}
 
 	@Override
@@ -125,8 +121,14 @@ public abstract class GameState extends BasicGameState {
 			enemies.debugDraw(graphics);
 			medPacks.debugDraw(graphics);
 			graphics.drawString("(" + debugX + "," + debugY + ")", 0, 0);
-			graphics.drawString("Moving to map: " + map, 400, 0);
+			// graphics.drawString("Moving to map: " + map, 400, 0);
 			ui.draw();
+			graphics.setColor(Color.yellow);
+			if (currentAmmo == AmmoEnum.MISSILE)
+				graphics.drawString(missiles.getMissileCount() + "/" + "20",
+						295, 600);
+			else
+				graphics.drawString("infinite", 285, 600);
 		} else {
 			players.draw();
 			obstacles.draw();
@@ -135,8 +137,16 @@ public abstract class GameState extends BasicGameState {
 			bullets.draw();
 			medPacks.draw();
 			ui.draw();
+			graphics.setColor(Color.yellow);
+			if (currentAmmo == AmmoEnum.MISSILE)
+				graphics.drawString(missiles.getMissileCount() + "/" + "20",
+						295, 600);
+			else
+				graphics.drawString("infinite", 285, 600);
 		}
 	}
+
+	// (270, 570);
 
 	public void changeMap(int map, StateBasedGame sbg) {
 		if (map == ThreeStateEnum.LEFT) {
@@ -178,23 +188,27 @@ public abstract class GameState extends BasicGameState {
 	}
 
 	protected void postChangeLevel(StateBasedGame sbg) {
-		// bgm.loop();
 		levelChanged = false;
 
+		if (getID() < currentLevel) { // Moved to an earlier level
+			currentLevel--;
+			players.setDir(-1, 0);
+			players.setLoc(defaultRightSpawn());
+			if (currentLevel == StateEnum.GAME_LEVEL_THREE || setup) {
+				bgm.loop();
+			} else { // Moved to a later level or new game
+				currentLevel++;
+				players.setDir(1, 0);
+				players.setLoc(defaultLeftSpawn());
+				if (currentLevel == StateEnum.GAME_LEVEL_THREE || setup) {
+					bgm.loop();
+				}
+			}
+		}
 		if (setup)
 			setup = false;
 		else
 			transferInfo(sbg);
-
-		if (getID() > currentLevel) { // Moved to a later level
-			currentLevel++;
-			players.setDir(1, 0);
-			players.setLoc(defaultLeftSpawn());
-		} else if (getID() < currentLevel) {
-			currentLevel--;
-			players.setDir(-1, 0);
-			players.setLoc(defaultRightSpawn());
-		}
 	}
 
 	// There's no way of passing data between states in slick2d,
@@ -203,7 +217,9 @@ public abstract class GameState extends BasicGameState {
 		GameState temp;
 		temp = (GameState) sbg.getState(currentLevel);
 		this.setPlayers(temp.getPlayers());
-		bgm = temp.getMusic();
+		if (currentLevel != StateEnum.GAME_LEVEL_THREE) {
+			bgm = temp.getMusic();
+		}
 	}
 
 	public void Debug() {

@@ -13,13 +13,14 @@ public class MissileManager extends Manager {
 			entities.add((Missile) AmmoFactory.getAmmo(AmmoEnum.MISSILE));
 		sound = new Sound("data/sounds/Missile_Launch.wav");
 		hitSound = new Sound("data/sounds/Missile_Explosion.wav");
+		missileCount = 20;
 	}
 
 	public void create(Vector2f position, Vector2f direction) {
 		Vector2f posAmmo = new Vector2f(position);
 		float missleCenterX, missleCenterY;
 		if (fireTimer > 200) {
-			if (count < maxCount) {
+			if (count < maxCount && missileCount > 0) {
 				missleCenterX = entities.get(ndx).getCenterX();
 				missleCenterY = entities.get(ndx).getCenterY();
 				posAmmo.x -= missleCenterX;
@@ -33,6 +34,7 @@ public class MissileManager extends Manager {
 					ndx = 0;
 				sound.stop();
 				sound.play(1f, .4f);
+				missileCount--;
 			}
 		}
 	}
@@ -63,4 +65,16 @@ public class MissileManager extends Manager {
 		}
 		entity.handleCollision(collisionEnum, damage);
 	}
+
+	public int getMissileCount() {
+		return missileCount;
+	}
+
+	public void addMissiles(int count) {
+		missileCount += count;
+		if (missileCount > 20)
+			missileCount = 20;
+	}
+
+	int missileCount;
 }

@@ -50,7 +50,7 @@ public class UI {
 
 	public void draw() {
 		uiBar.draw(0, 560);
-		curPortrait.draw(623, 560);
+		curPortrait.draw(628, 560);
 		if (firstDigit != numbers[0])
 			firstDigit.draw(506, 557);
 		if (secondDigit != numbers[0] || health == 100)
@@ -58,9 +58,9 @@ public class UI {
 		thirdDigit.draw(580, 557);
 		alienMap.draw(0, 560);
 		if (currentAmmo == AmmoEnum.BULLET)
-			chainGun.draw(275, 590);
+			chainGun.draw(275, 570);
 		else
-			rocket.draw(270, 590);
+			rocket.draw(270, 570);
 	}
 
 	public void update(int healthUpdate, int ammoType, int missileCount) {
@@ -68,7 +68,6 @@ public class UI {
 		updatePortrait();
 		updateHealthCounter();
 		currentAmmo = ammoType;
-		missiles = missileCount;
 	}
 
 	private void updatePortrait() {
@@ -119,7 +118,6 @@ public class UI {
 
 	private int currentAmmo;
 	private int health;
-	private int missiles;
 	private Image firstDigit;
 	private Image secondDigit;
 	private Image thirdDigit;

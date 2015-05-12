@@ -17,25 +17,27 @@ public class MapOne extends GameState {
 	Image nonTiledBackground;
 	Image nonTiledMap;
 	Image bridge;
+	Image ship;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame sbg)
 			throws SlickException {
 		super.init(container, sbg);
 		currentLevel = StateEnum.GAME_LEVEL_ONE;
-		bgm.loop();
+		players.add(defaultLeftSpawn().x, defaultLeftSpawn().y, 0, 1);
+		setup = true;
 		nonTiledBackground = new Image("maps/gottagofast.png")
 				.getScaledCopy(1.9f);
 		nonTiledMap = new Image("maps/rock3.png").getScaledCopy(3);
 		bridge = new Image("maps/rock2.png").getScaledCopy(3);
+		ship = new Image("maps/ship.png");
+		ship.rotate(30);
 		bridge.rotate(270);
-		levelChanged = true;
-		currentLevel = StateEnum.GAME_LEVEL_ONE;
-		enemies.enableSpawns(true);
-		enemies.addSpawner(new Vector2f(940, 350), 2000, 20000, true);
-		enemies.addSpawner(new Vector2f(495, 64), 2000, 20000, true);
-		enemies.addSpawner(new Vector2f(460, 530), 2000, 20000, true);
-		enemies.addSpawner(new Vector2f(5, 350), 2000, 20000, true);
+		enemies.enableSpawns(false);
+		enemies.addSpawner(new Vector2f(0, 0), 5000, 20000, true);
+		enemies.addSpawner(new Vector2f(0, 100), 2000, 20000, true);
+		enemies.addSpawner(new Vector2f(100, 0), 2000, 20000, true);
+		enemies.addSpawner(new Vector2f(200, 560), 2000, 20000, true);
 	}
 
 	@Override
@@ -51,21 +53,15 @@ public class MapOne extends GameState {
 	@Override
 	public void setWalls(GameContainer container) throws SlickException {
 		// Top Wall
-		obstacles.add(288, 208, 35, 300);
-		obstacles.add(544, 0, 416, 63);
-		obstacles.add(0, 0, 960, 33);
-		// Right Wall
-		obstacles.add(938, 0, 22, 282);
-		obstacles.add(938, 406, 22, 156);
+		obstacles.add(287, 200, 700, 27);
 		// Left Wall
-		obstacles.add(0, 0, 25, 282);
-		obstacles.add(0, 406, 25, 156);
+		obstacles.add(310, 208, 35, 300);
 		// Bottom Wall
-		obstacles.add(0, 530, 411, 30);
-		obstacles.add(550, 530, 430, 30);
+		obstacles.add(287, 477, 700, 27);
+		// Right Wall
+		obstacles.add(606, 218, 130, 118);
 		// Transport
-		mapMover.add(0, 283, 1, 122, ThreeStateEnum.LEFT);
-		mapMover.add(959, 283, 1, 122, ThreeStateEnum.RIGHT);
+		mapMover.add(959, 227, 1, 250, ThreeStateEnum.RIGHT);
 	}
 
 	@Override
@@ -75,7 +71,7 @@ public class MapOne extends GameState {
 		Vector2f pVector = new Vector2f();
 		Input input = container.getInput();
 
-		if (levelChanged) {
+		if (levelChanged || setup) {
 			postChangeLevel(sbg);
 		}
 
@@ -144,7 +140,7 @@ public class MapOne extends GameState {
 
 	@Override
 	public Vector2f defaultRightSpawn() {
-		return new Vector2f(949, 339);
+		return new Vector2f(958, 339);
 	}
 
 	@Override
@@ -154,7 +150,7 @@ public class MapOne extends GameState {
 		bridge.draw(500, 200);
 		nonTiledMap.draw(700, 190);
 		nonTiledMap.draw(325, 190);
-
+		ship.draw(327, 366);
 		if (debugDraw) {
 			bullets.debugDraw(graphics);
 			missiles.debugDraw(graphics);
@@ -165,6 +161,12 @@ public class MapOne extends GameState {
 			graphics.drawString("(" + debugX + "," + debugY + ")", 0, 0);
 			graphics.drawString("Moving to map: " + map, 400, 0);
 			ui.draw();
+			graphics.setColor(Color.yellow);
+			if (currentAmmo == AmmoEnum.MISSILE)
+				graphics.drawString(missiles.getMissileCount() + "/" + "20",
+						295, 600);
+			else
+				graphics.drawString("infinite", 285, 600);
 		} else {
 			players.draw();
 			obstacles.draw();
@@ -173,6 +175,12 @@ public class MapOne extends GameState {
 			bullets.draw();
 			medPacks.draw();
 			ui.draw();
+			graphics.setColor(Color.yellow);
+			if (currentAmmo == AmmoEnum.MISSILE)
+				graphics.drawString(missiles.getMissileCount() + "/" + "20",
+						295, 600);
+			else
+				graphics.drawString("infinite", 285, 600);
 		}
 	}
 }
