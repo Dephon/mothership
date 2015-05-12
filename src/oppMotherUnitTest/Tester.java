@@ -3,7 +3,7 @@ package oppMotherUnitTest;
 import static org.junit.Assert.*;
 import game2D.*;
 import game2D.abstracts.*;
-
+import game2D.states.levels.*;
 import java.util.*;
 
 import org.junit.*;
@@ -28,6 +28,30 @@ public class Tester {
 
 	@Test
 	public void testMedPack() {
+		// represents player with full health.
+		int playerHealth = 100;
+
+		// five medpacks in map
+		mockMedPackManager medPacks = new mockMedPackManager(5);
+		for (int i = 0; i < 5; i++)
+			medPacks.add();
+
+		for (int i = 0; i < 5; i++) {
+			// Player takes damage
+			playerHealth -= (i * 10);
+			if (playerHealth < 100) {
+				medPacks.handleCollision(medPacks.getActive().get(0));
+				playerHealth += 20;
+			}
+			if (playerHealth > 100)
+				playerHealth = 100;
+		}
+
+		// Should only be one medpack left after test.
+		assertEquals(1, medPacks.getActive().size());
+
+		// Player should have 70 hp after test.
+		assertEquals(playerHealth, 70);
 
 	}
 
