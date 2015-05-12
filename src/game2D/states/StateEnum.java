@@ -7,4 +7,5 @@ public class StateEnum {
 	public static final int GAME_LEVEL_ONE = 3;
 	public static final int GAME_LEVEL_TWO = 4;
 	public static final int GAME_LEVEL_THREE = 5;
+	public static final int CongratulationsState = 6;
 }
