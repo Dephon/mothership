@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="31" tilewidth="16" tileheight="16" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="16" tileheight="16" nextobjectid="1">
  <tileset firstgid="1" name="SNES - Super Metroid - Background Tiles" tilewidth="16" tileheight="16" spacing="1" margin="1">
   <image source="SNES - Super Metroid - Background Tiles.png" trans="ff00ff" width="950" height="950"/>
   <tile id="0">
@@ -323,9 +323,9 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="60" height="31">
+ <layer name="Tile Layer 1" width="60" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+1ZS0rEQBCtjiB+toK4V8Eb6MITiOIJ3HgAo+N+1EAfYMCNBxiUuYEwR/B3AL97ncHBva9IF9PTiRqFSSDl4tGfVDqveF3V6e7EEG0A20G5BWx67TwbxjMRPQIP9LOt1M9he0FfP/frJ7Cbd1yawTd8nnljhG0LrGKMBOVVRHQN3AC3wAB97zn9YZv9faK0DJ994P2+GS0XgJnpFHM5z8MxTk3KZQX11i94huOyr4fguAdcon40W2904WMHvradvlXzGTesm/sy/6vmU4a+AzOc/1XzKUPfO8S1URK/nNunJob5uWo+44TErJb8LDHL81lLfua1m+cz61x3fRldN59ZZw36sr/8X6olP1u39mrIz6LvpPNVi77s825UPZeysBP9+1tXHAP3iN8Xqp5Lmf4mStZfyVda1iPr1iOjxF/Wdl3J/kj05f9nLfPZP6/ToK/s+bWc18meX9N5nZznaIhfvqdok479r8TsWZRqnKdvjP594ABofPPPWdTuLygydhEbiVn2teP8Dd97Bd6AZb5zoux9X+zsFlFfMqkt28We7RqN3tVZr2xQ9h7PBnbMhcfuUZaftJlnz9n1vX6fL9u3nL+fPhCAfRAdAAA=
+   H4sIAAAAAAAAC+1ZS0oDQRCtHlH8bAVxr4I30IUnEMUTuPEAjiZ7P4E5QCCbHCCb3ECYI/g7gN+9Jhjc5xVTTTqdUUchMzg1DY/+1fS8oqqrpqcbhmgXOPDqfWDP6afJMF6I6Al4pJ9lbTugBLMCf95tX2J+Rbicee9weaat4fcjYAtrNFBfg8ANcAvcAQOMfaSM+33W95mS2p/7xPN9M16vAosL41h25v01Wibhsol28xc8/feyrnVwPAau0D5fKjdi6NiFrh2xb9F8po1IfN/6f9F88rDvwIz8v2g+edj3HvvaKNm/HNvnZ0bxuWg+04Tds1ris92z7M9a4jPnbvZntnPZ7cuIxZ/Zzhrsy/ryd6mW+BxJ7tUQn61950RXLfZlnY+C4rnkhcOg0resuAAesH9fqXgueerbUJJ/bbzSko8iyUdGib5s2x0l5yNrX3se1GBf1rdDur6f24rOvy2xr4b/k1bHdqDj/6TVsa4oHzXFn7Xko1j8WYt9Y8e+mvTVkH/d+Fz/wr4hxk+AU6D2zZkxq9xfkGXtLDJufO6Kvv5zb8A7sMF3xjR5Xx+K3Bra6yaRZbnQkd2m8bv2yKlrNHkPH3lyzIXX7tEkP9tnnj2R6zvjLl+Wt/+fq1KVqlTlv5Qh8x219oAlAAA=
   </data>
  </layer>
 </map>

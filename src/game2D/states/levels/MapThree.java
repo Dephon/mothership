@@ -33,18 +33,21 @@ public class MapThree extends GameState {
 
 	public void setWalls(GameContainer container) throws SlickException {
 		// Top Wall
-		obstacles.add(0, 0, 447, 63);
-		obstacles.add(544, 0, 416, 63);
-		obstacles.add(0, 0, 960, 33);
+		obstacles.add(0, 0, 450, 20);
+		obstacles.add(544, 0, 416, 20);
 		// Right Wall
-		obstacles.add(938, 0, 22, 282);
-		obstacles.add(938, 406, 22, 156);
+		obstacles.add(935, 0, 25, 233);
+		obstacles.add(935, 310, 25, 330);
 		// Left Wall
-		obstacles.add(0, 0, 25, 282);
-		obstacles.add(0, 406, 25, 156);
+		obstacles.add(0, 0, 25, 233);
+		obstacles.add(0, 310, 25, 330);
 		// Bottom Wall
-		obstacles.add(0f, 530, 411, 30);
-		obstacles.add(550, 530, 430, 30);
+		obstacles.add(0, 545, 960, 15);
+		// Obstacles
+		obstacles.add(100, 530, 56, 15);
+		obstacles.add(260, 530, 56, 15);
+		obstacles.add(628, 530, 56, 15);
+		obstacles.add(773, 530, 56, 15);
 		// Transport
 		mapMover.add(0, 283, 1, 122, ThreeStateEnum.LEFT);
 		mapMover.add(959, 283, 1, 122, ThreeStateEnum.RIGHT);
