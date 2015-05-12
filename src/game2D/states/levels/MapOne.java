@@ -38,6 +38,8 @@ public class MapOne extends GameState {
 		enemies.addSpawner(new Vector2f(0, 100), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(100, 0), 2000, 20000, true);
 		enemies.addSpawner(new Vector2f(200, 560), 2000, 20000, true);
+		ss = new AlienSS();
+		ss.create(new Vector2f(100, 100));
 	}
 
 	@Override
@@ -89,9 +91,17 @@ public class MapOne extends GameState {
 			if (input.isKeyDown(Input.KEY_D)) // Move Right
 				pVector.x += 1;
 			if (input.isKeyDown(Input.KEY_0))
-				Debug();
+				players.get(1).takeDamage(10);
 			players.update(1, pVector, dt);
 			if (players.areDead()) {
+				GameState temp = (GameState) sbg
+						.getState(StateEnum.GAME_LEVEL_ONE);
+				temp.init(container, sbg);
+				temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_TWO);
+				temp.init(container, sbg);
+				temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_THREE);
+				temp.init(container, sbg);
+
 				sbg.enterState(StateEnum.GAME_OVER, new FadeOutTransition(),
 						new FadeInTransition());
 			}
@@ -120,6 +130,7 @@ public class MapOne extends GameState {
 			players.displace(mapMover, CollisionEnum.TRANSPORTING);
 			enemies.displace(bullets, CollisionEnum.DAMAGING);
 			enemies.displace(missiles, CollisionEnum.DAMAGING);
+			ss.update(dt);
 			ui.update(players.getHealth(1), currentAmmo,
 					players.getMissileCount(1));
 			if (enemies.getActive().size() == 0) {
@@ -160,6 +171,7 @@ public class MapOne extends GameState {
 			medPacks.debugDraw(graphics);
 			graphics.drawString("(" + debugX + "," + debugY + ")", 0, 0);
 			graphics.drawString("Moving to map: " + map, 400, 0);
+			ss.debugDraw(graphics);
 			ui.draw();
 			graphics.setColor(Color.yellow);
 			if (currentAmmo == AmmoEnum.MISSILE)
@@ -175,6 +187,7 @@ public class MapOne extends GameState {
 			bullets.draw();
 			medPacks.draw();
 			ui.draw();
+			ss.draw();
 			graphics.setColor(Color.yellow);
 			if (currentAmmo == AmmoEnum.MISSILE)
 				graphics.drawString(missiles.getMissileCount() + "/" + "20",
@@ -183,4 +196,6 @@ public class MapOne extends GameState {
 				graphics.drawString("infinite", 285, 600);
 		}
 	}
+
+	AlienSS ss;
 }

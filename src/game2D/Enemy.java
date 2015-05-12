@@ -7,6 +7,11 @@ import org.newdawn.slick.geom.*;
 
 public class Enemy extends Movable {
 
+	public Enemy() throws SlickException {
+		super();
+		init();
+	}
+
 	public Enemy(String ref) throws SlickException {
 		super(ref);
 		init();
@@ -47,6 +52,11 @@ public class Enemy extends Movable {
 			location.add(dV);
 			box.setLocation(location);
 		}
+	}
+
+	@Override
+	public void handleCollision(int collisionEnum, int statDamage) {
+		takeDamage(statDamage);
 	}
 
 	public Enemy(Double toTest) throws SlickException {

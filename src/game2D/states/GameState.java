@@ -70,6 +70,13 @@ public abstract class GameState extends BasicGameState {
 				Debug();
 			players.update(1, pVector, dt);
 			if (players.areDead()) {
+				GameState temp = (GameState) sbg
+						.getState(StateEnum.GAME_LEVEL_ONE);
+				temp.init(container, sbg);
+				temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_TWO);
+				temp.init(container, sbg);
+				temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_THREE);
+				temp.init(container, sbg);
 				sbg.enterState(StateEnum.GAME_OVER, new FadeOutTransition(),
 						new FadeInTransition());
 			}
