@@ -127,16 +127,6 @@ public class PlayerManager extends Manager {
 		}
 	}
 
-	public boolean areDead() {
-		for (Entity player : entities) {
-			if (!player.isDead()) {
-				return false;
-			}
-			return true;
-		}
-		return true;
-	}
-
 	@Override
 	public void displace(Manager rhs, int collisionEnum) {
 		Player player;

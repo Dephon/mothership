@@ -45,6 +45,12 @@ public class EnemyManager extends Manager {
 		}
 	}
 
+	public void createBoss(Vector2f loc, Vector2f dir) throws SlickException {
+		entities.clear();
+		entities.add(new Boss("sprites/alien.png"));
+		entities.get(0).create(loc, dir);
+	}
+
 	@Override
 	public void update(int dt) {
 		for (Entity alien : entities) {

@@ -7,6 +7,7 @@ import game2D.states.GameState;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 import org.newdawn.slick.state.*;
+import org.newdawn.slick.state.transition.*;
 import org.newdawn.slick.tiled.*;
 
 public class MapThree extends GameState {
@@ -16,12 +17,23 @@ public class MapThree extends GameState {
 		super.init(container, sbg);
 		MapOne map = (MapOne) sbg.getState(StateEnum.GAME_LEVEL_ONE);
 		players = map.getPlayers();
-		// boss = new Enemy("");
+		enemies.createBoss(new Vector2f(250, 250), new Vector2f(-1, 0));
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame sbg, int dt)
 			throws SlickException {
+		if (enemies.areDead()) {
+			GameState temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_ONE);
+			temp.init(container, sbg);
+			temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_TWO);
+			temp.init(container, sbg);
+			temp = (GameState) sbg.getState(StateEnum.GAME_LEVEL_THREE);
+			temp.init(container, sbg);
+
+			sbg.enterState(StateEnum.CongratulationsState,
+					new FadeOutTransition(), new FadeInTransition());
+		}
 		super.update(container, sbg, dt);
 	}
 

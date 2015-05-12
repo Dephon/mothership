@@ -38,6 +38,16 @@ public abstract class Manager {
 		}
 	}
 
+	public boolean areDead() {
+		for (Entity player : entities) {
+			if (!player.isDead()) {
+				return false;
+			}
+			return true;
+		}
+		return true;
+	}
+
 	public void remove(Entity entity) {
 		activeNdxs.remove((Integer) entities.indexOf(entity));
 		count--;

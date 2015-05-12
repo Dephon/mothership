@@ -22,7 +22,7 @@ public class Enemy extends Movable {
 		init();
 	}
 
-	protected void init() {
+	protected void init() throws SlickException {
 		statDamage = 10;
 		speed = .06f;
 	}
