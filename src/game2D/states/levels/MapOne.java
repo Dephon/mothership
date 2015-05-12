@@ -111,7 +111,7 @@ public class MapOne extends GameState {
 			if (input.isKeyDown(Input.KEY_D)) // Move Right
 				pVector.x += 1;
 			if (input.isKeyDown(Input.KEY_0))
-				players.get(1).takeDamage(10);
+				Debug();
 			players.update(1, pVector, dt);
 			if (players.areDead()) {
 				GameState temp = (GameState) sbg

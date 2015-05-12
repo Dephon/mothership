@@ -29,6 +29,10 @@ public abstract class Movable extends Entity {
 		return health;
 	}
 
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+
 	@Override
 	public void create() {
 		super.create();

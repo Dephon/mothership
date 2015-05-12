@@ -45,8 +45,11 @@ public class BulletManager extends Manager {
 				bullet.update(dt);
 				if (!bullet.intersects(gameBounds)) {
 					bullet.destroy();
+					remove(bullet);
 					count--;
 				}
+			} else {
+				remove(bullet);
 			}
 		}
 		if (dt < Integer.MAX_VALUE)

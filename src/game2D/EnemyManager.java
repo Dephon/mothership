@@ -15,7 +15,6 @@ public class EnemyManager extends Manager {
 			entities.add(new Enemy("data/Alien_PlaceHolder.gif"));
 
 		spawnLocations = new ArrayList<EnemySpawner>();
-		rand = new Random();
 		spawnsEnabled = false;
 	}
 
@@ -24,10 +23,10 @@ public class EnemyManager extends Manager {
 		super(bounds, maxAmount);
 		for (int i = 0; i < maxAmount; i++) {
 			entities.add(new AlienSS());
-			entities.get(i).setSpeed(.08f);
+			entities.get(i).setSpeed(.1f);
+			((Enemy) entities.get(i)).setMaxHealth(20);
 		}
 		spawnLocations = new ArrayList<EnemySpawner>();
-		rand = new Random();
 		spawnsEnabled = false;
 	}
 
@@ -108,7 +107,6 @@ public class EnemyManager extends Manager {
 
 	private boolean spawnsEnabled;
 	private ArrayList<EnemySpawner> spawnLocations;
-	private Random rand;
 
 	public void add() {
 		// Enemy alien = (Enemy) entities.get(ndx);
