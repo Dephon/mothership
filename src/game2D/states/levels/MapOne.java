@@ -46,10 +46,10 @@ public class MapOne extends GameState {
 		ship.rotate(30);
 		bridge.rotate(270);
 		enemies.enableSpawns(true);
-		enemies.addSpawner(new Vector2f(0, 0), 5000, 20000, true);
-		enemies.addSpawner(new Vector2f(0, 100), 2000, 20000, true);
-		enemies.addSpawner(new Vector2f(100, 0), 2000, 20000, true);
-		enemies.addSpawner(new Vector2f(200, 560), 2000, 20000, true);
+		enemies.addSpawner(new Vector2f(0, 0), 10000, 60000, true);
+		enemies.addSpawner(new Vector2f(0, 100), 10000, 60000, true);
+		enemies.addSpawner(new Vector2f(100, 0), 10000, 60000, true);
+		enemies.addSpawner(new Vector2f(200, 560), 10000, 60000, true);
 	}
 
 	@Override

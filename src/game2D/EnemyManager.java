@@ -50,6 +50,8 @@ public class EnemyManager extends Manager {
 		for (Entity alien : entities) {
 			if (!alien.isDead()) {
 				alien.update(dt);
+			} else {
+				remove(alien);
 			}
 		}
 		if (spawnsEnabled)

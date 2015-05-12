@@ -14,20 +14,23 @@ public abstract class Entity {
 
 	public Entity(String ref) throws SlickException {
 		init();
-		currentAnimation.addFrame(new Image(ref), 1000);
+		aliveAnimation.addFrame(new Image(ref), 1000);
+		currentAnimation = aliveAnimation;
 		updateBox();
 	}
 
 	public Entity(String ref, Vector2f loc) throws SlickException {
 		init();
-		currentAnimation.addFrame(new Image(ref), 1000);
+		aliveAnimation.addFrame(new Image(ref), 1000);
+		currentAnimation = aliveAnimation;
 		location.set(loc);
 		updateBox();
 	}
 
 	public Entity(String ref, Vector2f loc, Vector2f dir) throws SlickException {
 		init();
-		currentAnimation.addFrame(new Image(ref), 1000);
+		aliveAnimation.addFrame(new Image(ref), 1000);
+		currentAnimation = aliveAnimation;
 		location.set(loc);
 		direction.set(dir);
 		updateBox();

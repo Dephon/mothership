@@ -34,7 +34,7 @@ public class MissileManager extends Manager {
 					ndx = 0;
 				sound.stop();
 				sound.play(1f, .4f);
-				missileCount--;
+				// missileCount--;
 			}
 		}
 	}

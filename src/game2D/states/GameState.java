@@ -39,7 +39,7 @@ public abstract class GameState extends BasicGameState {
 		setWalls(container);
 		setMusic();
 		currentAmmo = AmmoEnum.BULLET;
-		debugDraw = true;
+		debugDraw = false;
 	}
 
 	@Override

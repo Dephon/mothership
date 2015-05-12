@@ -16,10 +16,10 @@ public class MapTwo extends GameState {
 		MapOne map = (MapOne) sbg.getState(StateEnum.GAME_LEVEL_ONE);
 		super.init(container, sbg);
 		enemies.enableSpawns(true);
-		enemies.addSpawner(new Vector2f(940, 350), 2000, 20000, true);
-		enemies.addSpawner(new Vector2f(495, 64), 2000, 20000, true);
-		enemies.addSpawner(new Vector2f(460, 530), 2000, 20000, true);
-		enemies.addSpawner(new Vector2f(5, 350), 2000, 20000, true);
+		enemies.addSpawner(new Vector2f(940, 350), 2000, 60000, true);
+		enemies.addSpawner(new Vector2f(495, 64), 2000, 60000, true);
+		enemies.addSpawner(new Vector2f(460, 530), 2000, 60000, true);
+		enemies.addSpawner(new Vector2f(5, 350), 2000, 60000, true);
 		players = map.getPlayers();
 		bgm = map.getMusic();
 	}
