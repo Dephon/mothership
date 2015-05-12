@@ -41,6 +41,7 @@ public abstract class Entity {
 	}
 
 	private void init() {
+		aliveAnimation = new Animation();
 		currentAnimation = new Animation();
 		deathAnimation = new Animation();
 		location = new Vector2f();
@@ -303,31 +304,22 @@ public abstract class Entity {
 	/**
 	 * Rotates both the Image and Polygon with respect to the x axis
 	 * 
+	 * @param onlyImage
+	 *            TODO
 	 * @param reverse
 	 *            if true the rotation is counter clockwise, otherwise clockwise
 	 *
 	 **/
-	protected void rotate(boolean reverse) {
-		float theta;
+	protected void rotate(boolean onlyImage, boolean reverse) {
 
 		if (reverse)
-			theta = (float) (360 - direction.getTheta());
+			angle = (float) (360 - direction.getTheta());
 		else
-			theta = (float) direction.getTheta();
+			angle = (float) direction.getTheta();
 
-		rotateAnimation(currentAnimation, theta);
-		box.rotate(theta);
-	}
-
-	protected void rotateOnlyImage(boolean reverse) {
-		float theta;
-
-		if (reverse)
-			theta = (float) (360 - direction.getTheta());
-		else
-			theta = (float) direction.getTheta();
-
-		rotateAnimation(currentAnimation, theta);
+		rotateAnimation(currentAnimation, angle);
+		if (!onlyImage)
+			box.rotate(angle);
 	}
 
 	protected void rotateAnimation(Animation animation, float angle) {
@@ -349,6 +341,7 @@ public abstract class Entity {
 
 	public abstract void handleCollision(int collisionEnum, int statDamage);
 
+	protected float angle;
 	protected boolean dead;
 	protected boolean dying;
 	protected boolean splashDamage;

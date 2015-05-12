@@ -15,7 +15,7 @@ public class MissileManager extends Manager {
 		hitSound = new Sound("data/sounds/Missile_Explosion.wav");
 	}
 
-	public void add(Vector2f position, Vector2f direction) {
+	public void create(Vector2f position, Vector2f direction) {
 		Vector2f posAmmo = new Vector2f(position);
 		float missleCenterX, missleCenterY;
 		if (fireTimer > 200) {
@@ -44,7 +44,7 @@ public class MissileManager extends Manager {
 				missile.update(dt);
 				if (!missile.intersects(gameBounds)) {
 					missile.destroy();
-					count--;
+					remove(missile);
 				}
 			}
 		}
@@ -54,9 +54,12 @@ public class MissileManager extends Manager {
 
 	@Override
 	public void handleCollision(Entity entity, int collisionEnum, int damage) {
-		sound.stop();
-		hitSound.stop();
-		hitSound.play(1f, .4f);
-		entity.handleCollision(collisionEnum, damage);
+		if (!entity.isDying()) {
+			sound.stop();
+			hitSound.stop();
+			hitSound.play(1f, .4f);
+			entity.handleCollision(collisionEnum, damage);
+			remove(entity);
+		}
 	}
 }

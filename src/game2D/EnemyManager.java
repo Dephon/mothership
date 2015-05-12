@@ -20,7 +20,7 @@ public class EnemyManager extends Manager {
 	}
 
 	@Override
-	public void add(Vector2f loc, Vector2f dir) {
+	public void create(Vector2f loc, Vector2f dir) {
 		Enemy alien = (Enemy) entities.get(ndx);
 		if (count < maxCount) {
 			alien.create();
@@ -87,7 +87,7 @@ public class EnemyManager extends Manager {
 					continue;
 				}
 				if (e.getLastSpawn() >= e.getSpawnRate()) {
-					add(e.getLocation(), new Vector2f(0, 0));
+					create(e.getLocation(), new Vector2f(0, 0));
 					e.setLastSpawn(0);
 				}
 			}

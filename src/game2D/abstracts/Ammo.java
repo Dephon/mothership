@@ -40,7 +40,7 @@ public abstract class Ammo extends Entity {
 	@Override
 	public void setDirection(Vector2f dir) {
 		super.setDirection(dir);
-		rotate(false);
+		rotate(false, false);
 	}
 
 	public float getAcceleration() {
@@ -50,14 +50,14 @@ public abstract class Ammo extends Entity {
 	@Override
 	public void create(Vector2f loc, Vector2f dir) {
 		super.create(loc, dir);
-		rotate(false);
+		rotate(false, false);
 	}
 
 	@Override
 	public void destroy() {
 		if (!dead) {
 			acceleration = 0;
-			rotate(true);
+			rotate(false, true);
 			super.destroy();
 		}
 	}

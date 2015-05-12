@@ -14,7 +14,7 @@ public class ObstacleManager extends Manager {
 	}
 
 	@Override
-	public void add(Vector2f pos, Vector2f size) {
+	public void create(Vector2f pos, Vector2f size) {
 		Obstacle obstacle = (Obstacle) entities.get(ndx);
 		if (count < maxCount) {
 			obstacle.convertToInvObject(pos.x, 0, size.x, size.y);

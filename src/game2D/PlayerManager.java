@@ -20,7 +20,7 @@ public class PlayerManager extends Manager {
 	}
 
 	@Override
-	public void add(Vector2f loc, Vector2f dir) {
+	public void create(Vector2f loc, Vector2f dir) {
 		for (Entity temp : entities) {
 			Player player = (Player) temp;
 			if (count < maxCount) {

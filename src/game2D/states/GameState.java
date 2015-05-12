@@ -87,9 +87,9 @@ public abstract class GameState extends BasicGameState {
 				pVector.y = input.getAbsoluteMouseY() - players.fireY(1);
 				pVector = pVector.normalise();
 				if (currentAmmo == AmmoEnum.BULLET)
-					bullets.add(location, pVector);
+					bullets.create(location, pVector);
 				else if (currentAmmo == AmmoEnum.MISSILE)
-					missiles.add(location, pVector);
+					missiles.create(location, pVector);
 			}
 			missiles.update(dt);
 			bullets.update(dt);

@@ -16,7 +16,7 @@ public class TransportManager extends Manager {
 	}
 
 	@Override
-	public void add(Vector2f pos, Vector2f size) {
+	public void create(Vector2f pos, Vector2f size) {
 		Transport trans = (Transport) entities.get(ndx);
 		if (count < maxCount) {
 			trans.convertToInvObject(pos.x, 0, size.x, size.y);

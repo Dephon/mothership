@@ -24,7 +24,7 @@ public abstract class Manager {
 		ndx = 0;
 	}
 
-	public void add(Vector2f loc, Vector2f dir) {
+	public void create(Vector2f loc, Vector2f dir) {
 		Entity entity = entities.get(ndx);
 		if (count < maxCount) {
 			entity.create();
@@ -44,7 +44,7 @@ public abstract class Manager {
 	}
 
 	public void add(float posX, float posY, float dirX, float dirY) {
-		add(new Vector2f(posX, posY), new Vector2f(dirX, dirY));
+		create(new Vector2f(posX, posY), new Vector2f(dirX, dirY));
 	}
 
 	public void update(int dt) {

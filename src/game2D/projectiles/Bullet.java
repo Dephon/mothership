@@ -32,25 +32,21 @@ public class Bullet extends Ammo {
 		deathAnimation.addFrame(temp.getSubImage(38, 0, 16, 21), 100);
 		deathAnimation.setLooping(false);
 		speed = 1;
-		sound = new Sound("data/sounds/Bullet_Shot.wav");
 		statDamage = 25;
 	}
 
 	@Override
 	public void create() {
 		super.create();
-		sound.play();
 	};
 
 	@Override
 	public void create(Vector2f loc) {
 		super.create(loc);
-		sound.play();
 	};
 
 	public void create(Vector2f loc, Vector2f dir) {
 		super.create(loc, dir);
-		sound.play();
 	}
 
 	@Override
